@@ -296,6 +296,7 @@
 	
 	var output = {
 		list_marker: list_marker,
+		list_icon: list_icon,
 		list_marker_cd: list_marker_cd,
 		};
 	return output;
