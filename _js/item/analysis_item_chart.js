@@ -45,13 +45,21 @@
 	var count = 0;		
 	var max_price = -9999999;
 	var min_price = 9999999;
+	var max_index = -1;
+	var min_index = -1;
 	
 	for (i = 0; i < similars.length; i++) {
 		if (similars[i].status > 1) {
 			sum = sum + parseInt(similars[i].hist_price);
 			count++;
-			max_price = ((max_price > parseInt(similars[i].hist_price)) ? max_price:parseInt(similars[i].hist_price));
-			min_price = ((min_price < parseInt(similars[i].hist_price)) ? min_price:parseInt(similars[i].hist_price));
+			if (max_price < parseInt(similars[i].hist_price)) {
+				max_price = parseInt(similars[i].hist_price);
+				max_index = i;
+			}
+			if (min_price > parseInt(similars[i].hist_price)) {
+				min_price = parseInt(similars[i].hist_price);
+				min_index = i
+			}
 		}
 	}
 	avg_price = sum / count;
@@ -78,37 +86,34 @@
 	data.addColumn({'type': 'string', 'role': 'style'});
 	
 	data.addColumn('number', avg_price + '万円 (平均成約価格)');
-	data.addColumn({type:'string', role:'annotation'});
 	data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status1');	
 	data.addColumn({'type': 'string', 'role': 'style'});
 	
-	data.addColumn('number', max_price +'万円 (最高成約価格)');
-	data.addColumn({type:'string', role:'annotation'});
+	data.addColumn('number', (similars[max_index] != null) ? max_price +'万円 (' + similars[max_index].item_name + ') ' + similars[max_index].seller : null);
 	data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status2');
 	data.addColumn({'type': 'string', 'role': 'style'});
 	
-	data.addColumn('number', min_price + '万円 (最安成約価格)');
-	data.addColumn({type:'string', role:'annotation'});
+	data.addColumn('number', (similars[min_index] != null) ? min_price +'万円 (' + similars[min_index].item_name + ') ' + similars[min_index].seller : null);
 	data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status3');
 	data.addColumn({'type': 'string', 'role': 'style'});
 	
-	data.addColumn('number', (item_compare[0] != null)?'' + item_compare[0][item_compare[0].length - 1].hist_price + '万円 (' + item_compare[0][0].item_name + ')':null);
+	data.addColumn('number', (item_compare[0] != null)?'' + item_compare[0][item_compare[0].length - 1].hist_price + '万円 (' + item_compare[0][0].item_name + ') ' + item_compare[0][0].seller:null);
 	data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
 	data.addColumn({'type': 'string', 'role': 'style'});
 	
-	data.addColumn('number', (item_compare[1] != null)?'' + item_compare[1][item_compare[1].length - 1].hist_price + '万円 (' + item_compare[1][0].item_name + ')':null);
+	data.addColumn('number', (item_compare[1] != null)?'' + item_compare[1][item_compare[1].length - 1].hist_price + '万円 (' + item_compare[1][0].item_name + ') ' + item_compare[1][0].seller:null);
 	data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
 	data.addColumn({'type': 'string', 'role': 'style'});
 	
-	data.addColumn('number', (item_compare[2] != null)?'' + item_compare[2][item_compare[2].length - 1].hist_price + '万円 (' + item_compare[2][0].item_name + ')':null);
+	data.addColumn('number', (item_compare[2] != null)?'' + item_compare[2][item_compare[2].length - 1].hist_price + '万円 (' + item_compare[2][0].item_name + ') ' + item_compare[2][0].seller:null);
 	data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
 	data.addColumn({'type': 'string', 'role': 'style'});
 	
-	data.addColumn('number', (item_compare[3] != null)?'' + item_compare[3][item_compare[3].length - 1].hist_price + '万円 (' + item_compare[3][0].item_name + ')':null);
+	data.addColumn('number', (item_compare[3] != null)?'' + item_compare[3][item_compare[3].length - 1].hist_price + '万円 (' + item_compare[3][0].item_name + ') ' + item_compare[3][0].seller:null);
 	data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
 	data.addColumn({'type': 'string', 'role': 'style'});
 	
-	data.addColumn('number', (item_compare[4] != null)?'' + item_compare[4][item_compare[4].length - 1].hist_price + '万円 (' + item_compare[4][0].item_name + ')':null);
+	data.addColumn('number', (item_compare[4] != null)?'' + item_compare[4][item_compare[4].length - 1].hist_price + '万円 (' + item_compare[4][0].item_name + ') ' + item_compare[4][0].seller:null);
 	data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
 	data.addColumn({'type': 'string', 'role': 'style'});
 	
@@ -183,7 +188,7 @@
 						+ '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
 						+ change_price_diffDays + '日前)</div>'
 						+ '</div>', style, 
-						null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);	
+						null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);	
 	}
 	
 	var datetime = new Date();
@@ -246,7 +251,7 @@
 					+ '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
 					+ change_price_diffDays + '日前)</div>'
 					+ '</div>', style, 
-					null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+					null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
 	
 	
 	
@@ -313,7 +318,7 @@
 				var style = 'point {fill-color: #000000;}';
 			}
 			data.addRows([[ 
-						datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
+						datetime, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
 						'<div style = "width: 250px; height: auto; padding: 15px 20px;">'
 						+ '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
 						+ '<div>売出開始日から'+ diffDays +'日</div>'
@@ -376,7 +381,7 @@
 			var style = 'point {fill-color: #000000;}';
 		}
 		data.addRows([[ 
-					datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
+					datetime, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
 					'<div style = "width: 250px; height: auto; padding: 15px 20px;">'
 					+ '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
 					+ '<div>売出開始日から'+ diffDays +'日</div>'
@@ -447,7 +452,7 @@
 				var style = 'point {fill-color: #000000;}';
 			}
 			data.addRows([[ 
-						datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
+						datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
 						'<div style = "width: 250px; height: auto; padding: 15px 20px;">'
 						+ '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
 						+ '<div>売出開始日から'+ diffDays +'日</div>'
@@ -510,7 +515,7 @@
 			var style = 'point {fill-color: #000000;}';
 		}
 		data.addRows([[ 
-					datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
+					datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
 					'<div style = "width: 250px; height: auto; padding: 15px 20px;">'
 					+ '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
 					+ '<div>売出開始日から'+ diffDays +'日</div>'
@@ -581,7 +586,7 @@
 				var style = 'point {fill-color: #000000;}';
 			}
 			data.addRows([[ 
-						datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
+						datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
 						'<div style = "width: 250px; height: auto; padding: 15px 20px;">'
 						+ '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
 						+ '<div>売出開始日から'+ diffDays +'日</div>'
@@ -644,7 +649,7 @@
 			var style = 'point {fill-color: #000000;}';
 		}
 		data.addRows([[ 
-					datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
+					datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
 					'<div style = "width: 250px; height: auto; padding: 15px 20px;">'
 					+ '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
 					+ '<div>売出開始日から'+ diffDays +'日</div>'
@@ -715,7 +720,7 @@
 				var style = 'point {fill-color: #000000;}';
 			}
 			data.addRows([[ 
-						datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
+						datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
 						'<div style = "width: 250px; height: auto; padding: 15px 20px;">'
 						+ '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
 						+ '<div>売出開始日から'+ diffDays +'日</div>'
@@ -778,7 +783,7 @@
 			var style = 'point {fill-color: #000000;}';
 		}
 		data.addRows([[ 
-					datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
+					datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
 					'<div style = "width: 250px; height: auto; padding: 15px 20px;">'
 					+ '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
 					+ '<div>売出開始日から'+ diffDays +'日</div>'
@@ -849,7 +854,7 @@
 				var style = 'point {fill-color: #000000;}';
 			}
 			data.addRows([[ 
-						datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
+						datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
 						'<div style = "width: 250px; height: auto; padding: 15px 20px;">'
 						+ '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
 						+ '<div>売出開始日から'+ diffDays +'日</div>'
@@ -912,7 +917,7 @@
 			var style = 'point {fill-color: #000000;}';
 		}
 		data.addRows([[ 
-						datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
+						datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
 						'<div style = "width: 250px; height: auto; padding: 15px 20px;">'
 						+ '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
 						+ '<div>売出開始日から'+ diffDays +'日</div>'
@@ -929,26 +934,153 @@
 	sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 6*30);
 	
 	var style1 = 'point {fill-color: transparent;}';
-	var style2 = 'point {fill-color: transparent;}';
-	var style3 = 'point {fill-color: transparent;}';
+	var style2 = 'point {fill-color: black;}';
+	var style3 = 'point {fill-color: black;}';
 	
 	var tooltip1 = '<div style = "width: auto; height: auto; padding: 10px 10px; font-size: 14px;">'
 				  +'<span style="color: blue">平均成約価格:</span> <b>' + avg_price + '万円</b></div>';
-	var tooltip2 = '<div style = "width: auto; height: auto; padding: 10px 10px; font-size: 14px;">'
-				  +'<span style="color: blue">最高成約価格:</span> <b>' + max_price + '万円</b></div>';
-	var tooltip3 = '<div style = "width: auto; height: auto; padding: 10px 10px; font-size: 14px;">'
-				  +'<span style="color: blue">最安成約価格:</span> <b>' + min_price + '万円</b></div>';
+	var tooltip2 = '----';
+	var tooltip3 = '----';
+	
+	
+	if (similars[max_index] && similars[min_index]) {
+		//get info item
+		var item_max_min;
+		var list_item = '-1,-2,-3,-4,' + similars[max_index].item_cd + ',' + similars[min_index].item_cd;
+		var formData = {
+			item_cd: item_cd,
+			list_item: list_item
+		};		
+		
+		$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+				}
+			})
+		
+		$.ajax({
+			url: "/item/?md=get_item_compare",
+			type: 'POST',
+			data: formData,
+			dataType: "json",
+			async: false,
+			success: function (data) {
+				item_max_min = data;
+			}
+		});
+		
+		if ( max_index == min_index ) {
+			var item_max = 0;
+			var item_min = 0;
+		} else {
+			if (item_max_min[0][0].item_cd = similars[max_index].item_cd) {
+				var item_max = 0;
+				var item_min = 1;
+			} else {
+				var item_max = 1;
+				var item_min = 0;		
+			}
+		}
+		
+		//tooltip2
+		var datetime = new Date();
+		var hist_price = parseInt(similars[max_index].hist_price);
+		var stat_name = '成約';
+	
+		var date = datetime.getDate();
+		var month = datetime.getMonth() + 1;
+		var year = datetime.getFullYear();
+		
+		var oneDay = 24*60*60*1000;
+		var firstDate = new Date();
+		var secondDate = new Date(similars[max_index].date_regist);
+		var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+		
+		var lastday = null;
+		var date_diff = '---';
+		var month_diff = '---';
+		var year_diff = '---';
+		var change_price_diffDays = '----';	
+		
+		for (var i = item_max_min[item_max].length - 1; i >= 0; i--) {
+			if (item_max_min[item_max][i].stat_name == '価格改定') {
+				lastday = new Date(item_max_min[item_max][i].date_regist);
+				break;	
+			}
+		}
+		if (lastday) {
+			date_diff = lastday.getDate();
+			month_diff = lastday.getMonth() + 1;	
+			year_diff = lastday.getFullYear();
+			
+			var firstDate = new Date();
+			var secondDate = lastday;
+			var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+		}
+		
+			
+		var tooltip2 = '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
+						+ '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
+						+ '<div>売出開始日から'+ diffDays +'日</div>'
+						+ '<div style = "font-size: large;"><span style="color: blue">'
+						+ stat_name + ': </span>' + hist_price + '万円</div>'
+						+ '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
+						+ change_price_diffDays + '日前)</div>'
+						+ '</div>';
+					  
+		
+		//tooltip 3
+		var datetime = new Date();
+		var hist_price = parseInt(similars[min_index].hist_price);
+		var stat_name = '成約';
+	
+		var date = datetime.getDate();
+		var month = datetime.getMonth() + 1;
+		var year = datetime.getFullYear();
+		
+		var oneDay = 24*60*60*1000;
+		var firstDate = new Date();
+		var secondDate = new Date(similars[min_index].date_regist);
+		var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+		
+		var lastday = null;
+		var date_diff = '---';
+		var month_diff = '---';
+		var year_diff = '---';
+		var change_price_diffDays = '----';	
+		
+		for (var i = item_max_min[item_min].length - 1; i >= 0; i--) {
+			if (item_max_min[item_min][i].stat_name == '価格改定') {
+				lastday = new Date(item_max_min[item_min][i].date_regist);
+				break;	
+			}
+		}
+		if (lastday) {
+			date_diff = lastday.getDate();
+			month_diff = lastday.getMonth() + 1;	
+			year_diff = lastday.getFullYear();
+			
+			var firstDate = new Date();
+			var secondDate = lastday;
+			var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+		}
+			
+		tooltip3 = '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
+						+ '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
+						+ '<div>売出開始日から'+ diffDays +'日</div>'
+						+ '<div style = "font-size: large;"><span style="color: blue">'
+						+ stat_name + ': </span>' + hist_price + '万円</div>'
+						+ '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
+						+ change_price_diffDays + '日前)</div>'
+						+ '</div>';	  
+	}
 				  
-	var annotation1 = '';
-	var annotation2 = '';
-	var annotation3 = '';
-
-	data.addRows([[sixMonthsAgo, null, null, null, avg_price, null, tooltip1, style1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
-	data.addRows([[now, null, null, null, avg_price, annotation1, tooltip1, style1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
-	data.addRows([[sixMonthsAgo, null, null, null, null, null, null, null, max_price, null, tooltip2, style2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
-	data.addRows([[now, null, null, null, null, null, null, null, max_price, annotation2, tooltip2, style2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
-	data.addRows([[sixMonthsAgo, null, null, null, null, null, null, null, null, null, null, null, min_price, null, tooltip3, style3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
-	data.addRows([[now, null, null, null, null, null, null, null, null, null, null, null, min_price, annotation3, tooltip3, style3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+	data.addRows([[sixMonthsAgo, null, null, null, avg_price, tooltip1, style1,  null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+	data.addRows([[now, null, null, null, avg_price, tooltip1, style1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+	data.addRows([[sixMonthsAgo, null, null, null, null, null, null, max_price, tooltip2, style2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+	data.addRows([[now, null, null, null, null, null, null, max_price, tooltip2, style2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+	data.addRows([[sixMonthsAgo, null, null, null, null, null, null, null, null, null, min_price, tooltip3, style3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+	data.addRows([[now, null, null, null, null, null, null, null, null, null, min_price, tooltip3, style3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
 	
 	
 	// Set chart options
@@ -1170,8 +1302,8 @@
 		series : {      
 			0: { tooltip : true},
 			1: { tooltip : false, pointsVisible: false,},
-			2: { tooltip : false, pointsVisible: false},
-			3: { tooltip : false, pointsVisible: false},
+			2: { tooltip : true, pointsVisible: false},
+			3: { tooltip : true, pointsVisible: false},
 		},
 		explorer: { 
 			actions: ['dragToZoom', 'rightClickToReset'],
@@ -1180,7 +1312,7 @@
 			maxZoomIn: 0.1,
 			maxZoomOut: 1,
 		},
-		height:400,
+		height:500,
 		chartArea: {width: '60%', left: '5%'},
 		colors: ['blue', '#DFBADD', '#BE1D2C', '#283890', 'Orange', 'Gold', 'Cyan', 'Chartreuse', 'DeepPink'],
 		interpolateNulls: true,
@@ -1220,9 +1352,21 @@
 	
 	chart.draw(data, options);
 	
-	result = {
-		chart: chart,
-		list_item_compare: list_item_compare
-	};
+	
+	if (max_index >= 0 && min_index >= 0) {
+		result = {
+			chart: chart,
+			list_item_compare: list_item_compare,
+			max_index: similars[max_index].item_cd,
+			min_index: similars[min_index].item_cd,
+		};
+	} else {
+		result = {
+			chart: chart,
+			list_item_compare: list_item_compare,
+			max_index: null,
+			min_index: null,
+		};
+	}
 	return result;
 }
