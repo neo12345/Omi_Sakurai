@@ -20,7 +20,7 @@ if($G_is_pear){
 $G_db_type   = "pgsql";  //PostgreSQL=pgsql, MySQL="mysql", ....
 $G_db_user   = "ominext";
 $G_db_passwd = "ominext";
-$G_db_name   = "ominext_realestate_db1";
+$G_db_name   = "ominext_realestate_db";
 define("MAIN_DSN","pgsql://".$G_db_user.":".$G_db_passwd."@localhost/".$G_db_name."");
 //------------------------------------------------------//
 //including
