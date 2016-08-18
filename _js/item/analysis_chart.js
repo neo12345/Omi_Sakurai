@@ -1,104 +1,25 @@
 ﻿$(document).ready(function () {
-	window.market_rate = Array();
-	window.market_rate_jonan = Array();
-	window.market_rate_minami = Array();
-	window.market_rate_nishi = Array();
-	window.market_rate_higashi = Array();
-	window.market_rate_chuo = Array();
-	window.market_rate_hakata = Array();
-	window.market_rate_sawara = Array();
-	window.market_rate_koga = Array();
-	window.market_rate_sasaguri = Array();
-	window.market_rate_shime = Array();
-	window.market_rate_kasuga = Array();
-	window.market_rate_fukutsu = Array();
-	window.market_rate_sue = Array();
-	window.market_rate_ounojou = Array();
-	window.market_rate_hisayama = Array();
-	window.market_rate_nakagawa = Array();
-	window.market_rate_itoshima = Array();
-	window.market_rate_shingu = Array();
-	window.market_rate_kurume = Array();
-	window.market_rate_kasuya = Array();
-	window.market_rate_umimachi = Array();
-	window.market_rate_dazaifu = Array();
-	window.market_rate_yanagawa = Array();
-	window.market_rate_chikuzen = Array();
-	window.market_rate_kamimine = Array();
-	window.market_rate_tachiarai = Array();
-	window.market_rate_ogori = Array();
-	window.market_rate_chikujou = Array();
-	window.market_rate_chikushino = Array();
-	window.market_rate_miyaki = Array();
-	window.market_rate_tosu = Array();
-	window.market_rate_kiyama = Array();
-	
+							
+	resetPieChartData();
 	
 	$('#analysis_tbl').hide();
 	$(".overlay").hide();
 	
-	
     $(".btn-aggregate").click(function (e) {
         e.preventDefault();
-        $(".overlay").show();
+		$(".overlay").show();
         $('#error').html('');
         $('#chart_div').html('');
         
-        google.charts.setOnLoadCallback(drawChart);
-		
-		window.market_rate = Array();
-		window.market_rate_jonan = Array();
-		window.market_rate_minami = Array();
-		window.market_rate_nishi = Array();
-		window.market_rate_higashi = Array();
-		window.market_rate_chuo = Array();
-		window.market_rate_hakata = Array();
-		window.market_rate_sawara = Array();
-		window.market_rate_koga = Array();
-		window.market_rate_sasaguri = Array();
-		window.market_rate_shime = Array();
-		window.market_rate_kasuga = Array();
-		window.market_rate_fukutsu = Array();
-		window.market_rate_sue = Array();
-		window.market_rate_ounojou = Array();
-		window.market_rate_hisayama = Array();
-		window.market_rate_nakagawa = Array();
-		window.market_rate_itoshima = Array();
-		window.market_rate_shingu = Array();
-		window.market_rate_kurume = Array();
-		window.market_rate_kasuya = Array();
-		window.market_rate_umimachi = Array();
-		window.market_rate_dazaifu = Array();
-		window.market_rate_yanagawa = Array();
-		window.market_rate_chikuzen = Array();
-		window.market_rate_kamimine = Array();
-		window.market_rate_tachiarai = Array();
-		window.market_rate_ogori = Array();
-		window.market_rate_chikujou = Array();
-		window.market_rate_chikushino = Array();
-		window.market_rate_miyaki = Array();
-		window.market_rate_tosu = Array();
-		window.market_rate_kiyama = Array();
-		
-			$('#analysis_tbl').show();
-			$('#name').html('<th width="12%"></th>');
-			$('#sale_number').html('<th>売出件数</th>');
-			$('#selling_number').html('<th>売出中物件数</th>');
-			$('#soldout_number').html('<th>成約済物件数</th>');
-			$('#soldout_before_complete_number').html('<th>売出前成約件数</th>');
-			$('#rate_soldout_before_complete').html('<th>売出前成約率</th>');
-			$('#avg_price_regist').html('<th>平均売出価格</th>');
-			$('#avg_price_sold').html('<th>平均成約価格</th>');
-			$('#avg_time_sold').html('<th>平均売出期間</th>');
-			$('#avg_time_change_circle').html('<th>平均価格改定周期</th>');
-			$('#avg_down_price').html('<th>平均値下価格</th>');
-			$('#avg_down_price_rate').html('<th>平均値下率</th>');
-			$('#market_rate').html('<th>販売シェア率</th>');
+		google.charts.setOnLoadCallback(drawChart);
+		resetPieChartData();
+		resetAnalysisTable();
 		
 		var analysis = analysisGroupItem();
 		insertAnalysisTable(analysis);
 		
-		drawPieChart()
+		drawPieChart();
+		drawChartForEachCity();
 		
 		$(".overlay").fadeOut().delay(1500);
     });
@@ -133,113 +54,70 @@
 		$(".overlay").show();					  
 		if ($('#chart_div').html() != '') {
   			drawChart();
-		
-			window.market_rate = Array();
-			window.market_rate_jonan = Array();
-			window.market_rate_minami = Array();
-			window.market_rate_nishi = Array();
-			window.market_rate_higashi = Array();
-			window.market_rate_chuo = Array();
-			window.market_rate_hakata = Array();
-			window.market_rate_sawara = Array();
-			window.market_rate_koga = Array();
-			window.market_rate_sasaguri = Array();
-			window.market_rate_shime = Array();
-			window.market_rate_kasuga = Array();
-			window.market_rate_fukutsu = Array();
-			window.market_rate_sue = Array();
-			window.market_rate_ounojou = Array();
-			window.market_rate_hisayama = Array();
-			window.market_rate_nakagawa = Array();
-			window.market_rate_itoshima = Array();
-			window.market_rate_shingu = Array();
-			window.market_rate_kurume = Array();
-			window.market_rate_kasuya = Array();
-			window.market_rate_umimachi = Array();
-			window.market_rate_dazaifu = Array();
-			window.market_rate_yanagawa = Array();
-			window.market_rate_chikuzen = Array();
-			window.market_rate_kamimine = Array();
-			window.market_rate_tachiarai = Array();
-			window.market_rate_ogori = Array();
-			window.market_rate_chikujou = Array();
-			window.market_rate_chikushino = Array();
-			window.market_rate_miyaki = Array();
-			window.market_rate_tosu = Array();
-			window.market_rate_kiyama = Array();
 			
-			$('#analysis_tbl').show();
-			$('#name').html('<th width="12%"></th>');
-			$('#sale_number').html('<th>売出件数</th>');
-			$('#selling_number').html('<th>売出中物件数</th>');
-			$('#soldout_number').html('<th>成約済物件数</th>');
-			$('#soldout_before_complete_number').html('<th>売出前成約件数</th>');
-			$('#rate_soldout_before_complete').html('<th>売出前成約率</th>');
-			$('#avg_price_regist').html('<th>平均売出価格</th>');
-			$('#avg_price_sold').html('<th>平均成約価格</th>');
-			$('#avg_time_sold').html('<th>平均売出期間</th>');
-			$('#avg_time_change_circle').html('<th>平均価格改定周期</th>');
-			$('#avg_down_price').html('<th>平均値下価格</th>');
-			$('#avg_down_price_rate').html('<th>平均値下率</th>');
-			$('#market_rate').html('<th>販売シェア率</th>');
+			resetPieChartData();
+			resetAnalysisTable();
 			
 			var analysis = analysisGroupItem();
 			insertAnalysisTable(analysis);
 			
-			drawPieChart()
+			drawPieChart();
+			drawChartForEachCity();
 		}
 		
 		$(".overlay").fadeOut().delay(1500);
 	});
 	
-	
+	//draw line chart
     function drawChart() {
+		$('#error').html('');
         // Get data.
         var result;
         
-	var city = new Array();
-        $.each($("input[name='city[]']:checked"), function() {
-            city.push($(this).val());
-        });
-        var cat_item = new Array();
-        $.each($("input[name='cat_item[]']:checked"), function() {
-            cat_item.push($(this).val());
-        });
-        var condition = new Array();
-        $.each($("input[name='condition[]']:checked"), function() {
-            condition.push($(this).val());
-        });
-        var seller = new Array();
-        $.each($("input[name='seller[]']:checked"), function() {
-            seller.push($(this).val());
-        });
-        
-        var formData = {
-            city: city,
-            cat_item: cat_item,
-            condition: condition,
-            seller: seller,
-            from: $("#from").val(),
-            to: $("#to").val(),
-            select_opt: $("#select_opt").val()
-            };
-        
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        })    
-            
-	$.ajax({
-		url: "/item/?md=get_analysis",
-		type: 'POST',
-		data: formData,
-		dataType: "json",
-		async: false,
-		success: function (data) {
-			result = data;
-		}
-	});
+		var city = new Array();
+		$.each($("input[name='city[]']:checked"), function() {
+			city.push($(this).val());
+		});
+		var cat_item = new Array();
+		$.each($("input[name='cat_item[]']:checked"), function() {
+			cat_item.push($(this).val());
+		});
+		var condition = new Array();
+		$.each($("input[name='condition[]']:checked"), function() {
+			condition.push($(this).val());
+		});
+		var seller = new Array();
+		$.each($("input[name='seller[]']:checked"), function() {
+			seller.push($(this).val());
+		});
+		
+		
+		var formData = {
+			city: city,
+			cat_item: cat_item,
+			condition: condition,
+			seller: seller,
+			from: $("#from").val(),
+			to: $("#to").val(),
+			select_opt: $("#select_opt").val()
+			};
+		
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+			}
+		})    
+				
+		$.ajax({
+			url: "/item/?md=get_analysis",
+			type: 'POST',
+			data: formData,
+			dataType: "json",
+			async: false,
+			success: function (data) {
+				result = data;
+			}
+		});
 	
         if (!result) {
             var error = '<div class="alert alert-danger">見付かっていません。</div>';
@@ -342,7 +220,7 @@
 					var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
 							+ '<div style = "font-size: larger;">'
                             + year + '年' + month + '月</div><br>'
-							+ '<div style = "font-size: large;"><b>' + y_axis + '</b></div></div>';
+							+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
 				
 				} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 365*86400*1000 )
 				{
@@ -363,7 +241,7 @@
 					var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
 							+ '<div style = "font-size: larger;">'
                             + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
-							+ '<div style = "font-size: large;"><b>' + y_axis + '</b></div></div>';
+							+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
 				
 				} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 180*86400*1000 )
 				{
@@ -384,7 +262,7 @@
 					var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
 							+ '<div style = "font-size: larger;">'
                             + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
-							+ '<div style = "font-size: large;"><b>' + y_axis + '</b></div></div>';
+							+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
 				
 				} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 60*86400*1000 )
 				{
@@ -405,13 +283,13 @@
 					var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
 							+ '<div style = "font-size: larger;">'
                             + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
-							+ '<div style = "font-size: large;"><b>' + y_axis + '</b></div></div>';
+							+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
 				
 				} else {
 					month += 1; 
                 	var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
 							+ '<div style = "font-size: larger;">'
-                            + month + '月' + date + '日</div><br><div style = "font-size: large;"><b>' + y_axis + '</b></div></div>';
+                            + month + '月' + date + '日</div><br><div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
 				}
             }
             data.addRows([[x_axis, y_axis, tooltip]]);
@@ -469,7 +347,6 @@
 				zoomDelta: 0.5,
 			},
 			height:400,
-			
             tooltip: {
                 isHtml: true
             },
@@ -616,6 +493,7 @@ function insertAnalysisTable(analysis) {
 				count_total_item = count_total_item + count_item_per_seller;
 			}
 			
+				//for market rate chart
 				var count_item_in_jonan = 0;
 				var count_item_in_minami = 0;
 				var count_item_in_nishi = 0;
@@ -648,12 +526,47 @@ function insertAnalysisTable(analysis) {
 				var count_item_in_miyaki = 0;
 				var count_item_in_tosu = 0;
 				var count_item_in_kiyama = 0;
+				
+				
+				//for soldout rate chart
+				var count_item_soldout_in_jonan = 0;
+				var count_item_soldout_in_minami = 0;
+				var count_item_soldout_in_nishi = 0;
+				var count_item_soldout_in_higashi = 0;
+				var count_item_soldout_in_chuo = 0;
+				var count_item_soldout_in_hakata = 0;
+				var count_item_soldout_in_sawara = 0;
+				var count_item_soldout_in_koga = 0;
+				var count_item_soldout_in_sasaguri = 0;
+				var count_item_soldout_in_shime = 0;
+				var count_item_soldout_in_kasuga = 0;
+				var count_item_soldout_in_fukutsu = 0;
+				var count_item_soldout_in_sue = 0;
+				var count_item_soldout_in_ounojou = 0;
+				var count_item_soldout_in_hisayama = 0;
+				var count_item_soldout_in_nakagawa = 0;
+				var count_item_soldout_in_itoshima = 0;
+				var count_item_soldout_in_shingu = 0;
+				var count_item_soldout_in_kurume = 0;
+				var count_item_soldout_in_kasuya = 0;
+				var count_item_soldout_in_umimachi = 0;
+				var count_item_soldout_in_dazaifu = 0;
+				var count_item_soldout_in_yanagawa = 0;
+				var count_item_soldout_in_chikuzen = 0;
+				var count_item_soldout_in_kamimine = 0;
+				var count_item_soldout_in_tachiarai = 0;
+				var count_item_soldout_in_ogori = 0;
+				var count_item_soldout_in_chikujou = 0;
+				var count_item_soldout_in_chikushino = 0;
+				var count_item_soldout_in_miyaki = 0;
+				var count_item_soldout_in_tosu = 0;
+				var count_item_soldout_in_kiyama = 0;
+				
 			
 			for (var k = 0; k < analysis[i].items.length; k++){
 				//sale number
 				count_item_sale_number++;
 				
-		
 				if (analysis[i].items[k].city_cd == 40136) {
 					count_item_in_jonan++;
 				}
@@ -750,11 +663,12 @@ function insertAnalysisTable(analysis) {
 				if (analysis[i].items[k].city_cd == 41341) {
 					count_item_in_kiyama++;
 				}
-				
-				
 				//avg price regist
 				if (analysis[i].items[k].price_regist != null) {
-					count_item_price_regist++
+					count_item_price_regist++;
+					
+
+					
 					sum_price_regist = sum_price_regist + parseFloat(analysis[i].items[k].price_regist);
 				}
 				
@@ -762,6 +676,105 @@ function insertAnalysisTable(analysis) {
 				if (analysis[i].items[k].price_soldout != null) {
 					count_item_soldout++;
 					count_item_price_soldout++;
+					
+					if (analysis[i].items[k].city_cd == 40136) {
+						count_item_soldout_in_jonan++;
+					}
+					if (analysis[i].items[k].city_cd == 40134) {
+						count_item_soldout_in_minami++;
+					}
+					if (analysis[i].items[k].city_cd == 40135) {
+						count_item_soldout_in_nishi++;
+					}
+					if (analysis[i].items[k].city_cd == 40131) {
+						count_item_soldout_in_higashi++;
+					}
+					if (analysis[i].items[k].city_cd == 40133) {
+						count_item_soldout_in_chuo++;
+					}
+					if (analysis[i].items[k].city_cd == 40132) {
+						count_item_soldout_in_hakata++;
+					}
+					if (analysis[i].items[k].city_cd == 40137) {
+						count_item_soldout_in_sawara++;
+					}
+					if (analysis[i].items[k].city_cd == 40223) {
+						count_item_soldout_in_koga++;
+					}
+					if (analysis[i].items[k].city_cd == 40342) {
+						count_item_soldout_in_sasaguri++;
+					}
+					if (analysis[i].items[k].city_cd == 40343) {
+						count_item_soldout_in_shime++;
+					}
+					if (analysis[i].items[k].city_cd == 40218) {
+						count_item_soldout_in_kasuga++;
+					}
+					if (analysis[i].items[k].city_cd == 40224) {
+						count_item_soldout_in_fukutsu++;
+					}
+					if (analysis[i].items[k].city_cd == 40344) {
+						count_item_soldout_in_sue++;
+					}
+					if (analysis[i].items[k].city_cd == 40219) {
+						count_item_soldout_in_ounojou++;
+					}
+					if (analysis[i].items[k].city_cd == 40348) {
+						count_item_soldout_in_hisayama++;
+					}
+					if (analysis[i].items[k].city_cd == 40305) {
+						count_item_soldout_in_nakagawa++;
+					}
+					if (analysis[i].items[k].city_cd == 40230) {
+						count_item_soldout_in_itoshima++;
+					}
+					if (analysis[i].items[k].city_cd == 40345) {
+						count_item_soldout_in_shingu++;
+					}
+					if (analysis[i].items[k].city_cd == 40203) {
+						count_item_soldout_in_kurume++;
+					}
+					if (analysis[i].items[k].city_cd == 40349) {
+						count_item_soldout_in_kasuya++;
+					}
+					if (analysis[i].items[k].city_cd == 40341) {
+						count_item_soldout_in_umimachi++;
+					}
+					if (analysis[i].items[k].city_cd == 40221) {
+						count_item_soldout_in_dazaifu++;
+					}
+					if (analysis[i].items[k].city_cd == 40207) {
+						count_item_soldout_in_yanagawa++;
+					}
+					if (analysis[i].items[k].city_cd == 40447) {
+						count_item_soldout_in_chikuzen++;
+					}
+					if (analysis[i].items[k].city_cd == 41345) {
+						count_item_soldout_in_kamimine++;
+					}
+					if (analysis[i].items[k].city_cd == 40503) {
+						count_item_soldout_in_tachiarai++;
+					}
+					if (analysis[i].items[k].city_cd == 40216) {
+						count_item_soldout_in_ogori++;
+					}
+					if (analysis[i].items[k].city_cd == 40647) {
+						count_item_soldout_in_chikujou++;
+					}
+					if (analysis[i].items[k].city_cd == 40217) {
+						count_item_soldout_in_chikushino++;
+					}
+					if (analysis[i].items[k].city_cd == 41346) {
+						count_item_soldout_in_miyaki++;
+					}
+					if (analysis[i].items[k].city_cd == 41203) {
+						count_item_soldout_in_tosu++;
+					}
+					if (analysis[i].items[k].city_cd == 41341) {
+						count_item_soldout_in_kiyama++;
+					}
+					
+					
 					
 					if ( analysis[i].items[k].date_build > analysis[i].items[k].date_soldout ) {
 						count_item_soldout_before_complete++;	
@@ -808,39 +821,76 @@ function insertAnalysisTable(analysis) {
 			
 			
 			//sale number
-			window.market_rate.push([analysis[i].seller_name, parseInt(count_item_sale_number)]);
-			window.market_rate_jonan.push([analysis[i].seller_name, parseInt(count_item_in_jonan)]);
-			window.market_rate_minami.push([analysis[i].seller_name, parseInt(count_item_in_minami)]);
-			window.market_rate_nishi.push([analysis[i].seller_name, parseInt(count_item_in_nishi)]);
-			window.market_rate_higashi.push([analysis[i].seller_name, parseInt(count_item_in_higashi)]);
-			window.market_rate_chuo.push([analysis[i].seller_name, parseInt(count_item_in_chuo)]);
-			window.market_rate_hakata.push([analysis[i].seller_name, parseInt(count_item_in_hakata)]);
-			window.market_rate_sawara.push([analysis[i].seller_name, parseInt(count_item_in_sawara)]);
-			window.market_rate_koga.push([analysis[i].seller_name, parseInt(count_item_in_koga)]);
-			window.market_rate_sasaguri.push([analysis[i].seller_name, parseInt(count_item_in_sasaguri)]);
-			window.market_rate_shime.push([analysis[i].seller_name, parseInt(count_item_in_shime)]);
-			window.market_rate_kasuga.push([analysis[i].seller_name, parseInt(count_item_in_kasuga)]);
-			window.market_rate_fukutsu.push([analysis[i].seller_name, parseInt(count_item_in_fukutsu)]);
-			window.market_rate_sue.push([analysis[i].seller_name, parseInt(count_item_in_sue)]);
-			window.market_rate_ounojou.push([analysis[i].seller_name, parseInt(count_item_in_ounojou)]);
-			window.market_rate_hisayama.push([analysis[i].seller_name, parseInt(count_item_in_hisayama)]);
-			window.market_rate_nakagawa.push([analysis[i].seller_name, parseInt(count_item_in_nakagawa)]);
-			window.market_rate_itoshima.push([analysis[i].seller_name, parseInt(count_item_in_itoshima)]);
-			window.market_rate_shingu.push([analysis[i].seller_name, parseInt(count_item_in_shingu)]);
-			window.market_rate_kurume.push([analysis[i].seller_name, parseInt(count_item_in_kurume)]);
-			window.market_rate_kasuya.push([analysis[i].seller_name, parseInt(count_item_in_kasuya)]);
-			window.market_rate_umimachi.push([analysis[i].seller_name, parseInt(count_item_in_umimachi)]);
-			window.market_rate_dazaifu.push([analysis[i].seller_name, parseInt(count_item_in_dazaifu)]);
-			window.market_rate_yanagawa.push([analysis[i].seller_name, parseInt(count_item_in_yanagawa)]);
-			window.market_rate_chikuzen.push([analysis[i].seller_name, parseInt(count_item_in_chikuzen)]);
-			window.market_rate_kamimine.push([analysis[i].seller_name, parseInt(count_item_in_kamimine)]);
-			window.market_rate_tachiarai.push([analysis[i].seller_name, parseInt(count_item_in_tachiarai)]);
-			window.market_rate_ogori.push([analysis[i].seller_name, parseInt(count_item_in_ogori)]);
-			window.market_rate_chikujou.push([analysis[i].seller_name, parseInt(count_item_in_chikujou)]);
-			window.market_rate_chikushino.push([analysis[i].seller_name, parseInt(count_item_in_chikushino)]);
-			window.market_rate_miyaki.push([analysis[i].seller_name, parseInt(count_item_in_miyaki)]);
-			window.market_rate_tosu.push([analysis[i].seller_name, parseInt(count_item_in_tosu)]);
-			window.market_rate_kiyama.push([analysis[i].seller_name, parseInt(count_item_in_kiyama)]);
+			window.market_rate.push([analysis[i].seller_name, parseInt(count_item_sale_number - count_item_soldout)]);
+			window.market_rate_jonan.push([analysis[i].seller_name, parseInt(count_item_in_jonan - count_item_soldout_in_jonan)]);
+			window.market_rate_minami.push([analysis[i].seller_name, parseInt(count_item_in_minami - count_item_soldout_in_minami)]);
+			window.market_rate_nishi.push([analysis[i].seller_name, parseInt(count_item_in_nishi - count_item_soldout_in_nishi)]);
+			window.market_rate_higashi.push([analysis[i].seller_name, parseInt(count_item_in_higashi - count_item_soldout_in_higashi)]);
+			window.market_rate_chuo.push([analysis[i].seller_name, parseInt(count_item_in_chuo - count_item_soldout_in_chuo)]);
+			window.market_rate_hakata.push([analysis[i].seller_name, parseInt(count_item_in_hakata - count_item_soldout_in_hakata)]);
+			window.market_rate_sawara.push([analysis[i].seller_name, parseInt(count_item_in_sawara - count_item_soldout_in_sawara)]);
+			window.market_rate_koga.push([analysis[i].seller_name, parseInt(count_item_in_koga - count_item_soldout_in_koga)]);
+			window.market_rate_sasaguri.push([analysis[i].seller_name, parseInt(count_item_in_sasaguri - count_item_soldout_in_sasaguri)]);
+			window.market_rate_shime.push([analysis[i].seller_name, parseInt(count_item_in_shime - count_item_soldout_in_shime)]);
+			window.market_rate_kasuga.push([analysis[i].seller_name, parseInt(count_item_in_kasuga - count_item_soldout_in_kasuga)]);
+			window.market_rate_fukutsu.push([analysis[i].seller_name, parseInt(count_item_in_fukutsu - count_item_soldout_in_fukutsu)]);
+			window.market_rate_sue.push([analysis[i].seller_name, parseInt(count_item_in_sue - count_item_soldout_in_sue)]);
+			window.market_rate_ounojou.push([analysis[i].seller_name, parseInt(count_item_in_ounojou - count_item_soldout_in_ounojou)]);
+			window.market_rate_hisayama.push([analysis[i].seller_name, parseInt(count_item_in_hisayama - count_item_soldout_in_hisayama)]);
+			window.market_rate_nakagawa.push([analysis[i].seller_name, parseInt(count_item_in_nakagawa - count_item_soldout_in_nakagawa)]);
+			window.market_rate_itoshima.push([analysis[i].seller_name, parseInt(count_item_in_itoshima - count_item_soldout_in_itoshima)]);
+			window.market_rate_shingu.push([analysis[i].seller_name, parseInt(count_item_in_shingu - count_item_soldout_in_shingu)]);
+			window.market_rate_kurume.push([analysis[i].seller_name, parseInt(count_item_in_kurume - count_item_soldout_in_kurume)]);
+			window.market_rate_kasuya.push([analysis[i].seller_name, parseInt(count_item_in_kasuya - count_item_soldout_in_kasuya)]);
+			window.market_rate_umimachi.push([analysis[i].seller_name, parseInt(count_item_in_umimachi - count_item_soldout_in_umimachi)]);
+			window.market_rate_dazaifu.push([analysis[i].seller_name, parseInt(count_item_in_dazaifu - count_item_soldout_in_dazaifu)]);
+			window.market_rate_yanagawa.push([analysis[i].seller_name, parseInt(count_item_in_yanagawa - count_item_soldout_in_yanagawa)]);
+			window.market_rate_chikuzen.push([analysis[i].seller_name, parseInt(count_item_in_chikuzen - count_item_soldout_in_chikuzen)]);
+			window.market_rate_kamimine.push([analysis[i].seller_name, parseInt(count_item_in_kamimine - count_item_soldout_in_kamimine)]);
+			window.market_rate_tachiarai.push([analysis[i].seller_name, parseInt(count_item_in_tachiarai - count_item_soldout_in_tachiarai)]);
+			window.market_rate_ogori.push([analysis[i].seller_name, parseInt(count_item_in_ogori - count_item_soldout_in_ogori)]);
+			window.market_rate_chikujou.push([analysis[i].seller_name, parseInt(count_item_in_chikujou - count_item_soldout_in_chikujou)]);
+			window.market_rate_chikushino.push([analysis[i].seller_name, parseInt(count_item_in_chikushino - count_item_soldout_in_chikushino)]);
+			window.market_rate_miyaki.push([analysis[i].seller_name, parseInt(count_item_in_miyaki - count_item_soldout_in_miyaki)]);
+			window.market_rate_tosu.push([analysis[i].seller_name, parseInt(count_item_in_tosu - count_item_soldout_in_tosu)]);
+			window.market_rate_kiyama.push([analysis[i].seller_name, parseInt(count_item_in_kiyama - count_item_soldout_in_kiyama)]);
+
+			//soldout number
+			window.soldout_rate.push([analysis[i].seller_name, parseInt(count_item_soldout)]);
+			window.soldout_rate_jonan.push([analysis[i].seller_name, parseInt(count_item_soldout_in_jonan)]);
+			window.soldout_rate_minami.push([analysis[i].seller_name, parseInt(count_item_soldout_in_minami)]);
+			window.soldout_rate_nishi.push([analysis[i].seller_name, parseInt(count_item_soldout_in_nishi)]);
+			window.soldout_rate_higashi.push([analysis[i].seller_name, parseInt(count_item_soldout_in_higashi)]);
+			window.soldout_rate_chuo.push([analysis[i].seller_name, parseInt(count_item_soldout_in_chuo)]);
+			window.soldout_rate_hakata.push([analysis[i].seller_name, parseInt(count_item_soldout_in_hakata)]);
+			window.soldout_rate_sawara.push([analysis[i].seller_name, parseInt(count_item_soldout_in_sawara)]);
+			window.soldout_rate_koga.push([analysis[i].seller_name, parseInt(count_item_soldout_in_koga)]);
+			window.soldout_rate_sasaguri.push([analysis[i].seller_name, parseInt(count_item_soldout_in_sasaguri)]);
+			window.soldout_rate_shime.push([analysis[i].seller_name, parseInt(count_item_soldout_in_shime)]);
+			window.soldout_rate_kasuga.push([analysis[i].seller_name, parseInt(count_item_soldout_in_kasuga)]);
+			window.soldout_rate_fukutsu.push([analysis[i].seller_name, parseInt(count_item_soldout_in_fukutsu)]);
+			window.soldout_rate_sue.push([analysis[i].seller_name, parseInt(count_item_soldout_in_sue)]);
+			window.soldout_rate_ounojou.push([analysis[i].seller_name, parseInt(count_item_soldout_in_ounojou)]);
+			window.soldout_rate_hisayama.push([analysis[i].seller_name, parseInt(count_item_soldout_in_hisayama)]);
+			window.soldout_rate_nakagawa.push([analysis[i].seller_name, parseInt(count_item_soldout_in_nakagawa)]);
+			window.soldout_rate_itoshima.push([analysis[i].seller_name, parseInt(count_item_soldout_in_itoshima)]);
+			window.soldout_rate_shingu.push([analysis[i].seller_name, parseInt(count_item_soldout_in_shingu)]);
+			window.soldout_rate_kurume.push([analysis[i].seller_name, parseInt(count_item_soldout_in_kurume)]);
+			window.soldout_rate_kasuya.push([analysis[i].seller_name, parseInt(count_item_soldout_in_kasuya)]);
+			window.soldout_rate_umimachi.push([analysis[i].seller_name, parseInt(count_item_soldout_in_umimachi)]);
+			window.soldout_rate_dazaifu.push([analysis[i].seller_name, parseInt(count_item_soldout_in_dazaifu)]);
+			window.soldout_rate_yanagawa.push([analysis[i].seller_name, parseInt(count_item_soldout_in_yanagawa)]);
+			window.soldout_rate_chikuzen.push([analysis[i].seller_name, parseInt(count_item_soldout_in_chikuzen)]);
+			window.soldout_rate_kamimine.push([analysis[i].seller_name, parseInt(count_item_soldout_in_kamimine)]);
+			window.soldout_rate_tachiarai.push([analysis[i].seller_name, parseInt(count_item_soldout_in_tachiarai)]);
+			window.soldout_rate_ogori.push([analysis[i].seller_name, parseInt(count_item_soldout_in_ogori)]);
+			window.soldout_rate_chikujou.push([analysis[i].seller_name, parseInt(count_item_soldout_in_chikujou)]);
+			window.soldout_rate_chikushino.push([analysis[i].seller_name, parseInt(count_item_soldout_in_chikushino)]);
+			window.soldout_rate_miyaki.push([analysis[i].seller_name, parseInt(count_item_soldout_in_miyaki)]);
+			window.soldout_rate_tosu.push([analysis[i].seller_name, parseInt(count_item_soldout_in_tosu)]);
+			window.soldout_rate_kiyama.push([analysis[i].seller_name, parseInt(count_item_soldout_in_kiyama)]);
+						
+			
 			
 			//selling number
 			selling_number = count_item_sale_number - count_item_soldout;
@@ -859,6 +909,9 @@ function insertAnalysisTable(analysis) {
 			
 			//rate soldout before complete
 			rate_soldout_before_complete =  (count_item_soldout_before_complete / count_item_price_soldout * 100).toFixed(2);
+			if (count_item_price_soldout == 0) {
+				rate_soldout_before_complete = '----';
+			}
 			
 			//time sale
 			var avg_time_time = Math.ceil(sum_time / count_item_time);
@@ -872,9 +925,9 @@ function insertAnalysisTable(analysis) {
 			}
 			
 			//avg down price
-			var avg_down_price = Math.ceil(sum_down_price / count_item_down_price_rate); 
+			var avg_down_price = Math.ceil(sum_down_price / count_item_down_price_rate);
 			if (count_item_down_price_rate == 0) {
-				rate_down_price_rate = '----';	
+				avg_down_price = '----';	
 			}
 			
 			//avg down price rate
@@ -893,25 +946,25 @@ function insertAnalysisTable(analysis) {
 			
 			//sale number
 			td_sale_number = td_sale_number + '<td>' + count_item_sale_number 
-							+ '<input type="hidden" id="sale_number_'
+							+ '件<input type="hidden" id="sale_number_'
 							+ analysis[i].seller_cd 
 							+ '" value="' + count_item_sale_number + '" /></td>';
 			
 			//selling number
 			td_selling_number = td_selling_number + '<td>' + selling_number
-							+ '<input type="hidden" id="selling_number_'
+							+ '件<input type="hidden" id="selling_number_'
 							+ analysis[i].seller_cd 
 							+ '" value="' + selling_number + '" /></td>';				
 			
 			//soldout number
 			td_soldout_number = td_soldout_number + '<td>' + count_item_soldout 
-							+ '<input type="hidden" id="soldout_number_'
+							+ '件<input type="hidden" id="soldout_number_'
 							+ analysis[i].seller_cd 
 							+ '" value="' + count_item_soldout + '" /></td>';
 
 			//soldout before complete number
 			td_soldout_before_complete_number = td_soldout_before_complete_number + '<td>' + count_item_soldout_before_complete 
-							+ '<input type="hidden" id="soldout_before_complete_number_'
+							+ '件<input type="hidden" id="soldout_before_complete_number_'
 							+ analysis[i].seller_cd 
 							+ '" value="' + count_item_soldout_before_complete + '" /></td>';
 							
@@ -1133,13 +1186,40 @@ function insertAnalysisTable(analysis) {
 		down_price = '----';
 		down_price_rate = '----';
 	}
+	
+	var selling_rate = 0;
+	var soldout_rate = 0;
+	
+	if (analysis[0].seller_cd != null) {
+		for (var i = 0; i < analysis.length ; i++) {
+			//selling rate per seller
+			var selling_rate_per_seller = ($('#selling_number_' + analysis[i].seller_cd).val() / selling_number * 100).toFixed(2);
+			if (selling_number == 0) {
+				selling_rate_per_seller = 0;	
+			}
+			$('#selling_rate').append('<td>' + selling_rate_per_seller + '%</td>');
+			selling_rate += parseFloat(selling_rate_per_seller);
+			
+			//soldout rate per seller
+			var soldout_rate_per_seller = ($('#soldout_number_' + analysis[i].seller_cd).val() / soldout_number * 100).toFixed(2);
+			if (soldout_number == 0) {
+				soldout_rate_per_seller = 0;	
+			}
+			$('#soldout_rate').append('<td>' + soldout_rate_per_seller + '%</td>');
+			soldout_rate += parseFloat(soldout_rate_per_seller);
+		}
+	}
+	
+	
 		
 	$('#name th:first-child').after('<th>地域の総合</th>');
 	$('#sale_number th:first-child').after('<td>' + sale_number 
-							 + '<input id="sale_number_all" type="hidden" value="' + sale_number + '" /></td>');
-	$('#selling_number th:first-child').after('<td>' + selling_number + '</td>');
-	$('#soldout_number th:first-child').after('<td>' + soldout_number + '</td>');
-	$('#soldout_before_complete_number th:first-child').after('<td>' + soldout_before_complete_number + '</td>');
+							 + '件<input id="sale_number_all" type="hidden" value="' + sale_number + '" /></td>');
+	$('#selling_number th:first-child').after('<td>' + selling_number + '件</td>');
+	$('#selling_rate th:first-child').after('<td>' + selling_rate.toFixed(0) + '%</td>');
+	$('#soldout_number th:first-child').after('<td>' + soldout_number + '件</td>');
+	$('#soldout_rate th:first-child').after('<td>' + soldout_rate.toFixed(0) + '%</td>');
+	$('#soldout_before_complete_number th:first-child').after('<td>' + soldout_before_complete_number + '件</td>');
 	$('#rate_soldout_before_complete th:first-child').after('<td>' + rate_soldout_before_complete + '%</td>');
 	$('#avg_price_regist th:first-child').after('<td>' + avg_price_regist + '万円</td>');
 	$('#avg_price_sold th:first-child').after('<td>' + avg_price_sold + '万円</td>');		
@@ -1152,6 +1232,8 @@ function insertAnalysisTable(analysis) {
 
 
 function drawPieChart() {
+	
+	//clear old chart
 	$('#piechart_3d').html('');
 	$('#piechart_3d_1').html('');
 	$('#piechart_3d_2').html('');
@@ -1186,7 +1268,42 @@ function drawPieChart() {
 	$('#piechart_3d_31').html('');
 	$('#piechart_3d_32').html('');
 	
-
+	$('#soldout_piechart_3d').html('');
+	$('#soldout_piechart_3d_1').html('');
+	$('#soldout_piechart_3d_2').html('');
+	$('#soldout_piechart_3d_3').html('');
+	$('#soldout_piechart_3d_4').html('');
+	$('#soldout_piechart_3d_5').html('');
+	$('#soldout_piechart_3d_6').html('');
+	$('#soldout_piechart_3d_7').html('');
+	$('#soldout_piechart_3d_8').html('');
+	$('#soldout_piechart_3d_9').html('');
+	$('#soldout_piechart_3d_10').html('');
+	$('#soldout_piechart_3d_11').html('');
+	$('#soldout_piechart_3d_12').html('');
+	$('#soldout_piechart_3d_13').html('');
+	$('#soldout_piechart_3d_14').html('');
+	$('#soldout_piechart_3d_15').html('');
+	$('#soldout_piechart_3d_16').html('');
+	$('#soldout_piechart_3d_17').html('');
+	$('#soldout_piechart_3d_18').html('');
+	$('#soldout_piechart_3d_19').html('');
+	$('#soldout_piechart_3d_20').html('');
+	$('#soldout_piechart_3d_21').html('');
+	$('#soldout_piechart_3d_22').html('');
+	$('#soldout_piechart_3d_23').html('');
+	$('#soldout_piechart_3d_24').html('');
+	$('#soldout_piechart_3d_25').html('');
+	$('#soldout_piechart_3d_26').html('');
+	$('#soldout_piechart_3d_27').html('');
+	$('#soldout_piechart_3d_28').html('');
+	$('#soldout_piechart_3d_29').html('');
+	$('#soldout_piechart_3d_30').html('');
+	$('#soldout_piechart_3d_31').html('');
+	$('#soldout_piechart_3d_32').html('');
+	
+	
+	// draw market rate piechart
 	var dont_draw = 1;
 	$('#piechart_3d').hide();
 	for (var i = 0; i < window.market_rate.length; i++) {
@@ -1200,10 +1317,17 @@ function drawPieChart() {
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', 'Seller');
 		data.addColumn('number', '販売シェア率');
-		//data.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		data.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate.length; i++) {
+			sum = sum + window.market_rate[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate.length; i++) {
-			 data.addRows([[window.market_rate[i][0], window.market_rate[i][1]]]);	
+			var rate = (window.market_rate[i][1] / sum * 100).toFixed(1);
+			 data.addRows([[window.market_rate[i][0], window.market_rate[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate[i][0] + '<br><b>' + window.market_rate[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = { 
@@ -1215,9 +1339,6 @@ function drawPieChart() {
 		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
 		  sliceVisibilityThreshold: 0,
 		  chartArea:{left: 10, width:'90%'},
-		  tooltip: {
-		  	  showColorCode: true,
-			}
 		};
 		
 		var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
@@ -1237,9 +1358,17 @@ function drawPieChart() {
 		var data1 = new google.visualization.DataTable();
 		data1.addColumn('string', 'Seller');
 		data1.addColumn('number', '販売シェア率');	
+		data1.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_jonan.length; i++) {
+			sum = sum + window.market_rate_jonan[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_jonan.length; i++) {
-			 data1.addRows([[window.market_rate_jonan[i][0], window.market_rate_jonan[i][1]]]);	
+			var rate = (window.market_rate_jonan[i][1] / sum * 100).toFixed(1);
+			 data1.addRows([[window.market_rate_jonan[i][0], window.market_rate_jonan[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_jonan[i][0] + '<br><b>' + window.market_rate_jonan[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1270,9 +1399,17 @@ function drawPieChart() {
 		var data2 = new google.visualization.DataTable();
 		data2.addColumn('string', 'Seller');
 		data2.addColumn('number', '販売シェア率');	
+		data2.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_minami.length; i++) {
+			sum = sum + window.market_rate_minami[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_minami.length; i++) {
-			 data2.addRows([[window.market_rate_minami[i][0], window.market_rate_minami[i][1]]]);	
+			var rate = (window.market_rate_minami[i][1] / sum * 100).toFixed(1);
+			 data2.addRows([[window.market_rate_minami[i][0], window.market_rate_minami[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_minami[i][0] + '<br><b>' + window.market_rate_minami[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1303,9 +1440,17 @@ function drawPieChart() {
 		var data3 = new google.visualization.DataTable();
 		data3.addColumn('string', 'Seller');
 		data3.addColumn('number', '販売シェア率');	
+		data3.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_nishi.length; i++) {
+			sum = sum + window.market_rate_nishi[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_nishi.length; i++) {
-			 data3.addRows([[window.market_rate_nishi[i][0], window.market_rate_nishi[i][1]]]);	
+			var rate = (window.market_rate_nishi[i][1] / sum * 100).toFixed(1);
+			 data3.addRows([[window.market_rate_nishi[i][0], window.market_rate_nishi[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_nishi[i][0] + '<br><b>' + window.market_rate_nishi[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}		var options = {
 		  title: '福岡市西区',
 		  backgroundColor: '#D5D5D5',
@@ -1334,9 +1479,17 @@ function drawPieChart() {
 		var data4 = new google.visualization.DataTable();
 		data4.addColumn('string', 'Seller');
 		data4.addColumn('number', '販売シェア率');	
+		data4.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_higashi.length; i++) {
+			sum = sum + window.market_rate_higashi[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_higashi.length; i++) {
-			 data4.addRows([[window.market_rate_higashi[i][0], window.market_rate_higashi[i][1]]]);	
+			var rate = (window.market_rate_higashi[i][1] / sum * 100).toFixed(1);
+			 data4.addRows([[window.market_rate_higashi[i][0], window.market_rate_higashi[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_higashi[i][0] + '<br><b>' + window.market_rate_higashi[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1367,9 +1520,17 @@ function drawPieChart() {
 		var data5 = new google.visualization.DataTable();
 		data5.addColumn('string', 'Seller');
 		data5.addColumn('number', '販売シェア率');	
+		data5.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_chuo.length; i++) {
+			sum = sum + window.market_rate_chuo[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_chuo.length; i++) {
-			 data5.addRows([[window.market_rate_chuo[i][0], window.market_rate_chuo[i][1]]]);	
+			var rate = (window.market_rate_chuo[i][1] / sum * 100).toFixed(1);
+			 data5.addRows([[window.market_rate_chuo[i][0], window.market_rate_chuo[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_chuo[i][0] + '<br><b>' + window.market_rate_chuo[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1400,9 +1561,17 @@ function drawPieChart() {
 		var data6 = new google.visualization.DataTable();
 		data6.addColumn('string', 'Seller');
 		data6.addColumn('number', '販売シェア率');	
+		data6.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_hakata.length; i++) {
+			sum = sum + window.market_rate_hakata[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_hakata.length; i++) {
-			 data6.addRows([[window.market_rate_hakata[i][0], window.market_rate_hakata[i][1]]]);	
+			var rate = (window.market_rate_hakata[i][1] / sum * 100).toFixed(1);
+			 data6.addRows([[window.market_rate_hakata[i][0], window.market_rate_hakata[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_hakata[i][0] + '<br><b>' + window.market_rate_hakata[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1433,9 +1602,17 @@ function drawPieChart() {
 		var data7 = new google.visualization.DataTable();
 		data7.addColumn('string', 'Seller');
 		data7.addColumn('number', '販売シェア率');	
+		data7.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_sawara.length; i++) {
+			sum = sum + window.market_rate_sawara[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_sawara.length; i++) {
-			 data7.addRows([[window.market_rate_sawara[i][0], window.market_rate_sawara[i][1]]]);	
+			var rate = (window.market_rate_sawara[i][1] / sum * 100).toFixed(1);
+			 data7.addRows([[window.market_rate_sawara[i][0], window.market_rate_sawara[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_sawara[i][0] + '<br><b>' + window.market_rate_sawara[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1466,9 +1643,17 @@ function drawPieChart() {
 		var data8 = new google.visualization.DataTable();
 		data8.addColumn('string', 'Seller');
 		data8.addColumn('number', '販売シェア率');	
+		data8.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_koga.length; i++) {
+			sum = sum + window.market_rate_koga[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_koga.length; i++) {
-			 data8.addRows([[window.market_rate_koga[i][0], window.market_rate_koga[i][1]]]);	
+			var rate = (window.market_rate_koga[i][1] / sum * 100).toFixed(1);
+			 data8.addRows([[window.market_rate_koga[i][0], window.market_rate_koga[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_koga[i][0] + '<br><b>' + window.market_rate_koga[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1499,9 +1684,17 @@ function drawPieChart() {
 		var data9 = new google.visualization.DataTable();
 		data9.addColumn('string', 'Seller');
 		data9.addColumn('number', '販売シェア率');	
+		data9.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_sasaguri.length; i++) {
+			sum = sum + window.market_rate_sasaguri[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_sasaguri.length; i++) {
-			 data9.addRows([[window.market_rate_sasaguri[i][0], window.market_rate_sasaguri[i][1]]]);	
+			var rate = (window.market_rate_sasaguri[i][1] / sum * 100).toFixed(1);
+			 data9.addRows([[window.market_rate_sasaguri[i][0], window.market_rate_sasaguri[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_sasaguri[i][0] + '<br><b>' + window.market_rate_sasaguri[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1532,9 +1725,17 @@ function drawPieChart() {
 		var data10 = new google.visualization.DataTable();
 		data10.addColumn('string', 'Seller');
 		data10.addColumn('number', '販売シェア率');	
+		data10.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_shime.length; i++) {
+			sum = sum + window.market_rate_shime[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_shime.length; i++) {
-			 data10.addRows([[window.market_rate_shime[i][0], window.market_rate_shime[i][1]]]);	
+			var rate = (window.market_rate_shime[i][1] / sum * 100).toFixed(1);
+			 data10.addRows([[window.market_rate_shime[i][0], window.market_rate_shime[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_shime[i][0] + '<br><b>' + window.market_rate_shime[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1565,9 +1766,17 @@ function drawPieChart() {
 		var data11 = new google.visualization.DataTable();
 		data11.addColumn('string', 'Seller');
 		data11.addColumn('number', '販売シェア率');	
+		data11.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_kasuga.length; i++) {
+			sum = sum + window.market_rate_kasuga[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_kasuga.length; i++) {
-			 data11.addRows([[window.market_rate_kasuga[i][0], window.market_rate_kasuga[i][1]]]);	
+			var rate = (window.market_rate_kasuga[i][1] / sum * 100).toFixed(1);
+			 data11.addRows([[window.market_rate_kasuga[i][0], window.market_rate_kasuga[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_kasuga[i][0] + '<br><b>' + window.market_rate_kasuga[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1597,10 +1806,18 @@ function drawPieChart() {
 		$('#piechart_3d_12').show();
 		var data12 = new google.visualization.DataTable();
 		data12.addColumn('string', 'Seller');
-		data12.addColumn('number', '販売シェア率');	
+		data12.addColumn('number', '販売シェア率');
+		data12.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_fukutsu.length; i++) {
+			sum = sum + window.market_rate_fukutsu[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_fukutsu.length; i++) {
-			 data12.addRows([[window.market_rate_fukutsu[i][0], window.market_rate_fukutsu[i][1]]]);	
+			var rate = (window.market_rate_fukutsu[i][1] / sum * 100).toFixed(1);
+			 data12.addRows([[window.market_rate_fukutsu[i][0], window.market_rate_fukutsu[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_fukutsu[i][0] + '<br><b>' + window.market_rate_fukutsu[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1630,10 +1847,18 @@ function drawPieChart() {
 		$('#piechart_3d_13').show();
 		var data13 = new google.visualization.DataTable();
 		data13.addColumn('string', 'Seller');
-		data13.addColumn('number', '販売シェア率');	
+		data13.addColumn('number', '販売シェア率');
+		data13.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_sue.length; i++) {
+			sum = sum + window.market_rate_sue[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_sue.length; i++) {
-			 data13.addRows([[window.market_rate_sue[i][0], window.market_rate_sue[i][1]]]);	
+			var rate = (window.market_rate_sue[i][1] / sum * 100).toFixed(1);
+			 data13.addRows([[window.market_rate_sue[i][0], window.market_rate_sue[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_sue[i][0] + '<br><b>' + window.market_rate_sue[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1664,9 +1889,17 @@ function drawPieChart() {
 		var data14 = new google.visualization.DataTable();
 		data14.addColumn('string', 'Seller');
 		data14.addColumn('number', '販売シェア率');	
+		data14.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_ounojou.length; i++) {
+			sum = sum + window.market_rate_ounojou[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_ounojou.length; i++) {
-			 data14.addRows([[window.market_rate_ounojou[i][0], window.market_rate_ounojou[i][1]]]);	
+			var rate = (window.market_rate_ounojou[i][1] / sum * 100).toFixed(1);
+			 data14.addRows([[window.market_rate_ounojou[i][0], window.market_rate_ounojou[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_ounojou[i][0] + '<br><b>' + window.market_rate_ounojou[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1697,9 +1930,17 @@ function drawPieChart() {
 		var data15 = new google.visualization.DataTable();
 		data15.addColumn('string', 'Seller');
 		data15.addColumn('number', '販売シェア率');	
+		data15.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_hisayama.length; i++) {
+			sum = sum + window.market_rate_hisayama[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_hisayama.length; i++) {
-			 data15.addRows([[window.market_rate_hisayama[i][0], window.market_rate_hisayama[i][1]]]);	
+			var rate = (window.market_rate_hisayama[i][1] / sum * 100).toFixed(1);
+			 data15.addRows([[window.market_rate_hisayama[i][0], window.market_rate_hisayama[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_hisayama[i][0] + '<br><b>' + window.market_rate_hisayama[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1730,9 +1971,17 @@ function drawPieChart() {
 		var data16 = new google.visualization.DataTable();
 		data16.addColumn('string', 'Seller');
 		data16.addColumn('number', '販売シェア率');	
+		data16.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_nakagawa.length; i++) {
+			sum = sum + window.market_rate_nakagawa[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_nakagawa.length; i++) {
-			 data16.addRows([[window.market_rate_nakagawa[i][0], window.market_rate_nakagawa[i][1]]]);	
+			var rate = (window.market_rate_nakagawa[i][1] / sum * 100).toFixed(1);
+			 data16.addRows([[window.market_rate_nakagawa[i][0], window.market_rate_nakagawa[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_nakagawa[i][0] + '<br><b>' + window.market_rate_nakagawa[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1763,9 +2012,17 @@ function drawPieChart() {
 		var data17 = new google.visualization.DataTable();
 		data17.addColumn('string', 'Seller');
 		data17.addColumn('number', '販売シェア率');	
+		data17.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_itoshima.length; i++) {
+			sum = sum + window.market_rate_itoshima[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_itoshima.length; i++) {
-			 data17.addRows([[window.market_rate_itoshima[i][0], window.market_rate_itoshima[i][1]]]);	
+			var rate = (window.market_rate_itoshima[i][1] / sum * 100).toFixed(1);
+			 data17.addRows([[window.market_rate_itoshima[i][0], window.market_rate_itoshima[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_itoshima[i][0] + '<br><b>' + window.market_rate_itoshima[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1797,9 +2054,17 @@ function drawPieChart() {
 		var data18 = new google.visualization.DataTable();
 		data18.addColumn('string', 'Seller');
 		data18.addColumn('number', '販売シェア率');	
+		data18.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_shingu.length; i++) {
+			sum = sum + window.market_rate_shingu[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_shingu.length; i++) {
-			 data18.addRows([[window.market_rate_shingu[i][0], window.market_rate_shingu[i][1]]]);	
+			var rate = (window.market_rate_shingu[i][1] / sum * 100).toFixed(1);
+			 data18.addRows([[window.market_rate_shingu[i][0], window.market_rate_shingu[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_shingu[i][0] + '<br><b>' + window.market_rate_shingu[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1830,9 +2095,17 @@ function drawPieChart() {
 		var data19 = new google.visualization.DataTable();
 		data19.addColumn('string', 'Seller');
 		data19.addColumn('number', '販売シェア率');	
+		data19.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_kurume.length; i++) {
+			sum = sum + window.market_rate_kurume[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_kurume.length; i++) {
-			 data19.addRows([[window.market_rate_kurume[i][0], window.market_rate_kurume[i][1]]]);	
+			var rate = (window.market_rate_kurume[i][1] / sum * 100).toFixed(1);
+			 data19.addRows([[window.market_rate_kurume[i][0], window.market_rate_kurume[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_kurume[i][0] + '<br><b>' + window.market_rate_kurume[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1862,10 +2135,18 @@ function drawPieChart() {
 		$('#piechart_3d_20').show();
 		var data20 = new google.visualization.DataTable();
 		data20.addColumn('string', 'Seller');
-		data20.addColumn('number', '販売シェア率');	
+		data20.addColumn('number', '販売シェア率');
+		data20.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_kasuya.length; i++) {
+			sum = sum + window.market_rate_kasuya[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_kasuya.length; i++) {
-			 data20.addRows([[window.market_rate_kasuya[i][0], window.market_rate_kasuya[i][1]]]);	
+			var rate = (window.market_rate_kasuya[i][1] / sum * 100).toFixed(1);
+			 data20.addRows([[window.market_rate_kasuya[i][0], window.market_rate_kasuya[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_kasuya[i][0] + '<br><b>' + window.market_rate_kasuya[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1895,10 +2176,18 @@ function drawPieChart() {
 		$('#piechart_3d_21').show();
 		var data21 = new google.visualization.DataTable();
 		data21.addColumn('string', 'Seller');
-		data21.addColumn('number', '販売シェア率');	
+		data21.addColumn('number', '販売シェア率');
+		data21.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_umimachi.length; i++) {
+			sum = sum + window.market_rate_umimachi[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_umimachi.length; i++) {
-			 data21.addRows([[window.market_rate_umimachi[i][0], window.market_rate_umimachi[i][1]]]);	
+			var rate = (window.market_rate_umimachi[i][1] / sum * 100).toFixed(1);
+			 data21.addRows([[window.market_rate_umimachi[i][0], window.market_rate_umimachi[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_umimachi[i][0] + '<br><b>' + window.market_rate_umimachi[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1929,9 +2218,17 @@ function drawPieChart() {
 		var data22 = new google.visualization.DataTable();
 		data22.addColumn('string', 'Seller');
 		data22.addColumn('number', '販売シェア率');	
+		data22.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_dazaifu.length; i++) {
+			sum = sum + window.market_rate_dazaifu[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_dazaifu.length; i++) {
-			 data22.addRows([[window.market_rate_dazaifu[i][0], window.market_rate_dazaifu[i][1]]]);	
+			var rate = (window.market_rate_dazaifu[i][1] / sum * 100).toFixed(1);
+			 data22.addRows([[window.market_rate_dazaifu[i][0], window.market_rate_dazaifu[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_dazaifu[i][0] + '<br><b>' + window.market_rate_dazaifu[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -1961,10 +2258,18 @@ function drawPieChart() {
 		$('#piechart_3d_23').show();
 		var data23 = new google.visualization.DataTable();
 		data23.addColumn('string', 'Seller');
-		data23.addColumn('number', '販売シェア率');	
+		data23.addColumn('number', '販売シェア率');
+		data23.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_yanagawa.length; i++) {
+			sum = sum + window.market_rate_yanagawa[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_yanagawa.length; i++) {
-			 data23.addRows([[window.market_rate_yanagawa[i][0], window.market_rate_yanagawa[i][1]]]);	
+			var rate = (window.market_rate_yanagawa[i][1] / sum * 100).toFixed(1);
+			 data23.addRows([[window.market_rate_yanagawa[i][0], window.market_rate_yanagawa[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_yanagawa[i][0] + '<br><b>' + window.market_rate_yanagawa[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 
 		var options = {
@@ -1995,9 +2300,17 @@ function drawPieChart() {
 		var data24 = new google.visualization.DataTable();
 		data24.addColumn('string', 'Seller');
 		data24.addColumn('number', '販売シェア率');	
+		data24.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_chikuzen.length; i++) {
+			sum = sum + window.market_rate_chikuzen[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_chikuzen.length; i++) {
-			 data24.addRows([[window.market_rate_chikuzen[i][0], window.market_rate_chikuzen[i][1]]]);	
+			var rate = (window.market_rate_chikuzen[i][1] / sum * 100).toFixed(1);
+			 data24.addRows([[window.market_rate_chikuzen[i][0], window.market_rate_chikuzen[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_chikuzen[i][0] + '<br><b>' + window.market_rate_chikuzen[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -2027,10 +2340,18 @@ function drawPieChart() {
 		$('#piechart_3d_25').show();
 		var data25 = new google.visualization.DataTable();
 		data25.addColumn('string', 'Seller');
-		data25.addColumn('number', '販売シェア率');	
+		data25.addColumn('number', '販売シェア率');
+		data25.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_kamimine.length; i++) {
+			sum = sum + window.market_rate_kamimine[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_kamimine.length; i++) {
-			 data25.addRows([[window.market_rate_kamimine[i][0], window.market_rate_kamimine[i][1]]]);	
+			var rate = (window.market_rate_kamimine[i][1] / sum * 100).toFixed(1);
+			 data25.addRows([[window.market_rate_kamimine[i][0], window.market_rate_kamimine[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_kamimine[i][0] + '<br><b>' + window.market_rate_kamimine[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -2061,9 +2382,17 @@ function drawPieChart() {
 		var data26 = new google.visualization.DataTable();
 		data26.addColumn('string', 'Seller');
 		data26.addColumn('number', '販売シェア率');	
+		data26.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_tachiarai.length; i++) {
+			sum = sum + window.market_rate_tachiarai[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_tachiarai.length; i++) {
-			 data26.addRows([[window.market_rate_tachiarai[i][0], window.market_rate_tachiarai[i][1]]]);	
+			var rate = (window.market_rate_tachiarai[i][1] / sum * 100).toFixed(1);
+			 data26.addRows([[window.market_rate_tachiarai[i][0], window.market_rate_tachiarai[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_tachiarai[i][0] + '<br><b>' + window.market_rate_tachiarai[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -2094,9 +2423,17 @@ function drawPieChart() {
 		var data27 = new google.visualization.DataTable();
 		data27.addColumn('string', 'Seller');
 		data27.addColumn('number', '販売シェア率');	
+		data27.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_ogori.length; i++) {
+			sum = sum + window.market_rate_ogori[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_ogori.length; i++) {
-			 data27.addRows([[window.market_rate_ogori[i][0], window.market_rate_ogori[i][1]]]);	
+			var rate = (window.market_rate_ogori[i][1] / sum * 100).toFixed(1);
+			 data27.addRows([[window.market_rate_ogori[i][0], window.market_rate_ogori[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_ogori[i][0] + '<br><b>' + window.market_rate_ogori[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -2127,9 +2464,17 @@ function drawPieChart() {
 		var data28 = new google.visualization.DataTable();
 		data28.addColumn('string', 'Seller');
 		data28.addColumn('number', '販売シェア率');	
+		data28.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_chikujou.length; i++) {
+			sum = sum + window.market_rate_chikujou[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_chikujou.length; i++) {
-			 data28.addRows([[window.market_rate_chikujou[i][0], window.market_rate_chikujou[i][1]]]);	
+			var rate = (window.market_rate_chikujou[i][1] / sum * 100).toFixed(1);
+			 data28.addRows([[window.market_rate_chikujou[i][0], window.market_rate_chikujou[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_chikujou[i][0] + '<br><b>' + window.market_rate_chikujou[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 
 		var options = {
@@ -2160,9 +2505,17 @@ function drawPieChart() {
 		var data29 = new google.visualization.DataTable();
 		data29.addColumn('string', 'Seller');
 		data29.addColumn('number', '販売シェア率');	
+		data29.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_chikushino.length; i++) {
+			sum = sum + window.market_rate_chikushino[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_chikushino.length; i++) {
-			 data29.addRows([[window.market_rate_chikushino[i][0], window.market_rate_chikushino[i][1]]]);	
+			var rate = (window.market_rate_chikushino[i][1] / sum * 100).toFixed(1);
+			 data29.addRows([[window.market_rate_chikushino[i][0], window.market_rate_chikushino[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_chikushino[i][0] + '<br><b>' + window.market_rate_chikushino[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -2192,10 +2545,18 @@ function drawPieChart() {
 		$('#piechart_3d_30').show();
 		var data30 = new google.visualization.DataTable();
 		data30.addColumn('string', 'Seller');
-		data30.addColumn('number', '販売シェア率');	
+		data30.addColumn('number', '販売シェア率');
+		data30.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_miyaki.length; i++) {
+			sum = sum + window.market_rate_miyaki[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_miyaki.length; i++) {
-			 data30.addRows([[window.market_rate_miyaki[i][0], window.market_rate_miyaki[i][1]]]);	
+			var rate = (window.market_rate_miyaki[i][1] / sum * 100).toFixed(1);
+			 data30.addRows([[window.market_rate_miyaki[i][0], window.market_rate_miyaki[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_miyaki[i][0] + '<br><b>' + window.market_rate_miyaki[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -2225,10 +2586,18 @@ function drawPieChart() {
 		$('#piechart_3d_31').show();
 		var data31 = new google.visualization.DataTable();
 		data31.addColumn('string', 'Seller');
-		data31.addColumn('number', '販売シェア率');	
+		data31.addColumn('number', '販売シェア率');
+		data31.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_tosu.length; i++) {
+			sum = sum + window.market_rate_tosu[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_tosu.length; i++) {
-			 data31.addRows([[window.market_rate_tosu[i][0], window.market_rate_tosu[i][1]]]);	
+			var rate = (window.market_rate_tosu[i][1] / sum * 100).toFixed(1);
+			 data31.addRows([[window.market_rate_tosu[i][0], window.market_rate_tosu[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_tosu[i][0] + '<br><b>' + window.market_rate_tosu[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -2258,10 +2627,18 @@ function drawPieChart() {
 		$('#piechart_3d_32').show();
 		var data32 = new google.visualization.DataTable();
 		data32.addColumn('string', 'Seller');
-		data32.addColumn('number', '販売シェア率');	
+		data32.addColumn('number', '販売シェア率');
+		data32.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_kiyama.length; i++) {
+			sum = sum + window.market_rate_kiyama[i][1];
+		}
 		
 		for (var i = 0; i < window.market_rate_kiyama.length; i++) {
-			 data32.addRows([[window.market_rate_kiyama[i][0], window.market_rate_kiyama[i][1]]]);	
+			var rate = (window.market_rate_kiyama[i][1] / sum * 100).toFixed(1);
+			 data32.addRows([[window.market_rate_kiyama[i][0], window.market_rate_kiyama[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_kiyama[i][0] + '<br><b>' + window.market_rate_kiyama[i][1] + '件 (' + rate + '%)</b></div>']]);	
 		}
 		
 		var options = {
@@ -2278,4 +2655,2393 @@ function drawPieChart() {
 		var chart32 = new google.visualization.PieChart(document.getElementById('piechart_3d_32'));
 		chart32.draw(data32, options);
 	}
+		
+	
+	
+	
+	
+	
+	
+	// draw soldout rate piechart
+	var dont_draw = 1;
+	$('#soldout_piechart_3d').hide();
+	for (var i = 0; i < window.soldout_rate.length; i++) {
+		if ( window.soldout_rate[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d').show();
+		var soldout_data = new google.visualization.DataTable();
+		soldout_data.addColumn('string', 'Seller');
+		soldout_data.addColumn('number', '販売シェア率');
+		soldout_data.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate.length; i++) {
+			sum = sum + window.soldout_rate[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate.length; i++) {
+			var rate = (window.soldout_rate[i][1] / sum * 100).toFixed(1);
+			 soldout_data.addRows([[window.soldout_rate[i][0], window.soldout_rate[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate[i][0] + '<br><b>' + window.soldout_rate[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = { 
+		  title: '全体',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'},
+		};
+		
+		var soldout_chart = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d'));
+		soldout_chart.draw(soldout_data, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_1').hide();
+	for (var i = 0; i < window.soldout_rate_jonan.length; i++) {
+		if ( window.soldout_rate_jonan[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_1').show();
+		var soldout_data1 = new google.visualization.DataTable();
+		soldout_data1.addColumn('string', 'Seller');
+		soldout_data1.addColumn('number', '販売シェア率');	
+		soldout_data1.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_jonan.length; i++) {
+			sum = sum + window.soldout_rate_jonan[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_jonan.length; i++) {
+			var rate = (window.soldout_rate_jonan[i][1] / sum * 100).toFixed(1);
+			 soldout_data1.addRows([[window.soldout_rate_jonan[i][0], window.soldout_rate_jonan[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_jonan[i][0] + '<br><b>' + window.soldout_rate_jonan[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '福岡市城南区',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart1 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_1'));
+		soldout_chart1.draw(soldout_data1, options);
+	}
+
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_2').hide();
+	for (var i = 0; i < window.soldout_rate_minami.length; i++) {
+		if ( window.soldout_rate_minami[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_2').show();
+		var soldout_data2 = new google.visualization.DataTable();
+		soldout_data2.addColumn('string', 'Seller');
+		soldout_data2.addColumn('number', '販売シェア率');	
+		soldout_data2.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_minami.length; i++) {
+			sum = sum + window.soldout_rate_minami[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_minami.length; i++) {
+			var rate = (window.soldout_rate_minami[i][1] / sum * 100).toFixed(1);
+			 soldout_data2.addRows([[window.soldout_rate_minami[i][0], window.soldout_rate_minami[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_minami[i][0] + '<br><b>' + window.soldout_rate_minami[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '福岡市南区',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart2 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_2'));
+		soldout_chart2.draw(soldout_data2, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_3').hide();
+	for (var i = 0; i < window.soldout_rate_nishi.length; i++) {
+		if ( window.soldout_rate_nishi[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_3').show();
+		var soldout_data3 = new google.visualization.DataTable();
+		soldout_data3.addColumn('string', 'Seller');
+		soldout_data3.addColumn('number', '販売シェア率');	
+		soldout_data3.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_nishi.length; i++) {
+			sum = sum + window.soldout_rate_nishi[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_nishi.length; i++) {
+			var rate = (window.soldout_rate_nishi[i][1] / sum * 100).toFixed(1);
+			 soldout_data3.addRows([[window.soldout_rate_nishi[i][0], window.soldout_rate_nishi[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_nishi[i][0] + '<br><b>' + window.soldout_rate_nishi[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}		var options = {
+		  title: '福岡市西区',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart3 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_3'));
+		soldout_chart3.draw(soldout_data3, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_4').hide();
+	for (var i = 0; i < window.soldout_rate_higashi.length; i++) {
+		if ( window.soldout_rate_higashi[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_4').show();
+		var soldout_data4 = new google.visualization.DataTable();
+		soldout_data4.addColumn('string', 'Seller');
+		soldout_data4.addColumn('number', '販売シェア率');	
+		soldout_data4.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_higashi.length; i++) {
+			sum = sum + window.soldout_rate_higashi[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_higashi.length; i++) {
+			var rate = (window.soldout_rate_higashi[i][1] / sum * 100).toFixed(1);
+			 soldout_data4.addRows([[window.soldout_rate_higashi[i][0], window.soldout_rate_higashi[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_higashi[i][0] + '<br><b>' + window.soldout_rate_higashi[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '福岡市東区',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart4 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_4'));
+
+		soldout_chart4.draw(soldout_data4, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_5').hide();
+	for (var i = 0; i < window.soldout_rate_chuo.length; i++) {
+		if ( window.soldout_rate_chuo[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_5').show();
+		var soldout_data5 = new google.visualization.DataTable();
+		soldout_data5.addColumn('string', 'Seller');
+		soldout_data5.addColumn('number', '販売シェア率');	
+		soldout_data5.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_chuo.length; i++) {
+			sum = sum + window.soldout_rate_chuo[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_chuo.length; i++) {
+			var rate = (window.soldout_rate_chuo[i][1] / sum * 100).toFixed(1);
+			 soldout_data5.addRows([[window.soldout_rate_chuo[i][0], window.soldout_rate_chuo[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_chuo[i][0] + '<br><b>' + window.soldout_rate_chuo[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '福岡市中央区',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart5 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_5'));
+		soldout_chart5.draw(soldout_data5, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_6').hide();
+	for (var i = 0; i < window.soldout_rate_hakata.length; i++) {
+		if ( window.soldout_rate_hakata[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_6').show();
+		var soldout_data6 = new google.visualization.DataTable();
+		soldout_data6.addColumn('string', 'Seller');
+		soldout_data6.addColumn('number', '販売シェア率');	
+		soldout_data6.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_hakata.length; i++) {
+			sum = sum + window.soldout_rate_hakata[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_hakata.length; i++) {
+			var rate = (window.soldout_rate_hakata[i][1] / sum * 100).toFixed(1);
+			 soldout_data6.addRows([[window.soldout_rate_hakata[i][0], window.soldout_rate_hakata[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_hakata[i][0] + '<br><b>' + window.soldout_rate_hakata[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '福岡市博多区',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart6 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_6'));
+		soldout_chart6.draw(soldout_data6, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_7').hide();
+	for (var i = 0; i < window.soldout_rate_sawara.length; i++) {
+		if ( window.soldout_rate_sawara[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_7').show();
+		var soldout_data7 = new google.visualization.DataTable();
+		soldout_data7.addColumn('string', 'Seller');
+		soldout_data7.addColumn('number', '販売シェア率');	
+		soldout_data7.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_sawara.length; i++) {
+			sum = sum + window.soldout_rate_sawara[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_sawara.length; i++) {
+			var rate = (window.soldout_rate_sawara[i][1] / sum * 100).toFixed(1);
+			 soldout_data7.addRows([[window.soldout_rate_sawara[i][0], window.soldout_rate_sawara[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_sawara[i][0] + '<br><b>' + window.soldout_rate_sawara[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '福岡市早良区',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart7 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_7'));
+		soldout_chart7.draw(soldout_data7, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_8').hide();
+	for (var i = 0; i < window.soldout_rate_koga.length; i++) {
+		if ( window.soldout_rate_koga[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_8').show();
+		var soldout_data8 = new google.visualization.DataTable();
+		soldout_data8.addColumn('string', 'Seller');
+		soldout_data8.addColumn('number', '販売シェア率');	
+		soldout_data8.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_koga.length; i++) {
+			sum = sum + window.soldout_rate_koga[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_koga.length; i++) {
+			var rate = (window.soldout_rate_koga[i][1] / sum * 100).toFixed(1);
+			 soldout_data8.addRows([[window.soldout_rate_koga[i][0], window.soldout_rate_koga[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_koga[i][0] + '<br><b>' + window.soldout_rate_koga[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '古賀市',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart8 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_8'));
+		soldout_chart8.draw(soldout_data8, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_9').hide();
+	for (var i = 0; i < window.soldout_rate_sasaguri.length; i++) {
+		if ( window.soldout_rate_sasaguri[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_9').show();
+		var soldout_data9 = new google.visualization.DataTable();
+		soldout_data9.addColumn('string', 'Seller');
+		soldout_data9.addColumn('number', '販売シェア率');	
+		soldout_data9.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_sasaguri.length; i++) {
+			sum = sum + window.soldout_rate_sasaguri[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_sasaguri.length; i++) {
+			var rate = (window.soldout_rate_sasaguri[i][1] / sum * 100).toFixed(1);
+			 soldout_data9.addRows([[window.soldout_rate_sasaguri[i][0], window.soldout_rate_sasaguri[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_sasaguri[i][0] + '<br><b>' + window.soldout_rate_sasaguri[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '糟屋郡篠栗町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart9 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_9'));
+		soldout_chart9.draw(soldout_data9, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_10').hide();
+	for (var i = 0; i < window.soldout_rate_shime.length; i++) {
+		if ( window.soldout_rate_shime[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_10').show();
+		var soldout_data10 = new google.visualization.DataTable();
+		soldout_data10.addColumn('string', 'Seller');
+		soldout_data10.addColumn('number', '販売シェア率');	
+		soldout_data10.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_shime.length; i++) {
+			sum = sum + window.soldout_rate_shime[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_shime.length; i++) {
+			var rate = (window.soldout_rate_shime[i][1] / sum * 100).toFixed(1);
+			 soldout_data10.addRows([[window.soldout_rate_shime[i][0], window.soldout_rate_shime[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_shime[i][0] + '<br><b>' + window.soldout_rate_shime[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '糟屋郡志免町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart10 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_10'));
+		soldout_chart10.draw(soldout_data10, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_11').hide();
+	for (var i = 0; i < window.soldout_rate_kasuga.length; i++) {
+		if ( window.soldout_rate_kasuga[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_11').show();
+		var soldout_data11 = new google.visualization.DataTable();
+		soldout_data11.addColumn('string', 'Seller');
+		soldout_data11.addColumn('number', '販売シェア率');	
+		soldout_data11.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_kasuga.length; i++) {
+			sum = sum + window.soldout_rate_kasuga[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_kasuga.length; i++) {
+			var rate = (window.soldout_rate_kasuga[i][1] / sum * 100).toFixed(1);
+			 soldout_data11.addRows([[window.soldout_rate_kasuga[i][0], window.soldout_rate_kasuga[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_kasuga[i][0] + '<br><b>' + window.soldout_rate_kasuga[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '春日市',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart11 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_11'));
+		soldout_chart11.draw(soldout_data11, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_12').hide();
+	for (var i = 0; i < window.soldout_rate_fukutsu.length; i++) {
+		if ( window.soldout_rate_fukutsu[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_12').show();
+		var soldout_data12 = new google.visualization.DataTable();
+		soldout_data12.addColumn('string', 'Seller');
+		soldout_data12.addColumn('number', '販売シェア率');
+		soldout_data12.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_fukutsu.length; i++) {
+			sum = sum + window.soldout_rate_fukutsu[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_fukutsu.length; i++) {
+			var rate = (window.soldout_rate_fukutsu[i][1] / sum * 100).toFixed(1);
+			 soldout_data12.addRows([[window.soldout_rate_fukutsu[i][0], window.soldout_rate_fukutsu[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_fukutsu[i][0] + '<br><b>' + window.soldout_rate_fukutsu[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '福津市',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart12 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_12'));
+		soldout_chart12.draw(soldout_data12, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_13').hide();
+	for (var i = 0; i < window.soldout_rate_sue.length; i++) {
+		if ( window.soldout_rate_sue[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_13').show();
+		var soldout_data13 = new google.visualization.DataTable();
+		soldout_data13.addColumn('string', 'Seller');
+		soldout_data13.addColumn('number', '販売シェア率');
+		soldout_data13.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_sue.length; i++) {
+			sum = sum + window.soldout_rate_sue[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_sue.length; i++) {
+			var rate = (window.soldout_rate_sue[i][1] / sum * 100).toFixed(1);
+			 soldout_data13.addRows([[window.soldout_rate_sue[i][0], window.soldout_rate_sue[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_sue[i][0] + '<br><b>' + window.soldout_rate_sue[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '糟屋郡須惠町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart13 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_13'));
+		soldout_chart13.draw(soldout_data13, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_14').hide();
+	for (var i = 0; i < window.soldout_rate_ounojou.length; i++) {
+		if ( window.soldout_rate_ounojou[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_14').show();
+		var soldout_data14 = new google.visualization.DataTable();
+		soldout_data14.addColumn('string', 'Seller');
+		soldout_data14.addColumn('number', '販売シェア率');	
+		soldout_data14.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_ounojou.length; i++) {
+			sum = sum + window.soldout_rate_ounojou[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_ounojou.length; i++) {
+			var rate = (window.soldout_rate_ounojou[i][1] / sum * 100).toFixed(1);
+			 soldout_data14.addRows([[window.soldout_rate_ounojou[i][0], window.soldout_rate_ounojou[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_ounojou[i][0] + '<br><b>' + window.soldout_rate_ounojou[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '大野城市',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart14 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_14'));
+		soldout_chart14.draw(soldout_data14, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_15').hide();
+	for (var i = 0; i < window.soldout_rate_hisayama.length; i++) {
+		if ( window.soldout_rate_hisayama[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_15').show();
+		var soldout_data15 = new google.visualization.DataTable();
+		soldout_data15.addColumn('string', 'Seller');
+		soldout_data15.addColumn('number', '販売シェア率');	
+		soldout_data15.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_hisayama.length; i++) {
+			sum = sum + window.soldout_rate_hisayama[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_hisayama.length; i++) {
+			var rate = (window.soldout_rate_hisayama[i][1] / sum * 100).toFixed(1);
+			 soldout_data15.addRows([[window.soldout_rate_hisayama[i][0], window.soldout_rate_hisayama[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_hisayama[i][0] + '<br><b>' + window.soldout_rate_hisayama[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '糟屋郡久山町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart15 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_15'));
+		soldout_chart15.draw(soldout_data15, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_16').hide();
+	for (var i = 0; i < window.soldout_rate_nakagawa.length; i++) {
+		if ( window.soldout_rate_nakagawa[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_16').show();
+		var soldout_data16 = new google.visualization.DataTable();
+		soldout_data16.addColumn('string', 'Seller');
+		soldout_data16.addColumn('number', '販売シェア率');	
+		soldout_data16.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_nakagawa.length; i++) {
+			sum = sum + window.soldout_rate_nakagawa[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_nakagawa.length; i++) {
+			var rate = (window.soldout_rate_nakagawa[i][1] / sum * 100).toFixed(1);
+			 soldout_data16.addRows([[window.soldout_rate_nakagawa[i][0], window.soldout_rate_nakagawa[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_nakagawa[i][0] + '<br><b>' + window.soldout_rate_nakagawa[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '筑紫郡那珂川町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart16 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_16'));
+		soldout_chart16.draw(soldout_data16, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_17').hide();
+	for (var i = 0; i < window.soldout_rate_itoshima.length; i++) {
+		if ( window.soldout_rate_itoshima[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_17').show();
+		var soldout_data17 = new google.visualization.DataTable();
+		soldout_data17.addColumn('string', 'Seller');
+		soldout_data17.addColumn('number', '販売シェア率');	
+		soldout_data17.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_itoshima.length; i++) {
+			sum = sum + window.soldout_rate_itoshima[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_itoshima.length; i++) {
+			var rate = (window.soldout_rate_itoshima[i][1] / sum * 100).toFixed(1);
+			 soldout_data17.addRows([[window.soldout_rate_itoshima[i][0], window.soldout_rate_itoshima[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_itoshima[i][0] + '<br><b>' + window.soldout_rate_itoshima[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '糸島市',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart17 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_17'));
+		soldout_chart17.draw(soldout_data17, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_18').hide();
+	for (var i = 0; i < window.soldout_rate_shingu.length; i++) {
+		if ( window.soldout_rate_shingu[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		
+		$('#soldout_piechart_3d_18').show();
+		var soldout_data18 = new google.visualization.DataTable();
+		soldout_data18.addColumn('string', 'Seller');
+		soldout_data18.addColumn('number', '販売シェア率');	
+		soldout_data18.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_shingu.length; i++) {
+			sum = sum + window.soldout_rate_shingu[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_shingu.length; i++) {
+			var rate = (window.soldout_rate_shingu[i][1] / sum * 100).toFixed(1);
+			 soldout_data18.addRows([[window.soldout_rate_shingu[i][0], window.soldout_rate_shingu[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_shingu[i][0] + '<br><b>' + window.soldout_rate_shingu[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '糟屋郡新宮町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart18 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_18'));
+		soldout_chart18.draw(soldout_data18, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_19').hide();
+	for (var i = 0; i < window.soldout_rate_kurume.length; i++) {
+		if ( window.soldout_rate_kurume[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_19').show();
+		var soldout_data19 = new google.visualization.DataTable();
+		soldout_data19.addColumn('string', 'Seller');
+		soldout_data19.addColumn('number', '販売シェア率');	
+		soldout_data19.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_kurume.length; i++) {
+			sum = sum + window.soldout_rate_kurume[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_kurume.length; i++) {
+			var rate = (window.soldout_rate_kurume[i][1] / sum * 100).toFixed(1);
+			 soldout_data19.addRows([[window.soldout_rate_kurume[i][0], window.soldout_rate_kurume[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_kurume[i][0] + '<br><b>' + window.soldout_rate_kurume[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '久留米市',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],	
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart19 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_19'));
+		soldout_chart19.draw(soldout_data19, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_20').hide();
+	for (var i = 0; i < window.soldout_rate_kasuya.length; i++) {
+		if ( window.soldout_rate_kasuya[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_20').show();
+		var soldout_data20 = new google.visualization.DataTable();
+		soldout_data20.addColumn('string', 'Seller');
+		soldout_data20.addColumn('number', '販売シェア率');
+		soldout_data20.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_kasuya.length; i++) {
+			sum = sum + window.soldout_rate_kasuya[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_kasuya.length; i++) {
+			var rate = (window.soldout_rate_kasuya[i][1] / sum * 100).toFixed(1);
+			 soldout_data20.addRows([[window.soldout_rate_kasuya[i][0], window.soldout_rate_kasuya[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_kasuya[i][0] + '<br><b>' + window.soldout_rate_kasuya[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '糟屋郡粕屋町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart20 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_20'));
+		soldout_chart20.draw(soldout_data20, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_21').hide();
+	for (var i = 0; i < window.soldout_rate_umimachi.length; i++) {
+		if ( window.soldout_rate_umimachi[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_21').show();
+		var soldout_data21 = new google.visualization.DataTable();
+		soldout_data21.addColumn('string', 'Seller');
+		soldout_data21.addColumn('number', '販売シェア率');
+		soldout_data21.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_umimachi.length; i++) {
+			sum = sum + window.soldout_rate_umimachi[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_umimachi.length; i++) {
+			var rate = (window.soldout_rate_umimachi[i][1] / sum * 100).toFixed(1);
+			 soldout_data21.addRows([[window.soldout_rate_umimachi[i][0], window.soldout_rate_umimachi[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_umimachi[i][0] + '<br><b>' + window.soldout_rate_umimachi[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '糟屋郡宇美町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart21 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_21'));
+		soldout_chart21.draw(soldout_data21, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_22').hide();
+	for (var i = 0; i < window.soldout_rate_dazaifu.length; i++) {
+		if ( window.soldout_rate_dazaifu[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_22').show();
+		var soldout_data22 = new google.visualization.DataTable();
+		soldout_data22.addColumn('string', 'Seller');
+		soldout_data22.addColumn('number', '販売シェア率');	
+		soldout_data22.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_dazaifu.length; i++) {
+			sum = sum + window.soldout_rate_dazaifu[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_dazaifu.length; i++) {
+			var rate = (window.soldout_rate_dazaifu[i][1] / sum * 100).toFixed(1);
+			 soldout_data22.addRows([[window.soldout_rate_dazaifu[i][0], window.soldout_rate_dazaifu[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_dazaifu[i][0] + '<br><b>' + window.soldout_rate_dazaifu[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '太宰府市',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart22 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_22'));
+		soldout_chart22.draw(soldout_data22, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_23').hide();
+	for (var i = 0; i < window.soldout_rate_yanagawa.length; i++) {
+		if ( window.soldout_rate_yanagawa[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_23').show();
+		var soldout_data23 = new google.visualization.DataTable();
+		soldout_data23.addColumn('string', 'Seller');
+		soldout_data23.addColumn('number', '販売シェア率');
+		soldout_data23.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_yanagawa.length; i++) {
+			sum = sum + window.soldout_rate_yanagawa[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_yanagawa.length; i++) {
+			var rate = (window.soldout_rate_yanagawa[i][1] / sum * 100).toFixed(1);
+			 soldout_data23.addRows([[window.soldout_rate_yanagawa[i][0], window.soldout_rate_yanagawa[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_yanagawa[i][0] + '<br><b>' + window.soldout_rate_yanagawa[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+
+		var options = {
+		  title: '柳川市',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],	
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart23 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_23'));
+		soldout_chart23.draw(soldout_data23, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_24').hide();
+	for (var i = 0; i < window.soldout_rate_chikuzen.length; i++) {
+		if ( window.soldout_rate_chikuzen[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_24').show();
+		var soldout_data24 = new google.visualization.DataTable();
+		soldout_data24.addColumn('string', 'Seller');
+		soldout_data24.addColumn('number', '販売シェア率');	
+		soldout_data24.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_chikuzen.length; i++) {
+			sum = sum + window.soldout_rate_chikuzen[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_chikuzen.length; i++) {
+			var rate = (window.soldout_rate_chikuzen[i][1] / sum * 100).toFixed(1);
+			 soldout_data24.addRows([[window.soldout_rate_chikuzen[i][0], window.soldout_rate_chikuzen[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_chikuzen[i][0] + '<br><b>' + window.soldout_rate_chikuzen[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '朝倉郡筑前町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart24 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_24'));
+		soldout_chart24.draw(soldout_data24, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_25').hide();
+	for (var i = 0; i < window.soldout_rate_kamimine.length; i++) {
+		if ( window.soldout_rate_kamimine[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_25').show();
+		var soldout_data25 = new google.visualization.DataTable();
+		soldout_data25.addColumn('string', 'Seller');
+		soldout_data25.addColumn('number', '販売シェア率');
+		soldout_data25.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_kamimine.length; i++) {
+			sum = sum + window.soldout_rate_kamimine[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_kamimine.length; i++) {
+			var rate = (window.soldout_rate_kamimine[i][1] / sum * 100).toFixed(1);
+			 soldout_data25.addRows([[window.soldout_rate_kamimine[i][0], window.soldout_rate_kamimine[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_kamimine[i][0] + '<br><b>' + window.soldout_rate_kamimine[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '三養基郡上峰町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart25 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_25'));
+		soldout_chart25.draw(soldout_data25, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_26').hide();
+	for (var i = 0; i < window.soldout_rate_tachiarai.length; i++) {
+		if ( window.soldout_rate_tachiarai[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_26').show();
+		var soldout_data26 = new google.visualization.DataTable();
+		soldout_data26.addColumn('string', 'Seller');
+		soldout_data26.addColumn('number', '販売シェア率');	
+		soldout_data26.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_tachiarai.length; i++) {
+			sum = sum + window.soldout_rate_tachiarai[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_tachiarai.length; i++) {
+			var rate = (window.soldout_rate_tachiarai[i][1] / sum * 100).toFixed(1);
+			 soldout_data26.addRows([[window.soldout_rate_tachiarai[i][0], window.soldout_rate_tachiarai[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_tachiarai[i][0] + '<br><b>' + window.soldout_rate_tachiarai[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '三井郡大刀洗町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart26 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_26'));
+		soldout_chart26.draw(soldout_data26, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_27').hide();
+	for (var i = 0; i < window.soldout_rate_ogori.length; i++) {
+		if ( window.soldout_rate_ogori[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_27').show();
+		var soldout_data27 = new google.visualization.DataTable();
+		soldout_data27.addColumn('string', 'Seller');
+		soldout_data27.addColumn('number', '販売シェア率');	
+		soldout_data27.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_ogori.length; i++) {
+			sum = sum + window.soldout_rate_ogori[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_ogori.length; i++) {
+			var rate = (window.soldout_rate_ogori[i][1] / sum * 100).toFixed(1);
+			 soldout_data27.addRows([[window.soldout_rate_ogori[i][0], window.soldout_rate_ogori[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_ogori[i][0] + '<br><b>' + window.soldout_rate_ogori[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '小郡市',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart27 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_27'));
+		soldout_chart27.draw(soldout_data27, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_28').hide();
+	for (var i = 0; i < window.soldout_rate_chikujou.length; i++) {
+		if ( window.soldout_rate_chikujou[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_28').show();
+		var soldout_data28 = new google.visualization.DataTable();
+		soldout_data28.addColumn('string', 'Seller');
+		soldout_data28.addColumn('number', '販売シェア率');	
+		soldout_data28.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_chikujou.length; i++) {
+			sum = sum + window.soldout_rate_chikujou[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_chikujou.length; i++) {
+			var rate = (window.soldout_rate_chikujou[i][1] / sum * 100).toFixed(1);
+			 soldout_data28.addRows([[window.soldout_rate_chikujou[i][0], window.soldout_rate_chikujou[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_chikujou[i][0] + '<br><b>' + window.soldout_rate_chikujou[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+
+		var options = {
+		  title: '築上郡築上町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],	
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart28 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_28'));
+		soldout_chart28.draw(soldout_data28, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_29').hide();
+	for (var i = 0; i < window.soldout_rate_chikushino.length; i++) {
+		if ( window.soldout_rate_chikushino[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_29').show();
+		var soldout_data29 = new google.visualization.DataTable();
+		soldout_data29.addColumn('string', 'Seller');
+		soldout_data29.addColumn('number', '販売シェア率');	
+		soldout_data29.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_chikushino.length; i++) {
+			sum = sum + window.soldout_rate_chikushino[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_chikushino.length; i++) {
+			var rate = (window.soldout_rate_chikushino[i][1] / sum * 100).toFixed(1);
+			 soldout_data29.addRows([[window.soldout_rate_chikushino[i][0], window.soldout_rate_chikushino[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_chikushino[i][0] + '<br><b>' + window.soldout_rate_chikushino[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '筑紫野市',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart29 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_29'));
+		soldout_chart29.draw(soldout_data29, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_30').hide();
+	for (var i = 0; i < window.soldout_rate_miyaki.length; i++) {
+		if ( window.soldout_rate_miyaki[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_30').show();
+		var soldout_data30 = new google.visualization.DataTable();
+		soldout_data30.addColumn('string', 'Seller');
+		soldout_data30.addColumn('number', '販売シェア率');
+		soldout_data30.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_miyaki.length; i++) {
+			sum = sum + window.soldout_rate_miyaki[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_miyaki.length; i++) {
+			var rate = (window.soldout_rate_miyaki[i][1] / sum * 100).toFixed(1);
+			 soldout_data30.addRows([[window.soldout_rate_miyaki[i][0], window.soldout_rate_miyaki[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_miyaki[i][0] + '<br><b>' + window.soldout_rate_miyaki[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '三養基郡みやき町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],	
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart30 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_30'));
+		soldout_chart30.draw(soldout_data30, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_31').hide();
+	for (var i = 0; i < window.soldout_rate_tosu.length; i++) {
+		if ( window.soldout_rate_tosu[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_31').show();
+		var soldout_data31 = new google.visualization.DataTable();
+		soldout_data31.addColumn('string', 'Seller');
+		soldout_data31.addColumn('number', '販売シェア率');
+		soldout_data31.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_tosu.length; i++) {
+			sum = sum + window.soldout_rate_tosu[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_tosu.length; i++) {
+			var rate = (window.soldout_rate_tosu[i][1] / sum * 100).toFixed(1);
+			 soldout_data31.addRows([[window.soldout_rate_tosu[i][0], window.soldout_rate_tosu[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_tosu[i][0] + '<br><b>' + window.soldout_rate_tosu[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+
+		
+		var options = {
+		  title: '鳥栖市',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],	
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart31 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_31'));
+		soldout_chart31.draw(soldout_data31, options);
+	}
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_3d_32').hide();
+	for (var i = 0; i < window.soldout_rate_kiyama.length; i++) {
+		if ( window.soldout_rate_kiyama[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+	if (!dont_draw) {
+		$('#soldout_piechart_3d_32').show();
+		var soldout_data32 = new google.visualization.DataTable();
+		soldout_data32.addColumn('string', 'Seller');
+		soldout_data32.addColumn('number', '販売シェア率');
+		soldout_data32.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_kiyama.length; i++) {
+			sum = sum + window.soldout_rate_kiyama[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_kiyama.length; i++) {
+			var rate = (window.soldout_rate_kiyama[i][1] / sum * 100).toFixed(1);
+			 soldout_data32.addRows([[window.soldout_rate_kiyama[i][0], window.soldout_rate_kiyama[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_kiyama[i][0] + '<br><b>' + window.soldout_rate_kiyama[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: '三養基郡基山町',
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart32 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_32'));
+		soldout_chart32.draw(soldout_data32, options);
+	}
 }
+
+
+function resetAnalysisTable() {
+	$('#analysis_tbl').show();
+	$('#name').html('<th width="12%"></th>');
+	$('#sale_number').html('<th>新規売出物件数</th>');
+	$('#market_rate').html('<th>新規売出物件数シェア</th>');
+	$('#selling_number').html('<th>売出中物件数</th>');
+	$('#selling_rate').html('<th>売出中物件数シェア</th>');
+	$('#soldout_number').html('<th>成約物件数</th>');
+	$('#soldout_rate').html('<th>成約率</th>');
+	$('#soldout_before_complete_number').html('<th>売出前成約件数</th>');
+	$('#rate_soldout_before_complete').html('<th>売出前成約率</th>');
+	$('#avg_price_regist').html('<th>平均売出価格</th>');
+	$('#avg_price_sold').html('<th>平均成約価格</th>');
+	$('#avg_time_sold').html('<th>平均売出期間</th>');
+	$('#avg_down_price').html('<th>平均値下価格</th>');
+	$('#avg_down_price_rate').html('<th>平均値下率</th>');
+	$('#avg_time_change_circle').html('<th>平均価格改定周期</th>');
+}
+
+
+
+function resetPieChartData() {
+	//for market rate chart
+	window.market_rate = Array();
+	window.market_rate_jonan = Array();
+	window.market_rate_minami = Array();
+	window.market_rate_nishi = Array();
+	window.market_rate_higashi = Array();
+	window.market_rate_chuo = Array();
+	window.market_rate_hakata = Array();
+	window.market_rate_sawara = Array();
+	window.market_rate_koga = Array();
+	window.market_rate_sasaguri = Array();
+	window.market_rate_shime = Array();
+	window.market_rate_kasuga = Array();
+	window.market_rate_fukutsu = Array();
+	window.market_rate_sue = Array();
+	window.market_rate_ounojou = Array();
+	window.market_rate_hisayama = Array();
+	window.market_rate_nakagawa = Array();
+	window.market_rate_itoshima = Array();
+	window.market_rate_shingu = Array();
+	window.market_rate_kurume = Array();
+	window.market_rate_kasuya = Array();
+	window.market_rate_umimachi = Array();
+	window.market_rate_dazaifu = Array();
+	window.market_rate_yanagawa = Array();
+	window.market_rate_chikuzen = Array();
+	window.market_rate_kamimine = Array();
+	window.market_rate_tachiarai = Array();
+	window.market_rate_ogori = Array();
+	window.market_rate_chikujou = Array();
+	window.market_rate_chikushino = Array();
+	window.market_rate_miyaki = Array();
+	window.market_rate_tosu = Array();
+	window.market_rate_kiyama = Array();
+	
+	
+	//for soldout rate chart
+	window.soldout_rate = Array();
+	window.soldout_rate_jonan = Array();
+	window.soldout_rate_minami = Array();
+	window.soldout_rate_nishi = Array();
+	window.soldout_rate_higashi = Array();
+	window.soldout_rate_chuo = Array();
+	window.soldout_rate_hakata = Array();
+	window.soldout_rate_sawara = Array();
+	window.soldout_rate_koga = Array();
+	window.soldout_rate_sasaguri = Array();
+	window.soldout_rate_shime = Array();
+	window.soldout_rate_kasuga = Array();
+	window.soldout_rate_fukutsu = Array();
+	window.soldout_rate_sue = Array();
+	window.soldout_rate_ounojou = Array();
+	window.soldout_rate_hisayama = Array();
+	window.soldout_rate_nakagawa = Array();
+	window.soldout_rate_itoshima = Array();
+	window.soldout_rate_shingu = Array();
+	window.soldout_rate_kurume = Array();
+	window.soldout_rate_kasuya = Array();
+	window.soldout_rate_umimachi = Array();
+	window.soldout_rate_dazaifu = Array();
+	window.soldout_rate_yanagawa = Array();
+	window.soldout_rate_chikuzen = Array();
+	window.soldout_rate_kamimine = Array();
+	window.soldout_rate_tachiarai = Array();
+	window.soldout_rate_ogori = Array();
+	window.soldout_rate_chikujou = Array();
+	window.soldout_rate_chikushino = Array();
+	window.soldout_rate_miyaki = Array();
+	window.soldout_rate_tosu = Array();
+	window.soldout_rate_kiyama = Array();
+}
+
+
+
+
+
+//draw line chart
+function drawChartForEachCity() {
+	//hide div not use
+	$("#chart_div_1").hide();
+	$("#chart_div_1_40136").hide();
+	$("#chart_div_1_40134").hide();
+	$("#chart_div_1_40135").hide();
+	$("#chart_div_1_40131").hide();
+	$("#chart_div_1_40133").hide();
+	$("#chart_div_1_40132").hide();
+	$("#chart_div_1_40137").hide();
+	$("#chart_div_1_40223").hide();
+	$("#chart_div_1_40342").hide();
+	$("#chart_div_1_40343").hide();
+	$("#chart_div_1_40218").hide();
+	$("#chart_div_1_40224").hide();
+	$("#chart_div_1_40344").hide();
+	$("#chart_div_1_40219").hide();
+	$("#chart_div_1_40348").hide();
+	$("#chart_div_1_40305").hide();
+	$("#chart_div_1_40230").hide();
+	$("#chart_div_1_40345").hide();
+	$("#chart_div_1_40203").hide();
+	$("#chart_div_1_40349").hide();
+	$("#chart_div_1_40341").hide();
+	$("#chart_div_1_40221").hide();
+	$("#chart_div_1_40207").hide();
+	$("#chart_div_1_40447").hide();
+	$("#chart_div_1_41345").hide();
+	$("#chart_div_1_40503").hide();
+	$("#chart_div_1_40216").hide();
+	$("#chart_div_1_40647").hide();
+	$("#chart_div_1_40217").hide();
+	$("#chart_div_1_41346").hide();
+	$("#chart_div_1_41203").hide();
+	$("#chart_div_1_41341").hide();
+
+	$("#chart_div_2").hide();
+	$("#chart_div_2_40136").hide();
+	$("#chart_div_2_40134").hide();
+	$("#chart_div_2_40135").hide();
+	$("#chart_div_2_40131").hide();
+	$("#chart_div_2_40133").hide();
+	$("#chart_div_2_40132").hide();
+	$("#chart_div_2_40137").hide();
+	$("#chart_div_2_40223").hide();
+	$("#chart_div_2_40342").hide();
+	$("#chart_div_2_40343").hide();
+	$("#chart_div_2_40218").hide();
+	$("#chart_div_2_40224").hide();
+	$("#chart_div_2_40344").hide();
+	$("#chart_div_2_40219").hide();
+	$("#chart_div_2_40348").hide();
+	$("#chart_div_2_40305").hide();
+	$("#chart_div_2_40230").hide();
+	$("#chart_div_2_40345").hide();
+	$("#chart_div_2_40203").hide();
+	$("#chart_div_2_40349").hide();
+	$("#chart_div_2_40341").hide();
+	$("#chart_div_2_40221").hide();
+	$("#chart_div_2_40207").hide();
+	$("#chart_div_2_40447").hide();
+	$("#chart_div_2_41345").hide();
+	$("#chart_div_2_40503").hide();
+	$("#chart_div_2_40216").hide();
+	$("#chart_div_2_40647").hide();
+	$("#chart_div_2_40217").hide();
+	$("#chart_div_2_41346").hide();
+	$("#chart_div_2_41203").hide();
+	$("#chart_div_2_41341").hide();
+
+	$("#chart_div_3").hide();
+	$("#chart_div_3_40136").hide();
+	$("#chart_div_3_40134").hide();
+	$("#chart_div_3_40135").hide();
+	$("#chart_div_3_40131").hide();
+	$("#chart_div_3_40133").hide();
+	$("#chart_div_3_40132").hide();
+	$("#chart_div_3_40137").hide();
+	$("#chart_div_3_40223").hide();
+	$("#chart_div_3_40342").hide();
+	$("#chart_div_3_40343").hide();
+	$("#chart_div_3_40218").hide();
+	$("#chart_div_3_40224").hide();
+	$("#chart_div_3_40344").hide();
+	$("#chart_div_3_40219").hide();
+	$("#chart_div_3_40348").hide();
+	$("#chart_div_3_40305").hide();
+	$("#chart_div_3_40230").hide();
+	$("#chart_div_3_40345").hide();
+	$("#chart_div_3_40203").hide();
+	$("#chart_div_3_40349").hide();
+	$("#chart_div_3_40341").hide();
+	$("#chart_div_3_40221").hide();
+	$("#chart_div_3_40207").hide();
+	$("#chart_div_3_40447").hide();
+	$("#chart_div_3_41345").hide();
+	$("#chart_div_3_40503").hide();
+	$("#chart_div_3_40216").hide();
+	$("#chart_div_3_40647").hide();
+	$("#chart_div_3_40217").hide();
+	$("#chart_div_3_41346").hide();
+	$("#chart_div_3_41203").hide();
+	$("#chart_div_3_41341").hide();
+
+	$("#chart_div_4").hide();
+	$("#chart_div_4_40136").hide();
+	$("#chart_div_4_40134").hide();
+	$("#chart_div_4_40135").hide();
+	$("#chart_div_4_40131").hide();
+	$("#chart_div_4_40133").hide();
+	$("#chart_div_4_40132").hide();
+	$("#chart_div_4_40137").hide();
+	$("#chart_div_4_40223").hide();
+	$("#chart_div_4_40342").hide();
+	$("#chart_div_4_40343").hide();
+	$("#chart_div_4_40218").hide();
+	$("#chart_div_4_40224").hide();
+	$("#chart_div_4_40344").hide();
+	$("#chart_div_4_40219").hide();
+	$("#chart_div_4_40348").hide();
+	$("#chart_div_4_40305").hide();
+	$("#chart_div_4_40230").hide();
+	$("#chart_div_4_40345").hide();
+	$("#chart_div_4_40203").hide();
+	$("#chart_div_4_40349").hide();
+	$("#chart_div_4_40341").hide();
+	$("#chart_div_4_40221").hide();
+	$("#chart_div_4_40207").hide();
+	$("#chart_div_4_40447").hide();
+	$("#chart_div_4_41345").hide();
+	$("#chart_div_4_40503").hide();
+	$("#chart_div_4_40216").hide();
+	$("#chart_div_4_40647").hide();
+	$("#chart_div_4_40217").hide();
+	$("#chart_div_4_41346").hide();
+	$("#chart_div_4_41203").hide();
+	$("#chart_div_4_41341").hide();
+
+	$("#chart_div_5").hide();
+	$("#chart_div_5_40136").hide();
+	$("#chart_div_5_40134").hide();
+	$("#chart_div_5_40135").hide();
+	$("#chart_div_5_40131").hide();
+	$("#chart_div_5_40133").hide();
+	$("#chart_div_5_40132").hide();
+	$("#chart_div_5_40137").hide();
+	$("#chart_div_5_40223").hide();
+	$("#chart_div_5_40342").hide();
+	$("#chart_div_5_40343").hide();
+	$("#chart_div_5_40218").hide();
+	$("#chart_div_5_40224").hide();
+	$("#chart_div_5_40344").hide();
+	$("#chart_div_5_40219").hide();
+	$("#chart_div_5_40348").hide();
+	$("#chart_div_5_40305").hide();
+	$("#chart_div_5_40230").hide();
+	$("#chart_div_5_40345").hide();
+	$("#chart_div_5_40203").hide();
+	$("#chart_div_5_40349").hide();
+	$("#chart_div_5_40341").hide();
+	$("#chart_div_5_40221").hide();
+	$("#chart_div_5_40207").hide();
+	$("#chart_div_5_40447").hide();
+	$("#chart_div_5_41345").hide();
+	$("#chart_div_5_40503").hide();
+	$("#chart_div_5_40216").hide();
+	$("#chart_div_5_40647").hide();
+	$("#chart_div_5_40217").hide();
+	$("#chart_div_5_41346").hide();
+	$("#chart_div_5_41203").hide();
+	$("#chart_div_5_41341").hide();
+	
+	// Get data.
+	var result;
+	
+	var city = new Array();
+	$.each($("input[name='city[]']:checked"), function() {
+		city.push($(this).val());
+	});
+	var cat_item = new Array();
+	$.each($("input[name='cat_item[]']:checked"), function() {
+		cat_item.push($(this).val());
+	});
+	var condition = new Array();
+	$.each($("input[name='condition[]']:checked"), function() {
+		condition.push($(this).val());
+	});
+	var seller = new Array();
+	$.each($("input[name='seller[]']:checked"), function() {
+		seller.push($(this).val());
+	});
+	
+	if (!city[0]) {
+		city = ["40136", "40134", "40135", "40131", "40133", "40132", "40137", "40223", "40342", "40343", "40218", "40224", "40344", "40219", "40348", "40305", "40230", "40345", "40203", "40349", "40341", "40221", "40207", "40447", "41345", "40503", "40216", "40647", "40217", "41346", "41203", "41341"];
+	}
+	
+	for (var j = 1; j < 6; j++) {
+		var formData = {
+			city: city,
+			cat_item: cat_item,
+			condition: condition,
+			seller: seller,
+			from: $("#from").val(),
+			to: $("#to").val(),
+			select_opt: j
+			};
+		
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+			}
+		})    
+				
+		$.ajax({
+			url: "/item/?md=get_analysis",
+			type: 'POST',
+			data: formData,
+			dataType: "json",
+			async: false,
+			success: function (data) {
+				result = data;
+			}
+		});
+		
+			if (!result) {
+				var error = '<div class="alert alert-danger">見付かっていません。</div>';
+				$('#error').html(error);
+			} else {
+			// create chart
+			var data = new google.visualization.DataTable();
+			
+			data.addColumn('date', 'Date');
+			if ($("#select_opt").val() == 4 || $("#select_opt").val() == 5){
+				data.addColumn('number', '価格');
+			} else {
+				data.addColumn('number', '件数');
+			}
+			data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
+			
+			if (result.length > 0 && j < 4) {
+				if ((new Date($("#to").val()) - new Date($("#from").val())) > 730*86400*1000) {
+					var date = new Date(result[0].x_axis).getDate() + 30;
+					var month = new Date(result[0].x_axis).getMonth();
+					var year = new Date(result[0].x_axis).getFullYear();
+					
+					var x_axis = new Date(year, month, date);
+					var y_axis = parseInt(0); 
+					data.addRows([[x_axis, y_axis, '']]);
+				} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 365*86400*1000 ) {
+					var date = new Date(result[0].x_axis).getDate() + 14;
+					var month = new Date(result[0].x_axis).getMonth();
+					var year = new Date(result[0].x_axis).getFullYear();
+					
+					var x_axis = new Date(year, month, date);
+					var y_axis = parseInt(0); 
+					data.addRows([[x_axis, y_axis, '']]);
+				} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 180*86400*1000 ) {
+					var date = new Date(result[0].x_axis).getDate() + 7;
+					var month = new Date(result[0].x_axis).getMonth();
+					var year = new Date(result[0].x_axis).getFullYear();
+					
+					var x_axis = new Date(year, month, date);
+					var y_axis = parseInt(0); 
+					data.addRows([[x_axis, y_axis, '']]);
+				} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 60*86400*1000 ) {
+					var date = new Date(result[0].x_axis).getDate() + 3;
+					var month = new Date(result[0].x_axis).getMonth();
+					var year = new Date(result[0].x_axis).getFullYear();
+					
+					var x_axis = new Date(year, month, date);
+					var y_axis = parseInt(0); 
+					data.addRows([[x_axis, y_axis, '']]);
+				} else {
+					var date = new Date(result[0].x_axis).getDate() + 1;
+					var month = new Date(result[0].x_axis).getMonth();
+					var year = new Date(result[0].x_axis).getFullYear();
+					
+					var x_axis = new Date(year, month, date);
+					var y_axis = parseInt(0); 
+					data.addRows([[x_axis, y_axis, '']]);
+				}
+			}
+			
+			for (var i = 0; i < result.length; i++) {                                  
+				var date = new Date(result[i].x_axis).getDate();
+				var month = new Date(result[i].x_axis).getMonth();
+				var year = new Date(result[i].x_axis).getFullYear();
+				
+				var x_axis = new Date(year, month, date);
+				var y_axis = parseInt(result[i].y_axis);  
+				
+				if ($("#select_opt").val() == 4 || $("#select_opt").val() == 5){ //if opt = 4 || opt = 5
+					if ((new Date($("#to").val()) - new Date($("#from").val())) > 365*86400*1000) {
+						var d = new Date(result[i].x_axis);
+						
+						var month = d.getMonth() + 1;
+						var year = d.getFullYear();
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ year + '年' + month + '月</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
+						
+					} else if ((new Date($("#to").val()) - new Date($("#from").val())) > 180*86400*1000) {
+						var d = new Date(result[i].x_axis);
+						
+						d.setDate(d.getDate() - 7);
+						d = (d > new Date($("#from").val()))? d : new Date($("#from").val());
+											
+						var date_start = d.getDate();
+						var month_start = d.getMonth() + 1;
+						
+						d.setDate(d.getDate() + 13);
+						d = (d < new Date($("#to").val()))? d : new Date($("#to").val());
+						
+						var date_end = d.getDate();
+						var month_end = d.getMonth() + 1;
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
+						
+					} else if ((new Date($("#to").val()) - new Date($("#from").val())) > 30*86400*1000) {
+						var d = new Date(result[i].x_axis);
+						
+						d.setDate(d.getDate() - 3);
+						d = (d > new Date($("#from").val()))? d : new Date($("#from").val());
+											
+						var date_start = d.getDate();
+						var month_start = d.getMonth() + 1;
+						
+						d.setDate(d.getDate() + 6);
+						d = (d < new Date($("#to").val()))? d : new Date($("#to").val());
+						
+						var date_end = d.getDate();
+						var month_end = d.getMonth() + 1;
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
+					} else {
+						month = month + 1;
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month + '月' + date + '日</div><br><b>' + y_axis + '万円</b></div></div>';
+					}
+				   
+				} else { //if opt = 1 || opt = 2 || opt = 3
+					if ((new Date($("#to").val()) - new Date($("#from").val())) > 730*86400*1000) {
+						var d = new Date(result[i].x_axis);
+						
+						var month = d.getMonth() + 1;
+						var year = d.getFullYear();
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ year + '年' + month + '月</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+					
+					} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 365*86400*1000 )
+					{
+						var d = new Date(result[i].x_axis);
+						
+						d.setDate(d.getDate() - 7);
+						d = (d > new Date($("#from").val()))? d : new Date($("#from").val());
+											
+						var date_start = d.getDate();
+						var month_start = d.getMonth() + 1;
+						
+						d.setDate(d.getDate() + 13);
+						d = (d < new Date($("#to").val()))? d : new Date($("#to").val());
+						
+						var date_end = d.getDate();
+						var month_end = d.getMonth() + 1;
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+					
+					} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 180*86400*1000 )
+					{
+						var d = new Date(result[i].x_axis);
+						
+						d.setDate(d.getDate() - 3);
+						d = (d > new Date($("#from").val()))? d : new Date($("#from").val());
+											
+						var date_start = d.getDate();
+						var month_start = d.getMonth() + 1;
+						
+						d.setDate(d.getDate() + 6);
+						d = (d < new Date($("#to").val()))? d : new Date($("#to").val());
+						
+						var date_end = d.getDate();
+						var month_end = d.getMonth() + 1;
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+					
+					} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 60*86400*1000 )
+					{
+						var d = new Date(result[i].x_axis);
+						
+						d.setDate(d.getDate() - 1);
+						d = (d > new Date($("#from").val()))? d : new Date($("#from").val());
+											
+						var date_start = d.getDate();
+						var month_start = d.getMonth() + 1;
+						
+						d.setDate(d.getDate() + 2);
+						d = (d < new Date($("#to").val()))? d : new Date($("#to").val());
+						
+						var date_end = d.getDate();
+						var month_end = d.getMonth() + 1;
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+					
+					} else {
+						month += 1; 
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month + '月' + date + '日</div><br><div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+					}
+				}
+				data.addRows([[x_axis, y_axis, tooltip]]);
+			}
+			// Set chart options
+			var max_xAxis = new Date($("#to").val());
+			max_xAxis.setDate(max_xAxis.getDate() + 3);
+			var min_xAxis = new Date($("#from").val());
+			min_xAxis.setDate(min_xAxis.getDate() - 3);
+			
+			var options = {
+				title: '全体',
+				titleTextStyle: {fontSize: 18},
+		  		legend: { textStyle: {fontSize: 13}},
+				explorer: { 
+					actions: ['dragToZoom', 'rightClickToReset'],
+					axis: 'horizontal',
+					keepInBounds: true,
+					zoomDelta: 0.5,
+				},
+				backgroundColor: '#D5D5D5',
+				bar: { 
+					groupWidth: "100%"
+				},
+				tooltip: {
+					isHtml: true
+				},
+				hAxis: {
+					baseline: min_xAxis,
+					baselineColor: '#CCC',
+					textStyle: {
+						fontSize: 13,
+					},
+					slantedText: true,
+					format: 'M月d日',
+					viewWindowMode: 'pretty',
+					viewWindow: {
+						max: max_xAxis,
+						min: min_xAxis
+					},
+					gridlines: {
+						count: 20,
+						units: {
+							years: {format: ["yy/mm"]},
+							months: {format: ["mm/dd"]},
+							days: {format: ["mm/dd"]},
+						  }
+					}
+				},
+				pointSize: 10
+			};
+		
+		var options1 = {
+				title: '全体',
+				titleTextStyle: {fontSize: 18},
+				legend: { textStyle: {fontSize: 13}},
+				explorer: { 
+					actions: ['dragToZoom', 'rightClickToReset'],
+					axis: 'horizontal',
+					keepInBounds: true,
+					zoomDelta: 0.5,
+				},
+				backgroundColor: '#D5D5D5',
+				tooltip: {
+					isHtml: true
+				},
+				hAxis: {
+					baseline: min_xAxis,
+					baselineColor: '#CCC',
+					textStyle: {
+						fontSize: 13,
+					},
+					slantedText: true,
+					format: 'M月d日',
+					viewWindowMode: 'pretty',
+					viewWindow: {
+						max: max_xAxis,
+						min: min_xAxis
+					},
+					gridlines: {
+						count: 20,
+						units: {
+							years: {format: ["yy/mm"]},
+							months: {format: ["mm/dd"]},
+							days: {format: ["mm/dd"]},
+						  }
+					}
+				},
+				pointSize: 10
+			};
+			
+			
+			var chart_div = 'chart_div_' + j;
+			
+			// Instantiate and draw our chart, passing in some options.
+			if (j <= 3) {
+				var chart = new google.visualization.ColumnChart(document.getElementById(chart_div));
+			} else {
+				var chart = new google.visualization.LineChart(document.getElementById(chart_div));	
+			}
+			
+			if ( (new Date($("#to").val()) - new Date($("#from").val())) > 60*86400*1000 )
+			{
+				$('#chart_div_' + j).show();
+				chart.draw(data, options);
+			} else {
+				$('#chart_div_' + j).show();
+				chart.draw(data, options1);
+			}
+			
+		}
+	}
+	
+	
+	city.forEach(function (in_city) {		   
+		for (var j = 1; j < 6; j++) {
+		var city = [in_city];
+			var formData = {
+				city: city,
+				cat_item: cat_item,
+				condition: condition,
+				seller: seller,
+				from: $("#from").val(),
+				to: $("#to").val(),
+				select_opt: j
+				};
+			
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+				}
+			})    
+					
+			$.ajax({
+				url: "/item/?md=get_analysis",
+				type: 'POST',
+				data: formData,
+				dataType: "json",
+				async: false,
+				success: function (data) {
+					result = data;
+				}
+			});
+			
+				if (!result) {
+					var error = '<div class="alert alert-danger">見付かっていません。</div>';
+					$('#error').html(error);
+				} else {
+				// create chart
+				var data = new google.visualization.DataTable();
+				
+				data.addColumn('date', 'Date');
+				if ($("#select_opt").val() == 4 || $("#select_opt").val() == 5){
+					data.addColumn('number', '価格');
+				} else {
+					data.addColumn('number', '件数');
+				}
+				data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
+				
+				if (result.length > 0 && j < 4) {
+					if ((new Date($("#to").val()) - new Date($("#from").val())) > 730*86400*1000) {
+						var date = new Date(result[0].x_axis).getDate() + 30;
+						var month = new Date(result[0].x_axis).getMonth();
+						var year = new Date(result[0].x_axis).getFullYear();
+						
+						var x_axis = new Date(year, month, date);
+						var y_axis = parseInt(0); 
+						data.addRows([[x_axis, y_axis, '']]);
+					} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 365*86400*1000 ) {
+						var date = new Date(result[0].x_axis).getDate() + 14;
+						var month = new Date(result[0].x_axis).getMonth();
+						var year = new Date(result[0].x_axis).getFullYear();
+						
+						var x_axis = new Date(year, month, date);
+						var y_axis = parseInt(0); 
+						data.addRows([[x_axis, y_axis, '']]);
+					} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 180*86400*1000 ) {
+						var date = new Date(result[0].x_axis).getDate() + 7;
+						var month = new Date(result[0].x_axis).getMonth();
+						var year = new Date(result[0].x_axis).getFullYear();
+						
+						var x_axis = new Date(year, month, date);
+						var y_axis = parseInt(0); 
+						data.addRows([[x_axis, y_axis, '']]);
+					} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 60*86400*1000 ) {
+						var date = new Date(result[0].x_axis).getDate() + 3;
+						var month = new Date(result[0].x_axis).getMonth();
+						var year = new Date(result[0].x_axis).getFullYear();
+						
+						var x_axis = new Date(year, month, date);
+						var y_axis = parseInt(0); 
+						data.addRows([[x_axis, y_axis, '']]);
+					} else {
+						var date = new Date(result[0].x_axis).getDate() + 1;
+						var month = new Date(result[0].x_axis).getMonth();
+						var year = new Date(result[0].x_axis).getFullYear();
+						
+						var x_axis = new Date(year, month, date);
+						var y_axis = parseInt(0); 
+						data.addRows([[x_axis, y_axis, '']]);
+					}
+				}
+					
+				for (var i = 0; i < result.length; i++) { 
+					var date = new Date(result[i].x_axis).getDate();
+					var month = new Date(result[i].x_axis).getMonth();
+					var year = new Date(result[i].x_axis).getFullYear();
+					
+					var x_axis = new Date(year, month, date);
+					var y_axis = parseInt(result[i].y_axis);  
+					
+					if ($("#select_opt").val() == 4 || $("#select_opt").val() == 5){ //if opt = 4 || opt = 5
+						if ((new Date($("#to").val()) - new Date($("#from").val())) > 365*86400*1000) {
+							var d = new Date(result[i].x_axis);
+							
+							var month = d.getMonth() + 1;
+							var year = d.getFullYear();
+							
+							var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+									+ '<div style = "font-size: larger;">'
+									+ year + '年' + month + '月</div><br>'
+									+ '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
+							
+						} else if ((new Date($("#to").val()) - new Date($("#from").val())) > 180*86400*1000) {
+							var d = new Date(result[i].x_axis);
+							
+							d.setDate(d.getDate() - 7);
+							d = (d > new Date($("#from").val()))? d : new Date($("#from").val());
+												
+							var date_start = d.getDate();
+							var month_start = d.getMonth() + 1;
+							
+							d.setDate(d.getDate() + 13);
+							d = (d < new Date($("#to").val()))? d : new Date($("#to").val());
+							
+							var date_end = d.getDate();
+							var month_end = d.getMonth() + 1;
+							
+							var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+									+ '<div style = "font-size: larger;">'
+									+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+									+ '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
+							
+						} else if ((new Date($("#to").val()) - new Date($("#from").val())) > 30*86400*1000) {
+							var d = new Date(result[i].x_axis);
+							
+							d.setDate(d.getDate() - 3);
+							d = (d > new Date($("#from").val()))? d : new Date($("#from").val());
+												
+							var date_start = d.getDate();
+							var month_start = d.getMonth() + 1;
+							
+							d.setDate(d.getDate() + 6);
+							d = (d < new Date($("#to").val()))? d : new Date($("#to").val());
+							
+							var date_end = d.getDate();
+							var month_end = d.getMonth() + 1;
+							
+							var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+									+ '<div style = "font-size: larger;">'
+									+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+									+ '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
+						} else {
+							month = month + 1;
+							var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+									+ '<div style = "font-size: larger;">'
+									+ month + '月' + date + '日</div><br><b>' + y_axis + '万円</b></div></div>';
+						}
+					   
+					} else { //if opt = 1 || opt = 2 || opt = 3
+						if ((new Date($("#to").val()) - new Date($("#from").val())) > 730*86400*1000) {
+							var d = new Date(result[i].x_axis);
+							
+							var month = d.getMonth() + 1;
+							var year = d.getFullYear();
+							
+							var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+									+ '<div style = "font-size: larger;">'
+									+ year + '年' + month + '月</div><br>'
+									+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+						
+						} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 365*86400*1000 )
+						{
+							var d = new Date(result[i].x_axis);
+							
+							d.setDate(d.getDate() - 7);
+							d = (d > new Date($("#from").val()))? d : new Date($("#from").val());
+												
+							var date_start = d.getDate();
+							var month_start = d.getMonth() + 1;
+							
+							d.setDate(d.getDate() + 13);
+							d = (d < new Date($("#to").val()))? d : new Date($("#to").val());
+							
+							var date_end = d.getDate();
+							var month_end = d.getMonth() + 1;
+							
+							var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+									+ '<div style = "font-size: larger;">'
+									+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+									+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+						
+						} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 180*86400*1000 )
+						{
+							var d = new Date(result[i].x_axis);
+							
+							d.setDate(d.getDate() - 3);
+							d = (d > new Date($("#from").val()))? d : new Date($("#from").val());
+												
+							var date_start = d.getDate();
+							var month_start = d.getMonth() + 1;
+							
+							d.setDate(d.getDate() + 6);
+							d = (d < new Date($("#to").val()))? d : new Date($("#to").val());
+							
+							var date_end = d.getDate();
+							var month_end = d.getMonth() + 1;
+							
+							var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+									+ '<div style = "font-size: larger;">'
+									+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+									+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+						
+						} else if ( (new Date($("#to").val()) - new Date($("#from").val())) > 60*86400*1000 )
+						{
+							var d = new Date(result[i].x_axis);
+							
+							d.setDate(d.getDate() - 1);
+							d = (d > new Date($("#from").val()))? d : new Date($("#from").val());
+												
+							var date_start = d.getDate();
+							var month_start = d.getMonth() + 1;
+							
+							d.setDate(d.getDate() + 2);
+							d = (d < new Date($("#to").val()))? d : new Date($("#to").val());
+							
+							var date_end = d.getDate();
+							var month_end = d.getMonth() + 1;
+							
+							var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+									+ '<div style = "font-size: larger;">'
+									+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+									+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+						
+						} else {
+							month += 1; 
+							var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+									+ '<div style = "font-size: larger;">'
+									+ month + '月' + date + '日</div><br><div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+						}
+					}
+					data.addRows([[x_axis, y_axis, tooltip]]);
+				}
+				// Set chart options
+				var max_xAxis = new Date($("#to").val());
+				max_xAxis.setDate(max_xAxis.getDate() + 3);
+				var min_xAxis = new Date($("#from").val());
+				min_xAxis.setDate(min_xAxis.getDate() - 3);
+				
+				
+				if ( in_city == "40136") { var title = "福岡市城南区"; }
+				if ( in_city == "40134") { var title = "福岡市南区"; }
+				if ( in_city == "40135") { var title = "福岡市西区"; }
+				if ( in_city == "40131") { var title = "福岡市東区"; }
+				if ( in_city == "40133") { var title = "福岡市中央区"; }
+				if ( in_city == "40132") { var title = "福岡市博多区"; }
+				if ( in_city == "40137") { var title = "福岡市早良区"; }
+				if ( in_city == "40223") { var title = "古賀市"; }
+				if ( in_city == "40342") { var title = "糟屋郡篠栗町"; }
+				if ( in_city == "40343") { var title = "糟屋郡志免町"; }
+				if ( in_city == "40218") { var title = "春日市"; }
+				if ( in_city == "40224") { var title = "福津市"; }
+				if ( in_city == "40344") { var title = "糟屋郡須惠町"; }
+				if ( in_city == "40219") { var title = "大野城市"; }
+				if ( in_city == "40348") { var title = "糟屋郡久山町"; }
+				if ( in_city == "40305") { var title = "筑紫郡那珂川町"; }
+				if ( in_city == "40230") { var title = "糸島市"; }
+				if ( in_city == "40345") { var title = "糟屋郡新宮町"; }
+				if ( in_city == "40203") { var title = "久留米市"; }
+				if ( in_city == "40349") { var title = "糟屋郡粕屋町"; }
+				if ( in_city == "40341") { var title = "糟屋郡宇美町"; }
+				if ( in_city == "40221") { var title = "太宰府市"; }
+				if ( in_city == "40207") { var title = "柳川市"; }
+				if ( in_city == "40447") { var title = "朝倉郡筑前町"; }
+				if ( in_city == "41345") { var title = "三養基郡上峰町"; }
+				if ( in_city == "40503") { var title = "三井郡大刀洗町"; }
+				if ( in_city == "40216") { var title = "小郡市"; }
+				if ( in_city == "40647") { var title = "築上郡築上町"; }
+				if ( in_city == "40217") { var title = "筑紫野市"; }
+				if ( in_city == "41346") { var title = "三養基郡みやき町"; }
+				if ( in_city == "41203") { var title = "鳥栖市"; }
+				if ( in_city == "41341") { var title = "三養基郡基山町"; }
+				
+				
+				var options = {
+					title: title,
+					titleTextStyle: {fontSize: 18},
+					legend: { textStyle: {fontSize: 13}},
+					explorer: { 
+						actions: ['dragToZoom', 'rightClickToReset'],
+						axis: 'horizontal',
+						keepInBounds: true,
+						zoomDelta: 0.5,
+					},
+					backgroundColor: '#D5D5D5',
+					bar: { 
+						groupWidth: "100%"
+					},
+					tooltip: {
+						isHtml: true
+					},
+					hAxis: {
+						baseline: min_xAxis,
+						baselineColor: '#CCC',
+						textStyle: {
+							fontSize: 13,
+						},
+						slantedText: true,
+						format: 'M月d日',
+						viewWindowMode: 'pretty',
+						viewWindow: {
+							max: max_xAxis,
+							min: min_xAxis
+						},
+						gridlines: {
+							count: 20,
+							units: {
+								years: {format: ["yy/mm"]},
+								months: {format: ["mm/dd"]},
+								days: {format: ["mm/dd"]},
+							  }
+						}
+					},
+					pointSize: 10
+				};
+			
+			var options1 = {
+					title: title,
+					titleTextStyle: {fontSize: 18},
+					legend: { textStyle: {fontSize: 13}},
+					explorer: { 
+						actions: ['dragToZoom', 'rightClickToReset'],
+						axis: 'horizontal',
+						keepInBounds: true,
+						zoomDelta: 0.5,
+					},
+					backgroundColor: '#D5D5D5',
+					tooltip: {
+						isHtml: true
+					},
+					hAxis: {
+						baseline: min_xAxis,
+						baselineColor: '#CCC',
+						textStyle: {
+							fontSize: 13,
+						},
+						slantedText: true,
+						format: 'M月d日',
+						viewWindowMode: 'pretty',
+						viewWindow: {
+							max: max_xAxis,
+							min: min_xAxis
+						},
+						gridlines: {
+							count: 20,
+							units: {
+								years: {format: ["yy/mm"]},
+								months: {format: ["mm/dd"]},
+								days: {format: ["mm/dd"]},
+							  }
+						}
+					},
+					pointSize: 10
+				};
+				
+				
+				var chart_div = 'chart_div_' + j + '_' + in_city;
+				
+				// Instantiate and draw our chart, passing in some options.
+				if (j <= 3) {
+					var chart = new google.visualization.ColumnChart(document.getElementById(chart_div));
+				} else {
+					var chart = new google.visualization.LineChart(document.getElementById(chart_div));	
+				}
+				
+				if ( (new Date($("#to").val()) - new Date($("#from").val())) > 60*86400*1000 )
+				{
+					$('#chart_div_' + j + '_' + in_city).show();
+					chart.draw(data, options);
+				} else {
+					$('#chart_div_' + j + '_' + in_city).show();
+					chart.draw(data, options1);
+				}
+				
+			}
+		}
+	});
+};

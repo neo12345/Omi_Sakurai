@@ -1853,6 +1853,10 @@ case "get_info_item":
 		if (count($RS_result) == 0) {
 			$result = null;
 		}
+		
+		if (count($result) == 0) {
+			$result = null;
+		}
 	
 	
 		//convert to json
