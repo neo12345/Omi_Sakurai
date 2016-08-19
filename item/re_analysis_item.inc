@@ -869,7 +869,7 @@
 						<th style="width:12%;">地域の総合</th>
 					</tr>
 					<tr id="sale_number">
-						<th>売出件数</th>
+						<th>新規売出物件数</th>
 					</tr>
 					<tr id="avg_price_regist">
 						<th>平均売出価格</th>

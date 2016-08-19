@@ -947,7 +947,7 @@ function change_map_zoom() {
 function insertAnalysisTable(analysis) {
 	$("#tbl-analysis").html('');
 	$("#name").html('<th style="width:12%;">地域の総合</th>');
-	$("#sale_number").html('<th>売出件数</th>');
+	$("#sale_number").html('<th>新規売出物件数</th>');
 	$("#avg_price_regist").html('<th>平均売出価格</th>');
 	$("#avg_price_sold").html('<th>平均成約価格</th>');
 	$("#avg_time_sold").html('<th>平均売出期間</th>');
@@ -1083,7 +1083,7 @@ function insertAnalysisTable(analysis) {
 			
 			//sale number
 			td_sale_number = td_sale_number + '<td>' + count_item_sale_number 
-							+ '<input type="hidden" id="sale_number_'
+							+ '件<input type="hidden" id="sale_number_'
 							+ analysis[i].seller_cd + '_' + years[j] 
 							+ '" value="' + count_item_sale_number + '" /></td>';
 		
@@ -1304,7 +1304,7 @@ function insertAnalysisTable(analysis) {
 		
 		$('#name').append('<th>' + years[j] + '</th>');
 		$('#sale_number').append('<td>' + sale_number 
-								 + '<input id="sale_number_' + years[j] 
+								 + '件<input id="sale_number_' + years[j] 
 								 + '" type="hidden" value="' + sale_number + '" /></td>');	
 		$('#avg_price_regist').append('<td>' + avg_price_regist + '万円</td>');
 		$('#avg_price_sold').append('<td>' + avg_price_sold + '万円</td>');

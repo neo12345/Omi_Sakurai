@@ -182,6 +182,7 @@
 								<td><button class="btn btn-time" value="12"/>過去1 年間</button></td>
 								<td><button class="btn btn-time" value="24"/>過去2 年間</button></td>
 								<td><button class="btn btn-time" value="36"/>過去3 年間</button></td>
+								<td style="padding: 5px 100px"><button class="btn btn-time" value="0">期間比較</button></td>
 							</tr>
 						</table>
 					</div>
@@ -220,10 +221,10 @@
 								<th>成約済物件数</th>
 							</tr>
 							<tr id="soldout_rate">
-								<th>成約率</th>
+								<th>成約件数シェア</th>
 							</tr>
 							<tr id="soldout_before_complete_number">
-								<th>売出前成約件数</th>
+								<th>完成前成約物件数</th>
 							</tr>
 							<tr id="rate_soldout_before_complete">
 								<th>売出前成約率 </th>
@@ -251,41 +252,50 @@
 						<br><br>
 						
 						<div id="piechart" style="background-color: #D5D5D5; width: 100%">
-							<div style="padding: 10px; font-size: 16px; color: black;"><b>売出中物件数シェア</b></div>
-							<div id="piechart_3d" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_1" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_2" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_3" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_4" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_5" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_6" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_7" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_8" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_9" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_10" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_11" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_12" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_13" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_14" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_15" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_16" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_17" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_18" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_19" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_20" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_21" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_22" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_23" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_24" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_25" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_26" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_27" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_28" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_29" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_30" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_31" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="piechart_3d_32" style="width: 450px; height: 300px; float: left;"></div>
-						
+							<div id="title" style="padding: 10px; font-size: 16px; color: black;"><b>売出中物件数シェア</b></div>
+							
+							<div class="area" style="clear: left;">	
+								<div id="piechart_3d" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_1" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_2" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_3" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_4" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_5" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_6" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_7" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_8" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_9" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_10" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_11" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_12" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_13" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_14" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_15" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_16" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_17" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_18" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_19" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_20" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_21" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_22" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_23" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_24" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_25" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_26" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_27" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_28" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_29" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_30" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_31" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_3d_32" style="width: 450px; height: 300px; float: left;"></div>
+							</div>
+							
+							<div class="time" style="clear: left;">
+								<div id="piechart_time_3d" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_time_3d_1" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_time_3d_2" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="piechart_time_3d_3" style="width: 450px; height: 300px; float: left;"></div>
+							</div>
 						<table border='0' width="100%"></table>
 						</div>
 						
@@ -293,40 +303,48 @@
 						
 						<div id="piechart" style="background-color: #D5D5D5; width: 100%">
 							<div style="padding: 10px; font-size: 16px; color: black;"><b>成約物件数シェア</b></div>
-							<div id="soldout_piechart_3d" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_1" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_2" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_3" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_4" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_5" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_6" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_7" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_8" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_9" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_10" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_11" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_12" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_13" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_14" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_15" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_16" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_17" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_18" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_19" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_20" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_21" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_22" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_23" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_24" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_25" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_26" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_27" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_28" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_29" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_30" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_31" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="soldout_piechart_3d_32" style="width: 450px; height: 300px; float: left;"></div>
-						
+							<div class="area" style="clear: left;">
+								<div id="soldout_piechart_3d" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_1" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_2" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_3" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_4" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_5" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_6" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_7" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_8" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_9" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_10" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_11" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_12" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_13" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_14" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_15" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_16" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_17" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_18" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_19" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_20" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_21" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_22" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_23" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_24" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_25" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_26" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_27" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_28" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_29" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_30" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_31" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_3d_32" style="width: 450px; height: 300px; float: left;"></div>
+							</div>
+							
+							<div class="time" style="clear: left;">
+								<div id="soldout_piechart_time_3d" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_time_3d_1" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_time_3d_2" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="soldout_piechart_time_3d_3" style="width: 450px; height: 300px; float: left;"></div>
+							</div>
 						<table border='0' width="100%"></table>
 						</div>
 
@@ -336,40 +354,49 @@
 						
 						<div id="chart" style="background-color: #D5D5D5; width: 100%">
 							<div style="padding: 10px; font-size: 16px; color: black;"><b>新規売出物件数推移</b></div>
-							<div id="chart_div_2" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40136" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40134" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40135" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40131" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40133" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40132" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40137" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40223" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40342" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40343" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40218" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40224" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40344" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40219" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40348" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40305" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40230" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40345" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40203" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40349" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40341" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40221" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40207" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40447" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_41345" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40503" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40216" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40647" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_40217" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_41346" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_41203" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_2_41341" style="width: 450px; height: 300px; float: left;"></div>
 							
+							<div class="area" style="clear: left;">
+								<div id="chart_div_2" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40136" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40134" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40135" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40131" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40133" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40132" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40137" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40223" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40342" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40343" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40218" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40224" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40344" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40219" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40348" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40305" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40230" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40345" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40203" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40349" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40341" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40221" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40207" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40447" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_41345" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40503" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40216" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40647" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_40217" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_41346" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_41203" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_41341" style="width: 450px; height: 300px; float: left;"></div>
+							</div>
+								
+							<div classs="time" style="clear: left;">
+								<div id="chart_div_2_0" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_1" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_2" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_2_3" style="width: 450px; height: 300px; float: left;"></div>
+							</div>							
 							<table border='0' width="100%"></table>
 						</div>
 						
@@ -377,40 +404,49 @@
 						
 						<div id="chart" style="background-color: #D5D5D5; width: 100%">
 							<div style="padding: 10px; font-size: 16px; color: black;"><b>売出中物件数推移</b></div>
-							<div id="chart_div_3" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40136" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40134" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40135" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40131" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40133" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40132" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40137" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40223" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40342" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40343" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40218" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40224" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40344" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40219" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40348" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40305" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40230" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40345" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40203" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40349" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40341" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40221" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40207" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40447" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_41345" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40503" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40216" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40647" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_40217" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_41346" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_41203" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_3_41341" style="width: 450px; height: 300px; float: left;"></div>
 							
+							<div class="area" style="clear: left;">
+								<div id="chart_div_3" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40136" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40134" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40135" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40131" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40133" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40132" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40137" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40223" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40342" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40343" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40218" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40224" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40344" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40219" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40348" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40305" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40230" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40345" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40203" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40349" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40341" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40221" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40207" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40447" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_41345" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40503" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40216" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40647" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_40217" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_41346" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_41203" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_41341" style="width: 450px; height: 300px; float: left;"></div>
+							</div>
+								
+							<div classs="time" style="clear: left;">
+								<div id="chart_div_3_0" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_1" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_2" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_3_3" style="width: 450px; height: 300px; float: left;"></div>
+							</div>							
 							<table border='0' width="100%"></table>
 						</div>
 						
@@ -418,40 +454,49 @@
 						
 						<div id="chart" style="background-color: #D5D5D5; width: 100%">
 							<div style="padding: 10px; font-size: 16px; color: black;"><b>成約物件数推移</b></div>
-							<div id="chart_div_1" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40136" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40134" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40135" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40131" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40133" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40132" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40137" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40223" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40342" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40343" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40218" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40224" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40344" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40219" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40348" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40305" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40230" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40345" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40203" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40349" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40341" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40221" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40207" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40447" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_41345" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40503" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40216" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40647" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_40217" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_41346" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_41203" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_1_41341" style="width: 450px; height: 300px; float: left;"></div>
 							
+							<div class="area" style="clear: left;">
+								<div id="chart_div_1" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40136" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40134" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40135" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40131" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40133" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40132" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40137" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40223" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40342" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40343" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40218" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40224" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40344" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40219" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40348" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40305" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40230" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40345" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40203" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40349" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40341" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40221" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40207" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40447" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_41345" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40503" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40216" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40647" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_40217" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_41346" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_41203" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_41341" style="width: 450px; height: 300px; float: left;"></div>
+							</div>
+								
+							<div classs="time" style="clear: left;">
+								<div id="chart_div_1_0" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_1" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_2" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_1_3" style="width: 450px; height: 300px; float: left;"></div>
+							</div>							
 							<table border='0' width="100%"></table>
 						</div>
 						
@@ -459,40 +504,49 @@
 						
 						<div id="chart" style="background-color: #D5D5D5; width: 100%">
 							<div style="padding: 10px; font-size: 16px; color: black;"><b>平均売出価格推移</b></div>
-							<div id="chart_div_4" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40136" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40134" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40135" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40131" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40133" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40132" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40137" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40223" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40342" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40343" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40218" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40224" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40344" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40219" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40348" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40305" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40230" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40345" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40203" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40349" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40341" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40221" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40207" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40447" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_41345" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40503" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40216" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40647" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_40217" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_41346" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_41203" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_4_41341" style="width: 450px; height: 300px; float: left;"></div>
 							
+							<div class="area" style="clear: left;">
+								<div id="chart_div_4" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40136" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40134" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40135" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40131" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40133" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40132" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40137" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40223" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40342" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40343" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40218" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40224" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40344" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40219" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40348" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40305" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40230" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40345" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40203" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40349" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40341" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40221" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40207" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40447" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_41345" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40503" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40216" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40647" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_40217" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_41346" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_41203" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_41341" style="width: 450px; height: 300px; float: left;"></div>
+							</div>
+								
+							<div classs="time"  style="clear: left;">
+								<div id="chart_div_4_0" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_1" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_2" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_4_3" style="width: 450px; height: 300px; float: left;"></div>
+							</div>							
 							<table border='0' width="100%"></table>
 						</div>
 						
@@ -500,40 +554,49 @@
 						
 						<div id="chart" style="background-color: #D5D5D5; width: 100%">
 							<div style="padding: 10px; font-size: 16px; color: black;"><b>平均成約価格推移</b></div>
-							<div id="chart_div_5" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40136" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40134" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40135" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40131" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40133" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40132" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40137" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40223" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40342" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40343" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40218" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40224" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40344" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40219" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40348" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40305" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40230" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40345" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40203" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40349" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40341" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40221" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40207" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40447" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_41345" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40503" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40216" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40647" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_40217" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_41346" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_41203" style="width: 450px; height: 300px; float: left;"></div>
-							<div id="chart_div_5_41341" style="width: 450px; height: 300px; float: left;"></div>
 							
+							<div class="area"  style="clear: left;">
+								<div id="chart_div_5" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40136" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40134" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40135" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40131" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40133" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40132" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40137" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40223" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40342" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40343" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40218" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40224" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40344" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40219" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40348" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40305" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40230" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40345" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40203" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40349" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40341" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40221" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40207" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40447" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_41345" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40503" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40216" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40647" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_40217" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_41346" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_41203" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_41341" style="width: 450px; height: 300px; float: left;"></div>
+							</div>
+								
+							<div classs="time" style="clear: left;">
+								<div id="chart_div_5_0" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_1" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_2" style="width: 450px; height: 300px; float: left;"></div>
+								<div id="chart_div_5_3" style="width: 450px; height: 300px; float: left;"></div>
+							</div>							
 							<table border='0' width="100%"></table>
 						</div>
 						

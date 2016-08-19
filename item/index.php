@@ -2103,6 +2103,887 @@ case "get_info_item":
 		return 1;
 		/*--Ominext end--*/
 	break;
+	
+	
+	case "get_analysis_chart_data":
+		/* --Ominext-- */
+		/* --analysis a group item AJAX-- */
+	
+		/* validate */
+		if (isset($_POST['from']) && isset($_POST['to'])) {
+			$from = $_POST['from'];
+			$to = $_POST['to'];
+			if ($from > $to) {
+				return 1;
+			}
+		}
+	
+		/* search db */
+		$all_data = array();
+		$cities = $_POST['city'];
+		for ($city_count = 0; $city_count < count($cities); $city_count++) {
+			for ($opt = 1; $opt < 6; $opt++) {
+				$result = array();
+			
+				if ($opt == 1) { //count item - soldout
+					$select = 't_item.date_soldout AS date, COUNT(t_item.item_cd) AS count';
+					$table = 't_item, r_item1';
+					$groupBy = 't_item.date_soldout';
+			
+					$where = 't_item.item_cd = r_item1.item_cd';
+				} else if ($opt == 2) { //count item - regist
+					$select = 't_item.date_regist AS date, COUNT(t_item.item_cd) AS count';
+					$table = 't_item, r_item1';
+					$groupBy = 't_item.date_regist';
+			
+					$where = 't_item.item_cd = r_item1.item_cd';
+				} else if ($opt == 3) { //count item - total
+					$select = 't_item.date_regist AS date, t_item.item_cd';
+					$table = 't_item, r_item1';
+			
+					$where = 't_item.item_cd = r_item1.item_cd';
+				} else if ($opt == 4) { //avg price - soldout
+					$select = 't_history.date_regist AS date, SUM(t_history.hist_price) AS sum, COUNT(t_item.item_cd) as count';
+					$table = 't_item, r_item1, r_history, t_history';
+					$groupBy = 't_history.date_regist';
+			
+					$where = 't_item.item_cd = r_history.item_cd AND '
+						. 'r_history.hist_cd = t_history.hist_cd AND '
+						. 't_item.item_cd = r_item1.item_cd AND '
+						. 'r_history.stat_cd = \'6\'';
+				} else { //avg price - regist
+					$select = 't_history.date_regist AS date, SUM(t_history.hist_price) AS sum, COUNT(t_item.item_cd) as count';
+					$table = 't_item, r_history, t_history, r_item1';
+					$groupBy = 't_history.date_regist';
+			
+					$where = 't_item.item_cd = r_history.item_cd AND '
+						. 'r_history.hist_cd = t_history.hist_cd AND '
+						. 't_item.item_cd = r_item1.item_cd AND '
+						. 'r_history.stat_cd = \'1\'';
+				}
+			
+					$city = $cities[$city_count];
+					$where = $where . ' AND r_item1.city_cd = \'' . $city . '\'';
+					
+			
+				if (isset($_POST['cat_item'])) {
+					$cat_item = $_POST['cat_item'];
+					$where = $where . ' AND r_item1.cat_item_cd IN (';
+					for ($i = 0; $i < count($cat_item); $i++) {
+						$where = $where . '\'' . $cat_item[$i] . '\', ';
+					}
+			
+					$where = substr($where, 0, -2);
+					$where = $where . ')';
+			
+			
+				}
+			
+				if (isset($_POST['condition'])) {
+					$condition = $_POST['condition'];
+					$where = $where . ' AND r_item1.condition_cd IN (';
+					for ($i = 0; $i < count($condition); $i++) {
+						$where = $where . '\'' . $condition[$i] . '\', ';
+					}
+					$where = substr($where, 0, -2);
+					$where = $where . ')';
+				}
+			
+				if (isset($_POST['seller'])) {
+					$seller = $_POST['seller'];
+					
+					$where = $where . ' AND ( r_item1.seller_cd IN (';
+					for ($i = 0; $i < count($seller); $i++) {
+						$where = $where . '\'' . $seller[$i] . '\', ';
+					}
+					$where = substr($where, 0, -2);
+					$where = $where . ')';
+					
+					if (in_array(0, $seller)) {
+						$where = substr($where, 0, -1);
+						$where = $where . ') OR r_item1.seller_cd >= 7';
+					}
+					$where = $where . ')';
+				}
+			 
+				// count item - soldout
+				if ($opt == 1) {
+					$where = $where . ' AND t_item.date_soldout BETWEEN \'' . $from . '\' AND \'' . $to . '\'';
+					$where = $where . ' AND t_item.flg_soldout = \'1\'';
+					Omi_get_rs_with_group_by($select, $table, 'result', $where, $groupBy); 
+				}
+				if ($opt == 2) { //count item - regist
+					$where = $where . ' AND t_item.date_regist BETWEEN \'' . $from . '\' AND \'' . $to . '\'';
+					Omi_get_rs_with_group_by($select, $table, 'result', $where, $groupBy);
+				}
+				if ($opt == 3) { //count item - total
+					//count item from beginning
+					$select_all_before = 'COUNT (t_item.item_cd) as count';
+					$table_all_before = 't_item, r_item1';
+					$where_all_before = $where . ' AND t_item.date_regist < \'' . $from . '\'';
+			
+					Omi_get_rs($select_all_before, $table_all_before, 'count_all_before', $where_all_before, '');
+					
+					$select_soldout_before = 'COUNT(t_item.item_cd) AS count';
+					$table_soldout_before = 't_item, r_item1';
+					$where_soldout_before = $where . ' AND t_item.date_soldout < \'' . $from . '\'';
+					$where_soldout_before = $where_soldout_before . ' AND t_item.flg_soldout = \'1\'';
+					//$groupBy_soldout_before = 't_item.date_soldout';
+					
+					Omi_get_rs_with_group_by($select_soldout_before, $table_soldout_before, 'count_soldout_before', $where_soldout_before, '');
+			
+					//get all item
+					$select_item_all = 't_item.date_regist AS date, t_item.item_cd';
+					$table_item_all = 't_item, r_item1';
+					$where_item_all = $where . ' AND t_item.date_regist BETWEEN \'' . $from . '\' AND \'' . $to . '\'';
+					$orderBy_item_all = 't_item.date_regist ASC';
+					
+					Omi_get_rs($select_item_all, $table_item_all, 'item_all', $where_item_all, $orderBy_item_all);
+					
+					$select_soldout = 't_item.date_soldout AS date, t_item.item_cd';
+					$table_soldout = 't_item, r_item1';
+					$where_soldout = $where . ' AND t_item.date_soldout BETWEEN \'' . $from . '\' AND \'' . $to . '\'';
+					$where_soldout = $where_soldout . ' AND t_item.flg_soldout = \'1\'';
+					$orderBy_soldout = 't_item.date_soldout ASC';
+					Omi_get_rs($select_soldout, $table_soldout, 'item_soldout', $where_soldout, $orderBy_soldout);
+				}
+				if ($opt == 4) { //avg price - soldout
+					$where = $where . ' AND t_history.date_regist BETWEEN \'' . $from . '\' AND \'' . $to . '\'';
+					Omi_get_rs_with_group_by($select, $table, 'result', $where, $groupBy);
+				}
+				if ($opt == 5) { //avg price - regist
+					$where = $where . ' AND t_history.date_regist BETWEEN \'' . $from . '\' AND \'' . $to . '\'';
+					Omi_get_rs_with_group_by($select, $table, 'result', $where, $groupBy);
+				}
+				
+				
+				//get data for google chart
+				//count item - soldout / regist
+				if ($opt <= 2) {
+					$result = array();
+					$date1=date_create($from);
+					$date2=date_create($to);
+					$diff_days = date_diff($date1,$date2)->days;
+					
+					for ($i = 0; $i < count($RS_result); $i++) {
+						if ($diff_days > 730) { //if more than 2 years get data per month
+							$date = date('Y-m', strtotime($RS_result[$i]['date']));
+							
+							$date = date('Y-m-d',strtotime($date.'-16'));
+							
+						} else if ($diff_days > 365) { //1-2 years get data per 2 weeks
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+							$dayNumber = date('z', strtotime($RS_result[$i]['date']));
+							
+							$diff = '+'.(7-($dayNumber % 14)).' days';
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else if ($diff_days > 180) { //6-12 month get data per week
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+							
+							$day = date('w', strtotime($RS_result[$i]['date']));
+							$diff = '+'.(4-$day).' days';
+							
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else if ($diff_days > 60) { // 2-6 months get data per 3 days
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+							$dayNumber = date('z', strtotime($RS_result[$i]['date']));
+							
+							$diff = '+'.(1-($dayNumber % 3)).' days';
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else { //less than 2 months get data per day
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+						}
+						
+						$j = search_in_column($date, $result, 'x_axis');
+						if ( $j >= 0 ) {
+							$result[$j]['y_axis'] += (int) $RS_result[$i]['count'];
+						} else {			
+							$result[] = array(	
+								'x_axis' => $date,
+								'y_axis' => (int) $RS_result[$i]['count']
+							);
+						}
+					}
+					//sort by date
+					usort($result, function($a, $b) {
+						return $a['x_axis'] > $b['x_axis'];
+					});
+				}
+			
+				//count item - total 
+				if ($opt == 3) {
+					//count item from beginning
+					$totalItemFromBegin = (int) ($RS_count_all_before[0]['count']) - (int) ($RS_count_soldout_before[0]['count']);
+				
+					//count number item change eachday
+					$countNumberItemChange = array();
+					$index = 0;
+					
+					for ($i = 0; $i < count($RS_item_all); $i++) {
+						$date = date('Y-m-d', strtotime($RS_item_all[$i]['date']));
+						
+						if ($date > $countNumberItemChange[$index]['date']) {
+							$countNumberItemChange[] = array(
+								'date' => $date,
+								'count' => (int) (1),
+							);
+			
+							$index++;
+						} else {
+							$countNumberItemChange[$index]['count'] = (int) $countNumberItemChange[$index]['count'] + 1;
+						}
+					}
+					
+					for ($i = 0; $i < count($RS_item_soldout); $i++) {
+						$date = date('Y-m-d', strtotime($RS_item_soldout[$i]['date']));
+						
+						$j = search_in_column($date, $countNumberItemChange, 'date');
+						if ( $j >= 0 ) {		
+							$countNumberItemChange[$j]['count'] = $countNumberItemChange[$j]['count'] - 1;
+			
+						} else {
+							$countNumberItemChange[] = array(
+								'date' => $date,
+								'count' => (int) (-1),
+							);
+						}
+					}
+					
+					usort($countNumberItemChange, function($a, $b) {
+						return $a['date'] > $b['date'];
+					});
+			
+					//set temp
+					$temp = array();
+					$temp[] = array(
+						'x_axis' => '1970-01-01',
+						'y_axis' => $totalItemFromBegin
+					);
+					$index = 0;
+					
+					//count
+					$result = array();
+					
+					$date1=date_create($from);
+					$date2=date_create($to);
+					$diff_days = date_diff($date1,$date2)->days;
+					
+					for ($i = 0; $i < count($countNumberItemChange); $i++) {
+						if ($diff_days > 730) { //if more than 2 years get data per month
+							$date = date('Y-m', strtotime($countNumberItemChange[$i]['date']));
+							
+							$date = date('Y-m-d',strtotime($date.'-16'));
+			
+						} else if ($diff_days > 365) { //1-2 years get data per 2 weeks
+							$date = date('Y-m-d', strtotime($countNumberItemChange[$i]['date']));
+							$dayNumber = date('z', strtotime($countNumberItemChange[$i]['date']));
+							
+							$diff = '+'.(7-($dayNumber % 14)).' days';
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else if ($diff_days > 180) { //6-12 month get data per week
+							$date = date('Y-m-d', strtotime($countNumberItemChange[$i]['date']));
+							
+							$day = date('w', strtotime($countNumberItemChange[$i]['date']));
+							$diff = '+'.(4-$day).' days';
+							
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else if ($diff_days > 60) { // 2-6 months get data per 3 days
+							$date = date('Y-m-d', strtotime($countNumberItemChange[$i]['date']));
+							$dayNumber = date('z', strtotime($countNumberItemChange[$i]['date']));
+							
+							$diff = '+'.(1-($dayNumber % 3)).' days';
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else { //else get data per day
+							$date = date('Y-m-d', strtotime($countNumberItemChange[$i]['date']));
+						}
+						
+						if ($date > $temp[$index]['x_axis']) {
+							$temp[] = array(
+								'x_axis' => $date,
+								'y_axis' => (int) $temp[$index]['y_axis'] + (int) ($countNumberItemChange[$i]['count']),
+							);
+							$index++;
+							
+						} else {
+							$temp[$index]['y_axis'] = (int) $temp[$index]['y_axis'] + (int) ($countNumberItemChange[$i]['count']);
+						}
+					}
+					
+					
+					//don't get first item			
+					for ($i = 1; $i < count($temp); $i++) {
+						$result[] = array(
+							'x_axis' => $temp[$i]['x_axis'],
+							'y_axis' => $temp[$i]['y_axis'],
+						);
+					}
+					
+					//dump data
+					$RS_result = array(
+						'temp' => '1'
+					);
+				}
+			
+				//avg price - soldout / regist
+				if ($opt >= 4) {
+			
+					//dummy data
+					$temp[] = array(
+						'date' => '0000-00-00',
+						'sum' => '0',
+						'count' => '0'
+					);
+					
+					$date1=date_create($from);
+					$date2=date_create($to);
+					$diff_days = date_diff($date1,$date2)->days;
+			
+					//count item and sum price
+					for ($i = 0; $i < count($RS_result); $i++) {
+						if ($diff_days > 365) { // over 1 year get data per month
+							$date = date('Y-m', strtotime($RS_result[$i]['date']));
+							
+							$date = date('Y-m-d',strtotime($date.'-16'));
+							
+						} else if ($diff_days > 180) { // more than 6 month get data per 2 weeks
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+							$dayNumber = date('z', strtotime($RS_result[$i]['date']));
+							
+							$diff = '+'.(7-($dayNumber % 14)).' days';
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else if ($diff_days > 30) { // more than 1 month get data per week
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+							
+							$day = date('w', strtotime($RS_result[$i]['date']));
+							$diff = '+'.(4-$day).' days';
+							
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else { //less than 1 months get data per day
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+						}
+			
+						$j = search_in_column($date, $temp, 'date');
+						if ( $j >= 0 ) {
+							$temp[$j]['sum'] += $RS_result[$i]['sum'];
+							$temp[$j]['count'] += $RS_result[$i]['count'];
+						} else {
+							$temp[] = array(
+								'date' => $date,
+								'sum' => $RS_result[$i]['sum'],
+								'count' => $RS_result[$i]['count']
+							);
+						}
+					}
+			
+					//sort by date
+					usort($temp, function($a, $b) {
+						return $a['date'] > $b['date'];
+					});
+			
+					//get avg price per day
+					//dont get dummy data
+					for ($i = 1; $i < count($temp); $i++) {
+						$result[] = array(
+							'x_axis' => $temp[$i]['date'],
+							'y_axis' => $temp[$i]['sum'] / $temp[$i]['count']
+						);
+					}
+				}
+				if (count($RS_result) == 0) {
+					$result = null;
+				}
+				
+				if (count($result) == 0) {
+					$result = null;
+				}
+				
+				$all_data[] = array(
+							'result' => $result,
+							'city' => $city,
+							'opt' => $opt,
+							);
+			}
+		}
+		
+		//convert to json
+		$result_json = json_encode($all_data);
+		header('Content-type:application/json;charset=utf-8');
+		echo $result_json;
+		return 1;
+		/* --Ominext end-- */
+	break;
+
+	case "get_analysis_chart_data_by_time":
+		/* --Ominext-- */
+		/* --analysis a group item AJAX-- */
+	
+		/* validate */
+		if (isset($_POST['from']) && isset($_POST['to'])) {
+			$from = $_POST['from'];
+			$to = $_POST['to'];
+			if ($from > $to) {
+				return 1;
+			}
+		}
+	
+		/* search db */
+		$all_data = array();
+		
+		$date1=date_create($from);
+		$date2=date_create($to);
+		$range = round(date_diff($date1,$date2)->days / 3);
+		
+		for ($time_index = 0; $time_index < 3; $time_index++) {		
+			if ($time_index == 0){
+				$from_day = strtotime($from);
+			} else {
+				$diff = $time_index * $range + 1;
+				
+				$from_day = strtotime('+' . $diff . 'day', strtotime($from));
+			}
+			
+			if ($time_index == 2){
+				$to_day = strtotime($to);
+			} else {
+			
+				$to_day = strtotime('+' . $range . 'day', $from_day);
+			}
+			
+			$from_day = date('Y/m/d', $from_day);
+			$to_day = date('Y/m/d', $to_day);
+			
+			for ($opt = 1; $opt < 6; $opt++) {
+				$result = array();
+				
+				if ($opt == 1) { //count item - soldout
+					$select = 't_item.date_soldout AS date, COUNT(t_item.item_cd) AS count';
+					$table = 't_item, r_item1';
+					$groupBy = 't_item.date_soldout';
+			
+					$where = 't_item.item_cd = r_item1.item_cd';
+				} else if ($opt == 2) { //count item - regist
+					$select = 't_item.date_regist AS date, COUNT(t_item.item_cd) AS count';
+					$table = 't_item, r_item1';
+					$groupBy = 't_item.date_regist';
+			
+					$where = 't_item.item_cd = r_item1.item_cd';
+				} else if ($opt == 3) { //count item - total
+					$select = 't_item.date_regist AS date, t_item.item_cd';
+					$table = 't_item, r_item1';
+			
+					$where = 't_item.item_cd = r_item1.item_cd';
+				} else if ($opt == 4) { //avg price - soldout
+					$select = 't_history.date_regist AS date, SUM(t_history.hist_price) AS sum, COUNT(t_item.item_cd) as count';
+					$table = 't_item, r_item1, r_history, t_history';
+					$groupBy = 't_history.date_regist';
+			
+					$where = 't_item.item_cd = r_history.item_cd AND '
+						. 'r_history.hist_cd = t_history.hist_cd AND '
+						. 't_item.item_cd = r_item1.item_cd AND '
+						. 'r_history.stat_cd = \'6\'';
+				} else { //avg price - regist
+					$select = 't_history.date_regist AS date, SUM(t_history.hist_price) AS sum, COUNT(t_item.item_cd) as count';
+					$table = 't_item, r_history, t_history, r_item1';
+					$groupBy = 't_history.date_regist';
+			
+					$where = 't_item.item_cd = r_history.item_cd AND '
+						. 'r_history.hist_cd = t_history.hist_cd AND '
+						. 't_item.item_cd = r_item1.item_cd AND '
+						. 'r_history.stat_cd = \'1\'';
+				}
+			
+				if (isset($_POST['city'])) {
+					$city = $_POST['city'];
+					$where = $where . ' AND r_item1.city_cd IN (';
+					for ($i = 0; $i < count($city); $i++) {
+						$where = $where . '\'' . $city[$i] . '\', ';
+					}
+					$where = substr($where, 0, -2);
+					$where = $where . ')';
+				}
+					
+			
+				if (isset($_POST['cat_item'])) {
+					$cat_item = $_POST['cat_item'];
+					$where = $where . ' AND r_item1.cat_item_cd IN (';
+					for ($i = 0; $i < count($cat_item); $i++) {
+						$where = $where . '\'' . $cat_item[$i] . '\', ';
+					}
+			
+					$where = substr($where, 0, -2);
+					$where = $where . ')';
+			
+			
+				}
+			
+				if (isset($_POST['condition'])) {
+					$condition = $_POST['condition'];
+					$where = $where . ' AND r_item1.condition_cd IN (';
+					for ($i = 0; $i < count($condition); $i++) {
+						$where = $where . '\'' . $condition[$i] . '\', ';
+					}
+					$where = substr($where, 0, -2);
+					$where = $where . ')';
+				}
+			
+				if (isset($_POST['seller'])) {
+					$seller = $_POST['seller'];
+					
+					$where = $where . ' AND ( r_item1.seller_cd IN (';
+					for ($i = 0; $i < count($seller); $i++) {
+						$where = $where . '\'' . $seller[$i] . '\', ';
+					}
+					$where = substr($where, 0, -2);
+					$where = $where . ')';
+					
+					if (in_array(0, $seller)) {
+						$where = substr($where, 0, -1);
+						$where = $where . ') OR r_item1.seller_cd >= 7';
+					}
+					$where = $where . ')';
+				}
+			 
+				// count item - soldout
+				if ($opt == 1) {
+					$where = $where . ' AND t_item.date_soldout BETWEEN \'' . $from_day . '\' AND \'' . $to_day . '\'';
+					$where = $where . ' AND t_item.flg_soldout = \'1\'';
+					Omi_get_rs_with_group_by($select, $table, 'result', $where, $groupBy);
+				}
+				if ($opt == 2) { //count item - regist
+					$where = $where . ' AND t_item.date_regist BETWEEN \'' . $from_day . '\' AND \'' . $to_day . '\'';
+					Omi_get_rs_with_group_by($select, $table, 'result', $where, $groupBy);
+				}
+				if ($opt == 3) { //count item - total
+					//count item from beginning
+					$select_all_before = 'COUNT (t_item.item_cd) as count';
+					$table_all_before = 't_item, r_item1';
+					$where_all_before = $where . ' AND t_item.date_regist < \'' . $from_day . '\'';
+			
+					Omi_get_rs($select_all_before, $table_all_before, 'count_all_before', $where_all_before, '');
+					
+					$select_soldout_before = 'COUNT(t_item.item_cd) AS count';
+					$table_soldout_before = 't_item, r_item1';
+					$where_soldout_before = $where . ' AND t_item.date_soldout < \'' . $from_day . '\'';
+					$where_soldout_before = $where_soldout_before . ' AND t_item.flg_soldout = \'1\'';
+					//$groupBy_soldout_before = 't_item.date_soldout';
+					
+					Omi_get_rs_with_group_by($select_soldout_before, $table_soldout_before, 'count_soldout_before', $where_soldout_before, '');
+			
+					//get all item
+					$select_item_all = 't_item.date_regist AS date, t_item.item_cd';
+					$table_item_all = 't_item, r_item1';
+					$where_item_all = $where . ' AND t_item.date_regist BETWEEN \'' . $from_day . '\' AND \'' . $to_day . '\'';
+					$orderBy_item_all = 't_item.date_regist ASC';
+					
+					Omi_get_rs($select_item_all, $table_item_all, 'item_all', $where_item_all, $orderBy_item_all);
+					
+					$select_soldout = 't_item.date_soldout AS date, t_item.item_cd';
+					$table_soldout = 't_item, r_item1';
+					$where_soldout = $where . ' AND t_item.date_soldout BETWEEN \'' . $from_day . '\' AND \'' . $to_day . '\'';
+					$where_soldout = $where_soldout . ' AND t_item.flg_soldout = \'1\'';
+					$orderBy_soldout = 't_item.date_soldout ASC';
+					Omi_get_rs($select_soldout, $table_soldout, 'item_soldout', $where_soldout, $orderBy_soldout);
+				}
+				if ($opt == 4) { //avg price - soldout
+					$where = $where . ' AND t_history.date_regist BETWEEN \'' . $from_day . '\' AND \'' . $to_day . '\'';
+					Omi_get_rs_with_group_by($select, $table, 'result', $where, $groupBy);
+				}
+				if ($opt == 5) { //avg price - regist
+					$where = $where . ' AND t_history.date_regist BETWEEN \'' . $from_day . '\' AND \'' . $to_day . '\'';
+					Omi_get_rs_with_group_by($select, $table, 'result', $where, $groupBy);
+				}
+				
+				
+				//get data for google chart
+				//count item - soldout / regist
+				if ($opt <= 2) {
+					$result = array();
+					$date1=date_create($from_day);
+					$date2=date_create($to_day);
+					$diff_days = date_diff($date1,$date2)->days;
+					
+					for ($i = 0; $i < count($RS_result); $i++) {
+						if ($diff_days > 730) { //if more than 2 years get data per month
+							$date = date('Y-m', strtotime($RS_result[$i]['date']));
+							
+							$date = date('Y-m-d',strtotime($date.'-16'));
+							
+						} else if ($diff_days > 365) { //1-2 years get data per 2 weeks
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+							$dayNumber = date('z', strtotime($RS_result[$i]['date']));
+							
+							$diff = '+'.(7-($dayNumber % 14)).' days';
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else if ($diff_days > 180) { //6-12 month get data per week
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+							
+							$day = date('w', strtotime($RS_result[$i]['date']));
+							$diff = '+'.(4-$day).' days';
+							
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else if ($diff_days > 60) { // 2-6 months get data per 3 days
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+							$dayNumber = date('z', strtotime($RS_result[$i]['date']));
+							
+							$diff = '+'.(1-($dayNumber % 3)).' days';
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else { //less than 2 months get data per day
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+						}
+						
+						$j = search_in_column($date, $result, 'x_axis');
+						if ( $j >= 0 ) {
+							$result[$j]['y_axis'] += (int) $RS_result[$i]['count'];
+						} else {			
+							$result[] = array(	
+								'x_axis' => $date,
+								'y_axis' => (int) $RS_result[$i]['count']
+							);
+						}
+					}
+					//sort by date
+					usort($result, function($a, $b) {
+						return $a['x_axis'] > $b['x_axis'];
+					});
+				}
+			
+				//count item - total 
+				if ($opt == 3) {
+					//count item from beginning
+					$totalItemFromBegin = (int) ($RS_count_all_before[0]['count']) - (int) ($RS_count_soldout_before[0]['count']);
+				
+					//count number item change eachday
+					$countNumberItemChange = array();
+					$index = 0;
+					
+					for ($i = 0; $i < count($RS_item_all); $i++) {
+						$date = date('Y-m-d', strtotime($RS_item_all[$i]['date']));
+						
+						if ($date > $countNumberItemChange[$index]['date']) {
+							$countNumberItemChange[] = array(
+								'date' => $date,
+								'count' => (int) (1),
+							);
+			
+							$index++;
+						} else {
+							$countNumberItemChange[$index]['count'] = (int) $countNumberItemChange[$index]['count'] + 1;
+						}
+					}
+					
+					for ($i = 0; $i < count($RS_item_soldout); $i++) {
+						$date = date('Y-m-d', strtotime($RS_item_soldout[$i]['date']));
+						
+						$j = search_in_column($date, $countNumberItemChange, 'date');
+						if ( $j >= 0 ) {		
+							$countNumberItemChange[$j]['count'] = $countNumberItemChange[$j]['count'] - 1;
+			
+						} else {
+							$countNumberItemChange[] = array(
+								'date' => $date,
+								'count' => (int) (-1),
+							);
+						}
+					}
+					
+					usort($countNumberItemChange, function($a, $b) {
+						return $a['date'] > $b['date'];
+					});
+			
+					//set temp
+					$temp = array();
+					$temp[] = array(
+						'x_axis' => '1970-01-01',
+						'y_axis' => $totalItemFromBegin
+					);
+					$index = 0;
+					
+					//count
+					$result = array();
+					
+					$date1=date_create($from_day);
+					$date2=date_create($to_day);
+					$diff_days = date_diff($date1,$date2)->days;
+					
+					for ($i = 0; $i < count($countNumberItemChange); $i++) {
+						if ($diff_days > 730) { //if more than 2 years get data per month
+							$date = date('Y-m', strtotime($countNumberItemChange[$i]['date']));
+							
+							$date = date('Y-m-d',strtotime($date.'-16'));
+			
+						} else if ($diff_days > 365) { //1-2 years get data per 2 weeks
+							$date = date('Y-m-d', strtotime($countNumberItemChange[$i]['date']));
+							$dayNumber = date('z', strtotime($countNumberItemChange[$i]['date']));
+							
+							$diff = '+'.(7-($dayNumber % 14)).' days';
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else if ($diff_days > 180) { //6-12 month get data per week
+							$date = date('Y-m-d', strtotime($countNumberItemChange[$i]['date']));
+							
+							$day = date('w', strtotime($countNumberItemChange[$i]['date']));
+							$diff = '+'.(4-$day).' days';
+							
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else if ($diff_days > 60) { // 2-6 months get data per 3 days
+							$date = date('Y-m-d', strtotime($countNumberItemChange[$i]['date']));
+							$dayNumber = date('z', strtotime($countNumberItemChange[$i]['date']));
+							
+							$diff = '+'.(1-($dayNumber % 3)).' days';
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else { //else get data per day
+							$date = date('Y-m-d', strtotime($countNumberItemChange[$i]['date']));
+						}
+						
+						if ($date > $temp[$index]['x_axis']) {
+							$temp[] = array(
+								'x_axis' => $date,
+								'y_axis' => (int) $temp[$index]['y_axis'] + (int) ($countNumberItemChange[$i]['count']),
+							);
+							$index++;
+							
+						} else {
+							$temp[$index]['y_axis'] = (int) $temp[$index]['y_axis'] + (int) ($countNumberItemChange[$i]['count']);
+						}
+					}
+					
+					
+					//don't get first item			
+					for ($i = 1; $i < count($temp); $i++) {
+						$result[] = array(
+							'x_axis' => $temp[$i]['x_axis'],
+							'y_axis' => $temp[$i]['y_axis'],
+						);
+					}
+					
+					//dump data
+					$RS_result = array(
+						'temp' => '1'
+					);
+				}
+			
+				//avg price - soldout / regist
+				if ($opt >= 4) {
+			
+					//dummy data
+					$temp[] = array(
+						'date' => '0000-00-00',
+						'sum' => '0',
+						'count' => '0'
+					);
+					
+					$date1=date_create($from_day);
+					$date2=date_create($to_day);
+					$diff_days = date_diff($date1,$date2)->days;
+			
+					//count item and sum price
+					for ($i = 0; $i < count($RS_result); $i++) {
+						if ($diff_days > 365) { // over 1 year get data per month
+							$date = date('Y-m', strtotime($RS_result[$i]['date']));
+							
+							$date = date('Y-m-d',strtotime($date.'-16'));
+							
+						} else if ($diff_days > 180) { // more than 6 month get data per 2 weeks
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+							$dayNumber = date('z', strtotime($RS_result[$i]['date']));
+							
+							$diff = '+'.(7-($dayNumber % 14)).' days';
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else if ($diff_days > 30) { // more than 1 month get data per week
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+							
+							$day = date('w', strtotime($RS_result[$i]['date']));
+							$diff = '+'.(4-$day).' days';
+							
+							$date = str_replace('-', '/', $date);
+							$date = date('Y-m-d',strtotime($date . $diff));
+							
+						} else { //less than 1 months get data per day
+							$date = date('Y-m-d', strtotime($RS_result[$i]['date']));
+						}
+			
+						$j = search_in_column($date, $temp, 'date');
+						if ( $j >= 0 ) {
+							$temp[$j]['sum'] += $RS_result[$i]['sum'];
+							$temp[$j]['count'] += $RS_result[$i]['count'];
+						} else {
+							$temp[] = array(
+								'date' => $date,
+								'sum' => $RS_result[$i]['sum'],
+								'count' => $RS_result[$i]['count']
+							);
+						}
+					}
+			
+					//sort by date
+					usort($temp, function($a, $b) {
+						return $a['date'] > $b['date'];
+					});
+			
+					//get avg price per day
+					//dont get dummy data
+					for ($i = 1; $i < count($temp); $i++) {
+						$result[] = array(
+							'x_axis' => $temp[$i]['date'],
+							'y_axis' => $temp[$i]['sum'] / $temp[$i]['count']
+						);
+					}
+				}
+				
+				if (count($RS_result) == 0) {
+					$result = null;
+				}
+				
+				if (count($result) == 0) {
+					$result = null;
+				}
+				
+				$all_data[] = array(
+							'result' => $result,
+							'from' => $from_day,
+							'to' => $to_day,
+							'opt' => $opt,
+							);
+			}
+		}
+		
+		//convert to json
+		$result_json = json_encode($all_data);
+		header('Content-type:application/json;charset=utf-8');
+		echo $result_json;
+		return 1;
+		/* --Ominext end-- */
+	break;
+
 
 	default :
 		break;

@@ -493,80 +493,100 @@ function insertAnalysisTable(analysis) {
 				count_total_item = count_total_item + count_item_per_seller;
 			}
 			
-				//for market rate chart
-				var count_item_in_jonan = 0;
-				var count_item_in_minami = 0;
-				var count_item_in_nishi = 0;
-				var count_item_in_higashi = 0;
-				var count_item_in_chuo = 0;
-				var count_item_in_hakata = 0;
-				var count_item_in_sawara = 0;
-				var count_item_in_koga = 0;
-				var count_item_in_sasaguri = 0;
-				var count_item_in_shime = 0;
-				var count_item_in_kasuga = 0;
-				var count_item_in_fukutsu = 0;
-				var count_item_in_sue = 0;
-				var count_item_in_ounojou = 0;
-				var count_item_in_hisayama = 0;
-				var count_item_in_nakagawa = 0;
-				var count_item_in_itoshima = 0;
-				var count_item_in_shingu = 0;
-				var count_item_in_kurume = 0;
-				var count_item_in_kasuya = 0;
-				var count_item_in_umimachi = 0;
-				var count_item_in_dazaifu = 0;
-				var count_item_in_yanagawa = 0;
-				var count_item_in_chikuzen = 0;
-				var count_item_in_kamimine = 0;
-				var count_item_in_tachiarai = 0;
-				var count_item_in_ogori = 0;
-				var count_item_in_chikujou = 0;
-				var count_item_in_chikushino = 0;
-				var count_item_in_miyaki = 0;
-				var count_item_in_tosu = 0;
-				var count_item_in_kiyama = 0;
+			//for market rate chart
+			var count_item_in_jonan = 0;
+			var count_item_in_minami = 0;
+			var count_item_in_nishi = 0;
+			var count_item_in_higashi = 0;
+			var count_item_in_chuo = 0;
+			var count_item_in_hakata = 0;
+			var count_item_in_sawara = 0;
+			var count_item_in_koga = 0;
+			var count_item_in_sasaguri = 0;
+			var count_item_in_shime = 0;
+			var count_item_in_kasuga = 0;
+			var count_item_in_fukutsu = 0;
+			var count_item_in_sue = 0;
+			var count_item_in_ounojou = 0;
+			var count_item_in_hisayama = 0;
+			var count_item_in_nakagawa = 0;
+			var count_item_in_itoshima = 0;
+			var count_item_in_shingu = 0;
+			var count_item_in_kurume = 0;
+			var count_item_in_kasuya = 0;
+			var count_item_in_umimachi = 0;
+			var count_item_in_dazaifu = 0;
+			var count_item_in_yanagawa = 0;
+			var count_item_in_chikuzen = 0;
+			var count_item_in_kamimine = 0;
+			var count_item_in_tachiarai = 0;
+			var count_item_in_ogori = 0;
+			var count_item_in_chikujou = 0;
+			var count_item_in_chikushino = 0;
+			var count_item_in_miyaki = 0;
+			var count_item_in_tosu = 0;
+			var count_item_in_kiyama = 0;
+			
+			var count_item_in_range_time_1 = 0;
+			var count_item_in_range_time_2 = 0;
+			var count_item_in_range_time_3 = 0;
+			
+			
+			//for soldout rate chart
+			var count_item_soldout_in_jonan = 0;
+			var count_item_soldout_in_minami = 0;
+			var count_item_soldout_in_nishi = 0;
+			var count_item_soldout_in_higashi = 0;
+			var count_item_soldout_in_chuo = 0;
+			var count_item_soldout_in_hakata = 0;
+			var count_item_soldout_in_sawara = 0;
+			var count_item_soldout_in_koga = 0;
+			var count_item_soldout_in_sasaguri = 0;
+			var count_item_soldout_in_shime = 0;
+			var count_item_soldout_in_kasuga = 0;
+			var count_item_soldout_in_fukutsu = 0;
+			var count_item_soldout_in_sue = 0;
+			var count_item_soldout_in_ounojou = 0;
+			var count_item_soldout_in_hisayama = 0;
+			var count_item_soldout_in_nakagawa = 0;
+			var count_item_soldout_in_itoshima = 0;
+			var count_item_soldout_in_shingu = 0;
+			var count_item_soldout_in_kurume = 0;
+			var count_item_soldout_in_kasuya = 0;
+			var count_item_soldout_in_umimachi = 0;
+			var count_item_soldout_in_dazaifu = 0;
+			var count_item_soldout_in_yanagawa = 0;
+			var count_item_soldout_in_chikuzen = 0;
+			var count_item_soldout_in_kamimine = 0;
+			var count_item_soldout_in_tachiarai = 0;
+			var count_item_soldout_in_ogori = 0;
+			var count_item_soldout_in_chikujou = 0;
+			var count_item_soldout_in_chikushino = 0;
+			var count_item_soldout_in_miyaki = 0;
+			var count_item_soldout_in_tosu = 0;
+			var count_item_soldout_in_kiyama = 0;
+			
+			var count_item_soldout_in_range_time_1 = 0;
+			var count_item_soldout_in_range_time_2 = 0;
+			var count_item_soldout_in_range_time_3 = 0;
 				
-				
-				//for soldout rate chart
-				var count_item_soldout_in_jonan = 0;
-				var count_item_soldout_in_minami = 0;
-				var count_item_soldout_in_nishi = 0;
-				var count_item_soldout_in_higashi = 0;
-				var count_item_soldout_in_chuo = 0;
-				var count_item_soldout_in_hakata = 0;
-				var count_item_soldout_in_sawara = 0;
-				var count_item_soldout_in_koga = 0;
-				var count_item_soldout_in_sasaguri = 0;
-				var count_item_soldout_in_shime = 0;
-				var count_item_soldout_in_kasuga = 0;
-				var count_item_soldout_in_fukutsu = 0;
-				var count_item_soldout_in_sue = 0;
-				var count_item_soldout_in_ounojou = 0;
-				var count_item_soldout_in_hisayama = 0;
-				var count_item_soldout_in_nakagawa = 0;
-				var count_item_soldout_in_itoshima = 0;
-				var count_item_soldout_in_shingu = 0;
-				var count_item_soldout_in_kurume = 0;
-				var count_item_soldout_in_kasuya = 0;
-				var count_item_soldout_in_umimachi = 0;
-				var count_item_soldout_in_dazaifu = 0;
-				var count_item_soldout_in_yanagawa = 0;
-				var count_item_soldout_in_chikuzen = 0;
-				var count_item_soldout_in_kamimine = 0;
-				var count_item_soldout_in_tachiarai = 0;
-				var count_item_soldout_in_ogori = 0;
-				var count_item_soldout_in_chikujou = 0;
-				var count_item_soldout_in_chikushino = 0;
-				var count_item_soldout_in_miyaki = 0;
-				var count_item_soldout_in_tosu = 0;
-				var count_item_soldout_in_kiyama = 0;
-				
+			var from = $('#from').val();
+			var to = $('#to').val();
+			
+			var range = Math.abs( new Date(from) - new Date(to) ) / 3;
+			
+			var from_1 =  new Date(from);
+			var to_1 = new Date();
+			to_1.setDate( from_1.getDate() + range ); console.log(from_1);
+			var from_2 = from + range + 1;
+			var to_2 = from_2 + range;
+			var from_3 = from + 2 * range + 1;
+			var to_3 = to;
 			
 			for (var k = 0; k < analysis[i].items.length; k++){
 				//sale number
 				count_item_sale_number++;
-				
+				//area chart
 				if (analysis[i].items[k].city_cd == 40136) {
 					count_item_in_jonan++;
 				}
@@ -663,12 +683,21 @@ function insertAnalysisTable(analysis) {
 				if (analysis[i].items[k].city_cd == 41341) {
 					count_item_in_kiyama++;
 				}
+				//time chart
+				if (analysis[i].items[k].regist >= from_1 && analysis[i].items[k].regist <= to_1) {
+					count_item_in_range_time_1++;
+				}
+				if (analysis[i].items[k].regist >= from_2 && analysis[i].items[k].regist <= to_2) {
+					count_item_in_range_time_2++;
+				}
+				if (analysis[i].items[k].regist >= from_1 && analysis[i].items[k].regist <= to_1) {
+					count_item_in_range_time_3++;
+				}
+				
 				//avg price regist
 				if (analysis[i].items[k].price_regist != null) {
 					count_item_price_regist++;
-					
 
-					
 					sum_price_regist = sum_price_regist + parseFloat(analysis[i].items[k].price_regist);
 				}
 				
@@ -676,7 +705,7 @@ function insertAnalysisTable(analysis) {
 				if (analysis[i].items[k].price_soldout != null) {
 					count_item_soldout++;
 					count_item_price_soldout++;
-					
+					//area chart
 					if (analysis[i].items[k].city_cd == 40136) {
 						count_item_soldout_in_jonan++;
 					}
@@ -774,7 +803,18 @@ function insertAnalysisTable(analysis) {
 						count_item_soldout_in_kiyama++;
 					}
 					
-					
+					//time chart
+					console.log(analysis[i].items[k].date_soldout);
+					console.log(to_2);
+					if (analysis[i].items[k].regist >= from_1 && analysis[i].items[k].date_soldout <= to_3) {
+						count_item_soldout_in_range_time_1++;
+					}
+					if (analysis[i].items[k].date_soldout >= from_2 && analysis[i].items[k].date_soldout <= to_2) {
+						count_item_soldout_in_range_time_2++;
+					}
+					if (analysis[i].items[k].date_soldout >= from_1 && analysis[i].items[k].date_soldout <= to_1) {
+						count_item_soldout_in_range_time_3++;
+					}
 					
 					if ( analysis[i].items[k].date_build > analysis[i].items[k].date_soldout ) {
 						count_item_soldout_before_complete++;	
@@ -854,6 +894,12 @@ function insertAnalysisTable(analysis) {
 			window.market_rate_miyaki.push([analysis[i].seller_name, parseInt(count_item_in_miyaki - count_item_soldout_in_miyaki)]);
 			window.market_rate_tosu.push([analysis[i].seller_name, parseInt(count_item_in_tosu - count_item_soldout_in_tosu)]);
 			window.market_rate_kiyama.push([analysis[i].seller_name, parseInt(count_item_in_kiyama - count_item_soldout_in_kiyama)]);
+			
+			window.market_rate_time.push([analysis[i].seller_name, parseInt(count_item_sale_number - count_item_soldout)]);
+			window.market_rate_time_in_range_1.push([analysis[i].seller_name, parseInt(count_item_in_range_time_1 - count_item_soldout_in_range_time_1)]);
+			window.market_rate_time_in_range_2.push([analysis[i].seller_name, parseInt(count_item_in_range_time_2 - count_item_soldout_in_range_time_2)]);
+			window.market_rate_time_in_range_3.push([analysis[i].seller_name, parseInt(count_item_in_range_time_3 - count_item_soldout_in_range_time_3)]);
+
 
 			//soldout number
 			window.soldout_rate.push([analysis[i].seller_name, parseInt(count_item_soldout)]);
@@ -890,7 +936,10 @@ function insertAnalysisTable(analysis) {
 			window.soldout_rate_tosu.push([analysis[i].seller_name, parseInt(count_item_soldout_in_tosu)]);
 			window.soldout_rate_kiyama.push([analysis[i].seller_name, parseInt(count_item_soldout_in_kiyama)]);
 						
-			
+			window.soldout_rate_time.push([analysis[i].seller_name, parseInt(count_item_soldout)]);
+			window.soldout_rate_time_in_range_1.push([analysis[i].seller_name, parseInt(count_item_soldout_in_range_time_1)]);
+			window.soldout_rate_time_in_range_2.push([analysis[i].seller_name, parseInt(count_item_soldout_in_range_time_2)]);
+			window.soldout_rate_time_in_range_3.push([analysis[i].seller_name, parseInt(count_item_soldout_in_range_time_3)]);
 			
 			//selling number
 			selling_number = count_item_sale_number - count_item_soldout;
@@ -1033,6 +1082,7 @@ function insertAnalysisTable(analysis) {
 			$('#market_rate').append(market_rate);
 		}
 	}
+	
 	
 	//total
 	var sale_number	= 0;
@@ -1268,6 +1318,11 @@ function drawPieChart() {
 	$('#piechart_3d_31').html('');
 	$('#piechart_3d_32').html('');
 	
+	$('#piechart_time_3d').html('');
+	$('#piechart_time_3d_1').html('');
+	$('#piechart_time_3d_2').html('');
+	$('#piechart_time_3d_3').html('');
+	
 	$('#soldout_piechart_3d').html('');
 	$('#soldout_piechart_3d_1').html('');
 	$('#soldout_piechart_3d_2').html('');
@@ -1302,6 +1357,10 @@ function drawPieChart() {
 	$('#soldout_piechart_3d_31').html('');
 	$('#soldout_piechart_3d_32').html('');
 	
+	$('#soldout_piechart_time_3d').html('');
+	$('#soldout_piechart_time_3d_1').html('');
+	$('#soldout_piechart_time_3d_2').html('');
+	$('#soldout_piechart_time_3d_3').html('');
 	
 	// draw market rate piechart
 	var dont_draw = 1;
@@ -1342,7 +1401,9 @@ function drawPieChart() {
 		};
 		
 		var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+		var chart1 = new google.visualization.PieChart(document.getElementById('piechart_time_3d'));
 		chart.draw(data, options);
+		chart1.draw(data, options);
 	}
 	
 	var dont_draw = 1;
@@ -2656,7 +2717,46 @@ function drawPieChart() {
 		chart32.draw(data32, options);
 	}
 		
-	
+	var dont_draw = 1;
+	$('#piechart_time_3d_1').hide(); console.log(window.market_rate_time_in_range_1);
+	for (var i = 0; i < window.market_rate_time_in_range_1.length; i++) {
+		if ( window.market_rate_time_in_range_1[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	} 
+	if (!dont_draw) {
+		$('#piechart_time_3d_1').show();
+		var data33 = new google.visualization.DataTable();
+		data33.addColumn('string', 'Seller');
+		data33.addColumn('number', '販売シェア率');
+		data33.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_time_in_range_1.length; i++) {
+			sum = sum + window.market_rate_time_in_range_1[i][1];
+		}
+		
+		for (var i = 0; i < window.market_rate_time_in_range_1.length; i++) {
+			var rate = (window.market_rate_time_in_range_1[i][1] / sum * 100).toFixed(1);
+			 data33.addRows([[window.market_rate_time_in_range_1[i][0], window.market_rate_time_in_range_1[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_time_in_range_1[i][0] + '<br><b>' + window.market_rate_time_in_range_1[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: from_1 + ' ~ ' + to_1,
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var chart33 = new google.visualization.PieChart(document.getElementById('piechart_time_3d_1'));
+		chart33.draw(data33, options);
+	}
 	
 	
 	
@@ -2701,7 +2801,9 @@ function drawPieChart() {
 		};
 		
 		var soldout_chart = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d'));
+		var soldout_chart1 = new google.visualization.PieChart(document.getElementById('soldout_piechart_time_3d'));
 		soldout_chart.draw(soldout_data, options);
+		soldout_chart1.draw(soldout_data, options);
 	}
 	
 	var dont_draw = 1;
@@ -4028,7 +4130,7 @@ function resetAnalysisTable() {
 	$('#selling_rate').html('<th>売出中物件数シェア</th>');
 	$('#soldout_number').html('<th>成約物件数</th>');
 	$('#soldout_rate').html('<th>成約率</th>');
-	$('#soldout_before_complete_number').html('<th>売出前成約件数</th>');
+	$('#soldout_before_complete_number').html('<th>売出前成約物件数</th>');
 	$('#rate_soldout_before_complete').html('<th>売出前成約率</th>');
 	$('#avg_price_regist').html('<th>平均売出価格</th>');
 	$('#avg_price_sold').html('<th>平均成約価格</th>');
@@ -4076,6 +4178,10 @@ function resetPieChartData() {
 	window.market_rate_tosu = Array();
 	window.market_rate_kiyama = Array();
 	
+	window.market_rate_time = Array();
+	window.market_rate_time_in_range_1 = Array();
+	window.market_rate_time_in_range_2 = Array();
+	window.market_rate_time_in_range_3 = Array();
 	
 	//for soldout rate chart
 	window.soldout_rate = Array();
@@ -4111,6 +4217,11 @@ function resetPieChartData() {
 	window.soldout_rate_miyaki = Array();
 	window.soldout_rate_tosu = Array();
 	window.soldout_rate_kiyama = Array();
+	
+	window.soldout_rate_time = Array();
+	window.soldout_rate_time_in_range_1 = Array();
+	window.soldout_rate_time_in_range_2 = Array();
+	window.soldout_rate_time_in_range_3 = Array();
 }
 
 
@@ -4153,6 +4264,11 @@ function drawChartForEachCity() {
 	$("#chart_div_1_41346").hide();
 	$("#chart_div_1_41203").hide();
 	$("#chart_div_1_41341").hide();
+	
+	$("#chart_div_1_0").hide();
+	$("#chart_div_1_1").hide();
+	$("#chart_div_1_2").hide();
+	$("#chart_div_1_3").hide();
 
 	$("#chart_div_2").hide();
 	$("#chart_div_2_40136").hide();
@@ -4187,6 +4303,11 @@ function drawChartForEachCity() {
 	$("#chart_div_2_41346").hide();
 	$("#chart_div_2_41203").hide();
 	$("#chart_div_2_41341").hide();
+	
+	$("#chart_div_2_0").hide();
+	$("#chart_div_2_1").hide();
+	$("#chart_div_2_2").hide();
+	$("#chart_div_2_3").hide();
 
 	$("#chart_div_3").hide();
 	$("#chart_div_3_40136").hide();
@@ -4221,6 +4342,11 @@ function drawChartForEachCity() {
 	$("#chart_div_3_41346").hide();
 	$("#chart_div_3_41203").hide();
 	$("#chart_div_3_41341").hide();
+	
+	$("#chart_div_3_0").hide();
+	$("#chart_div_3_1").hide();
+	$("#chart_div_3_2").hide();
+	$("#chart_div_3_3").hide();
 
 	$("#chart_div_4").hide();
 	$("#chart_div_4_40136").hide();
@@ -4255,6 +4381,11 @@ function drawChartForEachCity() {
 	$("#chart_div_4_41346").hide();
 	$("#chart_div_4_41203").hide();
 	$("#chart_div_4_41341").hide();
+	
+	$("#chart_div_4_0").hide();
+	$("#chart_div_4_1").hide();
+	$("#chart_div_4_2").hide();
+	$("#chart_div_4_3").hide();
 
 	$("#chart_div_5").hide();
 	$("#chart_div_5_40136").hide();
@@ -4289,6 +4420,11 @@ function drawChartForEachCity() {
 	$("#chart_div_5_41346").hide();
 	$("#chart_div_5_41203").hide();
 	$("#chart_div_5_41341").hide();
+	
+	$("#chart_div_5_0").hide();
+	$("#chart_div_5_1").hide();
+	$("#chart_div_5_2").hide();
+	$("#chart_div_5_3").hide();
 	
 	// Get data.
 	var result;
@@ -4640,73 +4776,442 @@ function drawChartForEachCity() {
 			
 			
 			var chart_div = 'chart_div_' + j;
+			var chart_div1 = 'chart_div_' + j + '_0';
 			
 			// Instantiate and draw our chart, passing in some options.
 			if (j <= 3) {
 				var chart = new google.visualization.ColumnChart(document.getElementById(chart_div));
+				var chart1 = new google.visualization.ColumnChart(document.getElementById(chart_div1));
 			} else {
-				var chart = new google.visualization.LineChart(document.getElementById(chart_div));	
+				var chart = new google.visualization.LineChart(document.getElementById(chart_div));
+				var chart1 = new google.visualization.LineChart(document.getElementById(chart_div1));
 			}
 			
 			if ( (new Date($("#to").val()) - new Date($("#from").val())) > 60*86400*1000 )
 			{
 				$('#chart_div_' + j).show();
 				chart.draw(data, options);
+				$('#chart_div_' + j + '_0').show();
+				chart1.draw(data, options);
 			} else {
 				$('#chart_div_' + j).show();
 				chart.draw(data, options1);
+				$('#chart_div_' + j + '_0').show();
+				chart1.draw(data, options);
 			}
 			
 		}
 	}
 	
+	//time chart
+	var data_chart;
+	var formData = {
+		city: city,
+		cat_item: cat_item,
+		condition: condition,
+		seller: seller,
+		from: $("#from").val(),
+		to: $("#to").val(),
+		select_opt: j
+		};
 	
-	city.forEach(function (in_city) {		   
-		for (var j = 1; j < 6; j++) {
-		var city = [in_city];
-			var formData = {
-				city: city,
-				cat_item: cat_item,
-				condition: condition,
-				seller: seller,
-				from: $("#from").val(),
-				to: $("#to").val(),
-				select_opt: j
-				};
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+		}
+	}) 
+	
+	$.ajax({
+		url: "/item/?md=get_analysis_chart_data_by_time",
+		type: 'POST',
+		data: formData,
+		dataType: "json",
+		async: false,
+		success: function (data) {
+			data_chart = data;
+		}
+	});
+	
+	for (var j = 0; j < data_chart.length; j++) {
+		var from = data_chart[j].from;
+		var to = data_chart[j].to;
+		var opt = data_chart[j].opt;
+		var result = data_chart[j].result
+		
+		var range = (new Date(to) - new Date(from));
+		
+			if (!result) {
+				var error = '<div class="alert alert-danger"></div>';
+				$('#error').html(error);
+			} else {
+			// create chart
+			var data = new google.visualization.DataTable();
 			
-			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-				}
-			})    
+			data.addColumn('date', 'Date');
+			if (opt == 4 || opt == 5){
+				data.addColumn('number', '価格');
+			} else {
+				data.addColumn('number', '件数');
+			}
+			data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
+			
+			if (result.length > 0 && opt < 4) {
+				if (range > 730*86400*1000) {
+					var date = new Date(result[0].x_axis).getDate() + 30;
+					var month = new Date(result[0].x_axis).getMonth();
+					var year = new Date(result[0].x_axis).getFullYear();
 					
-			$.ajax({
-				url: "/item/?md=get_analysis",
-				type: 'POST',
-				data: formData,
-				dataType: "json",
-				async: false,
-				success: function (data) {
-					result = data;
+					var x_axis = new Date(year, month, date);
+					var y_axis = parseInt(0); 
+					data.addRows([[x_axis, y_axis, '']]);
+				} else if ( range > 365*86400*1000 ) {
+					var date = new Date(result[0].x_axis).getDate() + 14;
+					var month = new Date(result[0].x_axis).getMonth();
+					var year = new Date(result[0].x_axis).getFullYear();
+					
+					var x_axis = new Date(year, month, date);
+					var y_axis = parseInt(0); 
+					data.addRows([[x_axis, y_axis, '']]);
+				} else if ( range > 180*86400*1000 ) {
+					var date = new Date(result[0].x_axis).getDate() + 7;
+					var month = new Date(result[0].x_axis).getMonth();
+					var year = new Date(result[0].x_axis).getFullYear();
+					
+					var x_axis = new Date(year, month, date);
+					var y_axis = parseInt(0); 
+					data.addRows([[x_axis, y_axis, '']]);
+				} else if ( range > 60*86400*1000 ) {
+					var date = new Date(result[0].x_axis).getDate() + 3;
+					var month = new Date(result[0].x_axis).getMonth();
+					var year = new Date(result[0].x_axis).getFullYear();
+					
+					var x_axis = new Date(year, month, date);
+					var y_axis = parseInt(0); 
+					data.addRows([[x_axis, y_axis, '']]);
+				} else {
+					var date = new Date(result[0].x_axis).getDate() + 1;
+					var month = new Date(result[0].x_axis).getMonth();
+					var year = new Date(result[0].x_axis).getFullYear();
+					
+					var x_axis = new Date(year, month, date);
+					var y_axis = parseInt(0); 
+					data.addRows([[x_axis, y_axis, '']]);
 				}
-			});
+			}
+				
+			for (var i = 0; i < result.length; i++) { 
+				var date = new Date(result[i].x_axis).getDate();
+				var month = new Date(result[i].x_axis).getMonth();
+				var year = new Date(result[i].x_axis).getFullYear();
+				
+				var x_axis = new Date(year, month, date);
+				var y_axis = parseInt(result[i].y_axis);  
+				
+				if (opt == 4 || opt == 5){ //if opt = 4 || opt = 5
+					if ( range > 365*86400*1000 ) {
+						var d = new Date(result[i].x_axis);
+						
+						var month = d.getMonth() + 1;
+						var year = d.getFullYear();
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ year + '年' + month + '月</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
+						
+					} else if ( range > 180*86400*1000) {
+						var d = new Date(result[i].x_axis);
+						
+						d.setDate(d.getDate() - 7);
+						d = (d > new Date(to))? d : new Date(from);
+											
+						var date_start = d.getDate();
+						var month_start = d.getMonth() + 1;
+						
+						d.setDate(d.getDate() + 13);
+						d = (d < new Date(to))? d : new Date(from);
+						
+						var date_end = d.getDate();
+						var month_end = d.getMonth() + 1;
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
+						
+					} else if (range > 30*86400*1000) {
+						var d = new Date(result[i].x_axis);
+						
+						d.setDate(d.getDate() - 3);
+						d = (d > new Date(from))? d : new Date(to);
+											
+						var date_start = d.getDate();
+						var month_start = d.getMonth() + 1;
+						
+						d.setDate(d.getDate() + 6);
+						d = (d < new Date(to))? d : new Date(to);
+						
+						var date_end = d.getDate();
+						var month_end = d.getMonth() + 1;
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
+					} else {
+						month = month + 1;
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month + '月' + date + '日</div><br><b>' + y_axis + '万円</b></div></div>';
+					}
+				   
+				} else { //if opt = 1 || opt = 2 || opt = 3
+					if (range > 730*86400*1000) {
+						var d = new Date(result[i].x_axis);
+						
+						var month = d.getMonth() + 1;
+						var year = d.getFullYear();
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ year + '年' + month + '月</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+					
+					} else if ( range > 365*86400*1000 )
+					{
+						var d = new Date(result[i].x_axis);
+						
+						d.setDate(d.getDate() - 7);
+						d = (d > new Date(from))? d : new Date(from);
+											
+						var date_start = d.getDate();
+						var month_start = d.getMonth() + 1;
+						
+						d.setDate(d.getDate() + 13);
+						d = (d < new Date(to))? d : new Date(to);
+						
+						var date_end = d.getDate();
+						var month_end = d.getMonth() + 1;
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+					
+					} else if ( range > 180*86400*1000 )
+					{
+						var d = new Date(result[i].x_axis);
+						
+						d.setDate(d.getDate() - 3);
+						d = (d > new Date(from))? d : new Date(from);
+											
+						var date_start = d.getDate();
+						var month_start = d.getMonth() + 1;
+						
+						d.setDate(d.getDate() + 6);
+						d = (d < new Date(to))? d : new Date(from);
+						
+						var date_end = d.getDate();
+						var month_end = d.getMonth() + 1;
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+					
+					} else if ( range > 60*86400*1000 )
+					{
+						var d = new Date(result[i].x_axis);
+						
+						d.setDate(d.getDate() - 1);
+						d = (d > new Date(from))? d : new Date(to);
+											
+						var date_start = d.getDate();
+						var month_start = d.getMonth() + 1;
+						
+						d.setDate(d.getDate() + 2);
+						d = (d < new Date(from))? d : new Date(to);
+						
+						var date_end = d.getDate();
+						var month_end = d.getMonth() + 1;
+						
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
+								+ '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+					
+					} else {
+						month += 1; 
+						var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+								+ '<div style = "font-size: larger;">'
+								+ month + '月' + date + '日</div><br><div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
+					}
+				}
+				data.addRows([[x_axis, y_axis, tooltip]]);
+			}
+			// Set chart options
+			var max_xAxis = new Date(to);
+			max_xAxis.setDate(max_xAxis.getDate() + 3);
+			var min_xAxis = new Date(from);
+			min_xAxis.setDate(min_xAxis.getDate() - 3);
 			
+			var title = from + ' ~ ' + to;
+				
+			var options = {
+				title: title,
+				titleTextStyle: {fontSize: 18},
+				legend: { textStyle: {fontSize: 13}},
+				explorer: { 
+					actions: ['dragToZoom', 'rightClickToReset'],
+					axis: 'horizontal',
+					keepInBounds: true,
+					zoomDelta: 0.5,
+				},
+				backgroundColor: '#D5D5D5',
+				bar: { 
+					groupWidth: "100%"
+				},
+				tooltip: {
+					isHtml: true
+				},
+				hAxis: {
+					baseline: min_xAxis,
+					baselineColor: '#CCC',
+					textStyle: {
+						fontSize: 13,
+					},
+					slantedText: true,
+					format: 'M月d日',
+					viewWindowMode: 'pretty',
+					viewWindow: {
+						max: max_xAxis,
+						min: min_xAxis
+					},
+					gridlines: {
+						count: 20,
+						units: {
+							years: {format: ["yy/mm"]},
+							months: {format: ["mm/dd"]},
+							days: {format: ["mm/dd"]},
+						  }
+					}
+				},
+				pointSize: 10
+			};
+			
+			var options1 = {
+					title: title,
+					titleTextStyle: {fontSize: 18},
+					legend: { textStyle: {fontSize: 13}},
+					explorer: { 
+						actions: ['dragToZoom', 'rightClickToReset'],
+						axis: 'horizontal',
+						keepInBounds: true,
+						zoomDelta: 0.5,
+					},
+					backgroundColor: '#D5D5D5',
+					tooltip: {
+						isHtml: true
+					},
+					hAxis: {
+						baseline: min_xAxis,
+						baselineColor: '#CCC',
+						textStyle: {
+							fontSize: 13,
+						},
+						slantedText: true,
+						format: 'M月d日',
+						viewWindowMode: 'pretty',
+						viewWindow: {
+							max: max_xAxis,
+							min: min_xAxis
+						},
+						gridlines: {
+							count: 20,
+							units: {
+								years: {format: ["yy/mm"]},
+								months: {format: ["mm/dd"]},
+								days: {format: ["mm/dd"]},
+							  }
+						}
+					},
+					pointSize: 10
+				};
+				
+			var index = 0;
+			
+			index = parseInt( ((new Date(from) - new Date($("#from").val())) / (new Date(to) - new Date(from)) ).toFixed(0) ) + 1;
+			
+			var chart_div = 'chart_div_' + opt + '_' + index;
+			
+			// Instantiate and draw our chart, passing in some options.
+			if (opt <= 3) {
+				var chart = new google.visualization.ColumnChart(document.getElementById(chart_div));
+			} else {
+				var chart = new google.visualization.LineChart(document.getElementById(chart_div));	
+			}
+			
+			if ( (new Date(to) - new Date(from)) > 60*86400*1000 )
+			{
+				$('#chart_div_' + opt + '_' + index).show();
+				chart.draw(data, options);
+			} else {
+				$('#chart_div_' + opt + '_' + index).show();
+				chart.draw(data, options1);
+			}
+		}						 
+	}
+	
+	//area chart
+	var data_chart;
+	var formData = {
+		city: city,
+		cat_item: cat_item,
+		condition: condition,
+		seller: seller,
+		from: $("#from").val(),
+		to: $("#to").val(),
+		select_opt: j
+		};
+	
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+		}
+	}) 
+	
+	$.ajax({
+		url: "/item/?md=get_analysis_chart_data",
+		type: 'POST',
+		data: formData,
+		dataType: "json",
+		async: false,
+		success: function (data) {
+			data_chart = data;
+		}
+	});
+	
+	for (var j = 0; j < data_chart.length; j++) {
+		var in_city = data_chart[j].city;
+		var opt = data_chart[j].opt;
+		var result = data_chart[j].result
+		
 				if (!result) {
-					var error = '<div class="alert alert-danger">見付かっていません。</div>';
+					var error = '<div class="alert alert-danger"></div>';
 					$('#error').html(error);
 				} else {
 				// create chart
 				var data = new google.visualization.DataTable();
 				
 				data.addColumn('date', 'Date');
-				if ($("#select_opt").val() == 4 || $("#select_opt").val() == 5){
+				if (opt == 4 || opt == 5){
 					data.addColumn('number', '価格');
 				} else {
 					data.addColumn('number', '件数');
 				}
 				data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
 				
-				if (result.length > 0 && j < 4) {
+				if (result.length > 0 && opt < 4) {
 					if ((new Date($("#to").val()) - new Date($("#from").val())) > 730*86400*1000) {
 						var date = new Date(result[0].x_axis).getDate() + 30;
 						var month = new Date(result[0].x_axis).getMonth();
@@ -4758,7 +5263,7 @@ function drawChartForEachCity() {
 					var x_axis = new Date(year, month, date);
 					var y_axis = parseInt(result[i].y_axis);  
 					
-					if ($("#select_opt").val() == 4 || $("#select_opt").val() == 5){ //if opt = 4 || opt = 5
+					if (opt == 4 || opt == 5){ //if opt = 4 || opt = 5
 						if ((new Date($("#to").val()) - new Date($("#from").val())) > 365*86400*1000) {
 							var d = new Date(result[i].x_axis);
 							
@@ -4981,7 +5486,7 @@ function drawChartForEachCity() {
 						}
 					},
 					pointSize: 10
-				};
+			};
 			
 			var options1 = {
 					title: title,
@@ -5020,28 +5525,26 @@ function drawChartForEachCity() {
 						}
 					},
 					pointSize: 10
-				};
+			};				
 				
-				
-				var chart_div = 'chart_div_' + j + '_' + in_city;
-				
-				// Instantiate and draw our chart, passing in some options.
-				if (j <= 3) {
-					var chart = new google.visualization.ColumnChart(document.getElementById(chart_div));
-				} else {
-					var chart = new google.visualization.LineChart(document.getElementById(chart_div));	
-				}
-				
-				if ( (new Date($("#to").val()) - new Date($("#from").val())) > 60*86400*1000 )
-				{
-					$('#chart_div_' + j + '_' + in_city).show();
-					chart.draw(data, options);
-				} else {
-					$('#chart_div_' + j + '_' + in_city).show();
-					chart.draw(data, options1);
-				}
-				
+			var chart_div = 'chart_div_' + opt + '_' + in_city;
+			
+			// Instantiate and draw our chart, passing in some options.
+			if (opt <= 3) {
+				var chart = new google.visualization.ColumnChart(document.getElementById(chart_div));
+			} else {
+				var chart = new google.visualization.LineChart(document.getElementById(chart_div));	
 			}
-		}
-	});
+			
+			if ( (new Date($("#to").val()) - new Date($("#from").val())) > 60*86400*1000 )
+			{
+				$('#chart_div_' + opt + '_' + in_city).show();
+				chart.draw(data, options);
+			} else {
+				$('#chart_div_' + opt + '_' + in_city).show();
+				chart.draw(data, options1);
+			}
+
+		}							 
+	}
 };
