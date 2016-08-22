@@ -5,11 +5,28 @@
 	$('#analysis_tbl').hide();
 	$(".overlay").hide();
 	
+	$("#toggle_time_area").click(function (e) { 
+		e.preventDefault();
+		if ($("#toggle_time_area").val() == '0') {
+			$(".time").show();
+			$(".area").hide();
+			$("#toggle_time_area").val('1');
+			$("#toggle_time_area").html('エリア比較');
+		} else {
+			$(".time").hide();
+			$(".area").show();
+			$("#toggle_time_area").val('0');
+			$("#toggle_time_area").html('期間比較');
+		}
+	});
+	
     $(".btn-aggregate").click(function (e) {
         e.preventDefault();
 		$(".overlay").show();
         $('#error').html('');
         $('#chart_div').html('');
+		$(".time").show();
+		$(".area").show();
         
 		google.charts.setOnLoadCallback(drawChart);
 		resetPieChartData();
@@ -20,7 +37,7 @@
 		
 		drawPieChart();
 		drawChartForEachCity();
-		
+		$(".time").hide();
 		$(".overlay").fadeOut().delay(1500);
     });
 	
@@ -53,8 +70,10 @@
     $(window).resize(function(){
 		$(".overlay").show();					  
 		if ($('#chart_div').html() != '') {
-  			drawChart();
+			$(".time").show();
+			$(".area").show();
 			
+			google.charts.setOnLoadCallback(drawChart);
 			resetPieChartData();
 			resetAnalysisTable();
 			
@@ -63,6 +82,8 @@
 			
 			drawPieChart();
 			drawChartForEachCity();
+			
+			$(".time").hide();
 		}
 		
 		$(".overlay").fadeOut().delay(1500);
@@ -91,6 +112,11 @@
 			seller.push($(this).val());
 		});
 		
+		var from = $("#from").val();
+		var to = $("#to").val();
+		var add_title = '  <span>' + from + ' ~ ' + to + '</span>';
+		$(".chart-title span").remove();
+		$('.chart-title').append(add_title);						 
 		
 		var formData = {
 			city: city,
@@ -391,6 +417,71 @@
 	}
     });
 
+
+
+function countItemRemaining() {
+	var from = $('#from').val();
+	var city = new Array();
+	$.each($("input[name='city[]']:checked"), function() {
+		city.push($(this).val());
+	});
+	var cat_item = new Array();
+	$.each($("input[name='cat_item[]']:checked"), function() {
+		cat_item.push($(this).val());
+	});
+	var condition = new Array();
+	$.each($("input[name='condition[]']:checked"), function() {
+		condition.push($(this).val());
+	});
+	var layout = new Array();
+	$.each($("input[name='layout[]']:checked"), function() {
+		layout.push($(this).val());
+	});
+	var seller = new Array();
+	$.each($("input[name='seller[]']:checked"), function() {
+		seller.push($(this).val());
+	});
+	
+	if (!city[0]) {
+		city = ["40136", "40134", "40135", "40131", "40133", "40132", "40137", "40223", "40342", "40343", "40218", "40224", "40344", "40219", "40348", "40305", "40230", "40345", "40203", "40349", "40341", "40221", "40207", "40447", "41345", "40503", "40216", "40647", "40217", "41346", "41203", "41341"];
+	}
+	if (!seller[0]) {
+		seller = ["1", "2", "3", "4", "5", "7", "7"];
+	}
+	
+	var formData = {
+		city: city,
+		cat_item: cat_item,
+		condition: condition,
+		layout: layout,
+		seller: seller,
+		from: $("#from").val(),
+	};	
+	
+	var remaining;
+		
+	$.ajaxSetup({
+		headers: {
+				'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+			}
+	})
+	var result
+	$.ajax({
+		url: "/item/?md=count_item_remaining",
+		type: 'POST',
+		data: formData,
+		dataType: "json",
+		async: false,
+		success: function (data) {
+			remaining = data;
+		}
+	});
+	
+	return remaining;	
+}
+
+
+
 function analysisGroupItem() {
 	//------------------------------------		
 	//search in radius
@@ -449,6 +540,9 @@ function analysisGroupItem() {
 
 
 function insertAnalysisTable(analysis) {
+	
+	var remaining = countItemRemaining();
+	
 	for (var i = 0; i < analysis.length; i++) {	
 		if (analysis[i].seller_cd != null) {
 			var td_sale_number = '';
@@ -531,6 +625,38 @@ function insertAnalysisTable(analysis) {
 			var count_item_in_range_time_2 = 0;
 			var count_item_in_range_time_3 = 0;
 			
+			var count_item_remaining_in_jonan = 0;
+			var count_item_remaining_in_minami = 0;
+			var count_item_remaining_in_nishi = 0;
+			var count_item_remaining_in_higashi = 0;
+			var count_item_remaining_in_chuo = 0;
+			var count_item_remaining_in_hakata = 0;
+			var count_item_remaining_in_sawara = 0;
+			var count_item_remaining_in_koga = 0;
+			var count_item_remaining_in_sasaguri = 0;
+			var count_item_remaining_in_shime = 0;
+			var count_item_remaining_in_kasuga = 0;
+			var count_item_remaining_in_fukutsu = 0;
+			var count_item_remaining_in_sue = 0;
+			var count_item_remaining_in_ounojou = 0;
+			var count_item_remaining_in_hisayama = 0;
+			var count_item_remaining_in_nakagawa = 0;
+			var count_item_remaining_in_itoshima = 0;
+			var count_item_remaining_in_shingu = 0;
+			var count_item_remaining_in_kurume = 0;
+			var count_item_remaining_in_kasuya = 0;
+			var count_item_remaining_in_umimachi = 0;
+			var count_item_remaining_in_dazaifu = 0;
+			var count_item_remaining_in_yanagawa = 0;
+			var count_item_remaining_in_chikuzen = 0;
+			var count_item_remaining_in_kamimine = 0;
+			var count_item_remaining_in_tachiarai = 0;
+			var count_item_remaining_in_ogori = 0;
+			var count_item_remaining_in_chikujou = 0;
+			var count_item_remaining_in_chikushino = 0;
+			var count_item_remaining_in_miyaki = 0;
+			var count_item_remaining_in_tosu = 0;
+			var count_item_remaining_in_kiyama = 0;
 			
 			//for soldout rate chart
 			var count_item_soldout_in_jonan = 0;
@@ -569,19 +695,63 @@ function insertAnalysisTable(analysis) {
 			var count_item_soldout_in_range_time_1 = 0;
 			var count_item_soldout_in_range_time_2 = 0;
 			var count_item_soldout_in_range_time_3 = 0;
-				
+			
 			var from = $('#from').val();
 			var to = $('#to').val();
 			
 			var range = Math.abs( new Date(from) - new Date(to) ) / 3;
 			
 			var from_1 =  new Date(from);
-			var to_1 = new Date();
-			to_1.setDate( from_1.getDate() + range ); console.log(from_1);
-			var from_2 = from + range + 1;
-			var to_2 = from_2 + range;
-			var from_3 = from + 2 * range + 1;
-			var to_3 = to;
+			var to_1 = new Date(from_1);
+			to_1.setDate( to_1.getDate() + range / 86400 / 1000 );
+			
+			var month = '' + (from_1.getMonth() + 1);
+        	var date = '' + from_1.getDate();
+       	 	var year = from_1.getFullYear();
+    		if (month.length < 2) { month = '0' + month; }
+    		if (date.length < 2) { date = '0' + date; }
+			from_1 = year + '-' + month + '-' + date;
+			var month = '' + (to_1.getMonth() + 1);
+        	var date = '' + to_1.getDate();
+       	 	var year = to_1.getFullYear();
+    		if (month.length < 2) { month = '0' + month; }
+    		if (date.length < 2) { date = '0' + date; }
+			to_1 = year + '-' + month + '-' + date;
+			
+			
+			var from_2 = new Date(from);
+			from_2.setDate(from_2.getDate() + range / 86400 / 1000 + 1);
+			var to_2 = new Date(from_2);
+			to_2.setDate( to_2.getDate() + range / 86400 / 1000 );
+			var month = '' + (from_2.getMonth() + 1);
+        	var date = '' + from_2.getDate();
+       	 	var year = from_2.getFullYear();
+    		if (month.length < 2) { month = '0' + month; }
+    		if (date.length < 2) { date = '0' + date; }
+			from_2 = year + '-' + month + '-' + date;
+			var month = '' + (to_2.getMonth() + 1);
+        	var date = '' + to_2.getDate();
+       	 	var year = to_2.getFullYear();
+    		if (month.length < 2) { month = '0' + month; }
+    		if (date.length < 2) { date = '0' + date; }
+			to_2 = year + '-' + month + '-' + date;
+			
+			
+			var from_3 = new Date(from);
+			from_3.setDate(from_3.getDate() + 2 * range / 86400 / 1000 + 1);
+			var to_3 = new Date(to);
+			var month = '' + (from_3.getMonth() + 1);
+        	var date = '' + from_3.getDate();
+       	 	var year = from_3.getFullYear();
+    		if (month.length < 2) { month = '0' + month; }
+    		if (date.length < 2) { date = '0' + date; }
+			from_3 = year + '-' + month + '-' + date;
+			var month = '' + (to_3.getMonth() + 1);
+        	var date = '' + to_3.getDate();
+       	 	var year = to_3.getFullYear();
+    		if (month.length < 2) { month = '0' + month; }
+    		if (date.length < 2) { date = '0' + date; }
+			to_3 = year + '-' + month + '-' + date;
 			
 			for (var k = 0; k < analysis[i].items.length; k++){
 				//sale number
@@ -683,14 +853,16 @@ function insertAnalysisTable(analysis) {
 				if (analysis[i].items[k].city_cd == 41341) {
 					count_item_in_kiyama++;
 				}
+				
+				
 				//time chart
-				if (analysis[i].items[k].regist >= from_1 && analysis[i].items[k].regist <= to_1) {
+				if ( analysis[i].items[k].regist >= from_1 && analysis[i].items[k].regist <= to_1) {
 					count_item_in_range_time_1++;
 				}
-				if (analysis[i].items[k].regist >= from_2 && analysis[i].items[k].regist <= to_2) {
+				if ( analysis[i].items[k].regist >= from_2 && analysis[i].items[k].regist <= to_2) {
 					count_item_in_range_time_2++;
 				}
-				if (analysis[i].items[k].regist >= from_1 && analysis[i].items[k].regist <= to_1) {
+				if ( analysis[i].items[k].regist >= from_3 && analysis[i].items[k].regist <= to_3) {
 					count_item_in_range_time_3++;
 				}
 				
@@ -804,15 +976,13 @@ function insertAnalysisTable(analysis) {
 					}
 					
 					//time chart
-					console.log(analysis[i].items[k].date_soldout);
-					console.log(to_2);
-					if (analysis[i].items[k].regist >= from_1 && analysis[i].items[k].date_soldout <= to_3) {
+					if ( analysis[i].items[k].date_soldout >= from_1 && analysis[i].items[k].date_soldout <= to_1) {
 						count_item_soldout_in_range_time_1++;
 					}
-					if (analysis[i].items[k].date_soldout >= from_2 && analysis[i].items[k].date_soldout <= to_2) {
+					if ( analysis[i].items[k].date_soldout >= from_2 && analysis[i].items[k].date_soldout <= to_2) {
 						count_item_soldout_in_range_time_2++;
 					}
-					if (analysis[i].items[k].date_soldout >= from_1 && analysis[i].items[k].date_soldout <= to_1) {
+					if ( analysis[i].items[k].date_soldout >= from_3 && analysis[i].items[k].date_soldout <= to_3) {
 						count_item_soldout_in_range_time_3++;
 					}
 					
@@ -859,47 +1029,162 @@ function insertAnalysisTable(analysis) {
 				count_item_market_rate++;
 			}
 			
+			//selling number
+			var count_remaining = 0;
+			for (var k = 0; k < remaining.length; k++) {
+				if ( remaining[k].seller_cd == analysis[i].seller_cd) {
+					count_remaining = count_remaining + parseInt(remaining[i].count);
+				}
+			}
+			window.market_rate.push([analysis[i].seller_name, count_remaining + parseInt(count_item_sale_number - count_item_soldout)]);
 			
-			//sale number
-			window.market_rate.push([analysis[i].seller_name, parseInt(count_item_sale_number - count_item_soldout)]);
-			window.market_rate_jonan.push([analysis[i].seller_name, parseInt(count_item_in_jonan - count_item_soldout_in_jonan)]);
-			window.market_rate_minami.push([analysis[i].seller_name, parseInt(count_item_in_minami - count_item_soldout_in_minami)]);
-			window.market_rate_nishi.push([analysis[i].seller_name, parseInt(count_item_in_nishi - count_item_soldout_in_nishi)]);
-			window.market_rate_higashi.push([analysis[i].seller_name, parseInt(count_item_in_higashi - count_item_soldout_in_higashi)]);
-			window.market_rate_chuo.push([analysis[i].seller_name, parseInt(count_item_in_chuo - count_item_soldout_in_chuo)]);
-			window.market_rate_hakata.push([analysis[i].seller_name, parseInt(count_item_in_hakata - count_item_soldout_in_hakata)]);
-			window.market_rate_sawara.push([analysis[i].seller_name, parseInt(count_item_in_sawara - count_item_soldout_in_sawara)]);
-			window.market_rate_koga.push([analysis[i].seller_name, parseInt(count_item_in_koga - count_item_soldout_in_koga)]);
-			window.market_rate_sasaguri.push([analysis[i].seller_name, parseInt(count_item_in_sasaguri - count_item_soldout_in_sasaguri)]);
-			window.market_rate_shime.push([analysis[i].seller_name, parseInt(count_item_in_shime - count_item_soldout_in_shime)]);
-			window.market_rate_kasuga.push([analysis[i].seller_name, parseInt(count_item_in_kasuga - count_item_soldout_in_kasuga)]);
-			window.market_rate_fukutsu.push([analysis[i].seller_name, parseInt(count_item_in_fukutsu - count_item_soldout_in_fukutsu)]);
-			window.market_rate_sue.push([analysis[i].seller_name, parseInt(count_item_in_sue - count_item_soldout_in_sue)]);
-			window.market_rate_ounojou.push([analysis[i].seller_name, parseInt(count_item_in_ounojou - count_item_soldout_in_ounojou)]);
-			window.market_rate_hisayama.push([analysis[i].seller_name, parseInt(count_item_in_hisayama - count_item_soldout_in_hisayama)]);
-			window.market_rate_nakagawa.push([analysis[i].seller_name, parseInt(count_item_in_nakagawa - count_item_soldout_in_nakagawa)]);
-			window.market_rate_itoshima.push([analysis[i].seller_name, parseInt(count_item_in_itoshima - count_item_soldout_in_itoshima)]);
-			window.market_rate_shingu.push([analysis[i].seller_name, parseInt(count_item_in_shingu - count_item_soldout_in_shingu)]);
-			window.market_rate_kurume.push([analysis[i].seller_name, parseInt(count_item_in_kurume - count_item_soldout_in_kurume)]);
-			window.market_rate_kasuya.push([analysis[i].seller_name, parseInt(count_item_in_kasuya - count_item_soldout_in_kasuya)]);
-			window.market_rate_umimachi.push([analysis[i].seller_name, parseInt(count_item_in_umimachi - count_item_soldout_in_umimachi)]);
-			window.market_rate_dazaifu.push([analysis[i].seller_name, parseInt(count_item_in_dazaifu - count_item_soldout_in_dazaifu)]);
-			window.market_rate_yanagawa.push([analysis[i].seller_name, parseInt(count_item_in_yanagawa - count_item_soldout_in_yanagawa)]);
-			window.market_rate_chikuzen.push([analysis[i].seller_name, parseInt(count_item_in_chikuzen - count_item_soldout_in_chikuzen)]);
-			window.market_rate_kamimine.push([analysis[i].seller_name, parseInt(count_item_in_kamimine - count_item_soldout_in_kamimine)]);
-			window.market_rate_tachiarai.push([analysis[i].seller_name, parseInt(count_item_in_tachiarai - count_item_soldout_in_tachiarai)]);
-			window.market_rate_ogori.push([analysis[i].seller_name, parseInt(count_item_in_ogori - count_item_soldout_in_ogori)]);
-			window.market_rate_chikujou.push([analysis[i].seller_name, parseInt(count_item_in_chikujou - count_item_soldout_in_chikujou)]);
-			window.market_rate_chikushino.push([analysis[i].seller_name, parseInt(count_item_in_chikushino - count_item_soldout_in_chikushino)]);
-			window.market_rate_miyaki.push([analysis[i].seller_name, parseInt(count_item_in_miyaki - count_item_soldout_in_miyaki)]);
-			window.market_rate_tosu.push([analysis[i].seller_name, parseInt(count_item_in_tosu - count_item_soldout_in_tosu)]);
-			window.market_rate_kiyama.push([analysis[i].seller_name, parseInt(count_item_in_kiyama - count_item_soldout_in_kiyama)]);
+			for (var k = 0; k < remaining.length; k++) {
+				if ( remaining[k].seller_cd == analysis[i].seller_cd) {
+					if (remaining[k].city_cd == 40136) {
+						count_item_remaining_in_jonan = parseInt(remaining[k].count); console.log (count_item_remaining_in_jonan);
+					}
+					if (remaining[k].city_cd == 40134) {
+						count_item_remaining_in_minami = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40135) {
+						count_item_remaining_in_nishi = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40131) {
+						count_item_remaining_in_higashi = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40133) {
+						count_item_remaining_in_chuo = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40132) {
+						count_item_remaining_in_hakata = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40137) {
+						count_item_remaining_in_sawara = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40223) {
+						count_item_remaining_in_koga = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40342) {
+						count_item_remaining_in_sasaguri = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40343) {
+						count_item_remaining_in_shime = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40218) {
+						count_item_remaining_in_kasuga = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40224) {
+						count_item_remaining_in_fukutsu = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40344) {
+						count_item_remaining_in_sue = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40219) {
+						count_item_remaining_in_ounojou = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40348) {
+						count_item_remaining_in_hisayama = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40305) {
+						count_item_remaining_in_nakagawa = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40230) {
+						count_item_remaining_in_itoshima = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40345) {
+						count_item_remaining_in_shingu = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40203) {
+						count_item_remaining_in_kurume = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40349) {
+						count_item_remaining_in_kasuya = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40341) {
+						count_item_remaining_in_umimachi = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40221) {
+						count_item_remaining_in_dazaifu = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40207) {
+						count_item_remaining_in_yanagawa = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40447) {
+						count_item_remaining_in_chikuzen = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 41345) {
+						count_item_remaining_in_kamimine = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40503) {
+						count_item_remaining_in_tachiarai = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40216) {
+						count_item_remaining_in_ogori = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40647) {
+						count_item_remaining_in_chikujou = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 40217) {
+						count_item_remaining_in_chikushino = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 41346) {
+						count_item_remaining_in_miyaki = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 41203) {
+						count_item_remaining_in_tosu = parseInt(remaining[k].count);
+					}
+					if (remaining[k].city_cd == 41341) {
+						count_item_remaining_in_kiyama = parseInt(remaining[k].count);
+					}
+				}
+			}
+			
+			window.market_rate_jonan.push([analysis[i].seller_name, count_item_remaining_in_jonan + parseInt(count_item_in_jonan - count_item_soldout_in_jonan)]);
+			window.market_rate_minami.push([analysis[i].seller_name, count_item_remaining_in_minami + parseInt(count_item_in_minami - count_item_soldout_in_minami)]);
+			window.market_rate_nishi.push([analysis[i].seller_name, count_item_remaining_in_nishi + parseInt(count_item_in_nishi - count_item_soldout_in_nishi)]);
+			window.market_rate_higashi.push([analysis[i].seller_name, count_item_remaining_in_higashi + parseInt(count_item_in_higashi - count_item_soldout_in_higashi)]);
+			window.market_rate_chuo.push([analysis[i].seller_name, count_item_remaining_in_chuo + parseInt(count_item_in_chuo - count_item_soldout_in_chuo)]);
+			window.market_rate_hakata.push([analysis[i].seller_name, count_item_remaining_in_hakata + parseInt(count_item_in_hakata - count_item_soldout_in_hakata)]);
+			window.market_rate_sawara.push([analysis[i].seller_name, count_item_remaining_in_sawara + parseInt(count_item_in_sawara - count_item_soldout_in_sawara)]);
+			window.market_rate_koga.push([analysis[i].seller_name, count_item_remaining_in_koga + parseInt(count_item_in_koga - count_item_soldout_in_koga)]);
+			window.market_rate_sasaguri.push([analysis[i].seller_name, count_item_remaining_in_sasaguri + parseInt(count_item_in_sasaguri - count_item_soldout_in_sasaguri)]);
+			window.market_rate_shime.push([analysis[i].seller_name, count_item_remaining_in_shime + parseInt(count_item_in_shime - count_item_soldout_in_shime)]);
+			window.market_rate_kasuga.push([analysis[i].seller_name, count_item_remaining_in_kasuga + parseInt(count_item_in_kasuga - count_item_soldout_in_kasuga)]);
+			window.market_rate_fukutsu.push([analysis[i].seller_name, count_item_remaining_in_fukutsu + parseInt(count_item_in_fukutsu - count_item_soldout_in_fukutsu)]);
+			window.market_rate_sue.push([analysis[i].seller_name, count_item_remaining_in_sue + parseInt(count_item_in_sue - count_item_soldout_in_sue)]);
+			window.market_rate_ounojou.push([analysis[i].seller_name, count_item_remaining_in_ounojou + parseInt(count_item_in_ounojou - count_item_soldout_in_ounojou)]);
+			window.market_rate_hisayama.push([analysis[i].seller_name, count_item_remaining_in_hisayama + parseInt(count_item_in_hisayama - count_item_soldout_in_hisayama)]);
+			window.market_rate_nakagawa.push([analysis[i].seller_name, count_item_remaining_in_nakagawa + parseInt(count_item_in_nakagawa - count_item_soldout_in_nakagawa)]);
+			window.market_rate_itoshima.push([analysis[i].seller_name, count_item_remaining_in_itoshima + parseInt(count_item_in_itoshima - count_item_soldout_in_itoshima)]);
+			window.market_rate_shingu.push([analysis[i].seller_name, count_item_remaining_in_shingu + parseInt(count_item_in_shingu - count_item_soldout_in_shingu)]);
+			window.market_rate_kurume.push([analysis[i].seller_name, count_item_remaining_in_kurume + parseInt(count_item_in_kurume - count_item_soldout_in_kurume)]);
+			window.market_rate_kasuya.push([analysis[i].seller_name, count_item_remaining_in_kasuya + parseInt(count_item_in_kasuya - count_item_soldout_in_kasuya)]);
+			window.market_rate_umimachi.push([analysis[i].seller_name, count_item_remaining_in_umimachi + parseInt(count_item_in_umimachi - count_item_soldout_in_umimachi)]);
+			window.market_rate_dazaifu.push([analysis[i].seller_name, count_item_remaining_in_dazaifu + parseInt(count_item_in_dazaifu - count_item_soldout_in_dazaifu)]);
+			window.market_rate_yanagawa.push([analysis[i].seller_name, count_item_remaining_in_yanagawa + parseInt(count_item_in_yanagawa - count_item_soldout_in_yanagawa)]);
+			window.market_rate_chikuzen.push([analysis[i].seller_name, count_item_remaining_in_chikuzen + parseInt(count_item_in_chikuzen - count_item_soldout_in_chikuzen)]);
+			window.market_rate_kamimine.push([analysis[i].seller_name, count_item_remaining_in_kamimine + parseInt(count_item_in_kamimine - count_item_soldout_in_kamimine)]);
+			window.market_rate_tachiarai.push([analysis[i].seller_name, count_item_remaining_in_tachiarai + parseInt(count_item_in_tachiarai - count_item_soldout_in_tachiarai)]);
+			window.market_rate_ogori.push([analysis[i].seller_name, count_item_remaining_in_ogori + parseInt(count_item_in_ogori - count_item_soldout_in_ogori)]);
+			window.market_rate_chikujou.push([analysis[i].seller_name, count_item_remaining_in_chikujou + parseInt(count_item_in_chikujou - count_item_soldout_in_chikujou)]);
+			window.market_rate_chikushino.push([analysis[i].seller_name, count_item_remaining_in_chikushino + parseInt(count_item_in_chikushino - count_item_soldout_in_chikushino)]);
+			window.market_rate_miyaki.push([analysis[i].seller_name, count_item_remaining_in_miyaki + parseInt(count_item_in_miyaki - count_item_soldout_in_miyaki)]);
+			window.market_rate_tosu.push([analysis[i].seller_name, count_item_remaining_in_tosu + parseInt(count_item_in_tosu - count_item_soldout_in_tosu)]);
+			window.market_rate_kiyama.push([analysis[i].seller_name, count_item_remaining_in_kiyama + parseInt(count_item_in_kiyama - count_item_soldout_in_kiyama)]);
 			
 			window.market_rate_time.push([analysis[i].seller_name, parseInt(count_item_sale_number - count_item_soldout)]);
-			window.market_rate_time_in_range_1.push([analysis[i].seller_name, parseInt(count_item_in_range_time_1 - count_item_soldout_in_range_time_1)]);
-			window.market_rate_time_in_range_2.push([analysis[i].seller_name, parseInt(count_item_in_range_time_2 - count_item_soldout_in_range_time_2)]);
-			window.market_rate_time_in_range_3.push([analysis[i].seller_name, parseInt(count_item_in_range_time_3 - count_item_soldout_in_range_time_3)]);
-
+			var count_remaining = 0;
+			for (var k = 0; k < remaining.length; k++) {
+				if (remaining[k].seller_cd == analysis[i].seller_cd) {
+					count_remaining += parseInt(remaining[k].count);
+				}	
+			}
+			var selling_number_in_range_time_1 = count_remaining + parseInt(count_item_in_range_time_1 - count_item_soldout_in_range_time_1);
+			window.market_rate_time_in_range_1.push([analysis[i].seller_name, selling_number_in_range_time_1]);
+			var selling_number_in_range_time_2 = selling_number_in_range_time_1 + parseInt(count_item_in_range_time_2 - count_item_soldout_in_range_time_2);
+			window.market_rate_time_in_range_2.push([analysis[i].seller_name, selling_number_in_range_time_2]);
+			var selling_number_in_range_time_3 = selling_number_in_range_time_2 + parseInt(count_item_in_range_time_3 - count_item_soldout_in_range_time_3);
+			window.market_rate_time_in_range_3.push([analysis[i].seller_name, selling_number_in_range_time_3]);
 
 			//soldout number
 			window.soldout_rate.push([analysis[i].seller_name, parseInt(count_item_soldout)]);
@@ -942,7 +1227,14 @@ function insertAnalysisTable(analysis) {
 			window.soldout_rate_time_in_range_3.push([analysis[i].seller_name, parseInt(count_item_soldout_in_range_time_3)]);
 			
 			//selling number
-			selling_number = count_item_sale_number - count_item_soldout;
+			var count_remaining = 0;
+			for (var k = 0; k < remaining.length; k++) {
+				if (remaining[k].seller_cd == analysis[i].seller_cd) {
+					count_remaining = count_remaining + parseInt(remaining[k].count);
+				}	
+			}
+			
+			selling_number = count_remaining + count_item_sale_number - count_item_soldout;
 			
 			//avg price regist
 			var avg_price_regist = Math.ceil(sum_price_regist / count_item_price_regist);
@@ -2716,16 +3008,46 @@ function drawPieChart() {
 		var chart32 = new google.visualization.PieChart(document.getElementById('piechart_3d_32'));
 		chart32.draw(data32, options);
 	}
-		
+	
+	//time chart
 	var dont_draw = 1;
-	$('#piechart_time_3d_1').hide(); console.log(window.market_rate_time_in_range_1);
+	$('#piechart_time_3d_1').hide();
+	for (var i = 0; i < window.market_rate_time_in_range_1.length; i++) {
+		if ( window.market_rate_time_in_range_1[i][1] < 0) {
+			window.market_rate_time_in_range_1[i][1] = 0;
+		}
+	}	
 	for (var i = 0; i < window.market_rate_time_in_range_1.length; i++) {
 		if ( window.market_rate_time_in_range_1[i][1] != 0) {
 			dont_draw = 0;
 			break;
 		}
-	} 
+	}
+
+	
 	if (!dont_draw) {
+		var from = $('#from').val();
+		var to = $('#to').val();
+		
+		var range = Math.abs( new Date(from) - new Date(to) ) / 3;
+		
+		var from_1 =  new Date(from);
+		var to_1 = new Date(from_1);
+		to_1.setDate( to_1.getDate() + range / 86400 / 1000 );
+		
+		var month = '' + (from_1.getMonth() + 1);
+		var date = '' + from_1.getDate();
+		var year = from_1.getFullYear();
+		if (month.length < 2) { month = '0' + month; }
+		if (date.length < 2) { date = '0' + date; }
+		from_1 = year + '-' + month + '-' + date;
+		var month = '' + (to_1.getMonth() + 1);
+		var date = '' + to_1.getDate();
+		var year = to_1.getFullYear();
+		if (month.length < 2) { month = '0' + month; }
+		if (date.length < 2) { date = '0' + date; }
+		to_1 = year + '-' + month + '-' + date;
+			
 		$('#piechart_time_3d_1').show();
 		var data33 = new google.visualization.DataTable();
 		data33.addColumn('string', 'Seller');
@@ -2759,7 +3081,147 @@ function drawPieChart() {
 	}
 	
 	
+	var dont_draw = 1;
+	$('#piechart_time_3d_2').hide();
+	for (var i = 0; i < window.market_rate_time_in_range_2.length; i++) {
+		if ( window.market_rate_time_in_range_2[i][1] < 0) {
+			window.market_rate_time_in_range_2[i][1] = 0;
+		}
+	}	
+	for (var i = 0; i < window.market_rate_time_in_range_2.length; i++) {
+		if ( window.market_rate_time_in_range_2[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
 	
+	if (!dont_draw) {
+		var from = $('#from').val();
+		var to = $('#to').val();
+		
+		var range = Math.abs( new Date(from) - new Date(to) ) / 3;
+		
+		var from_2 =  new Date(from);
+		from_2.setDate( from_2.getDate() + range / 86400 / 1000 + 1);
+		var to_2 = new Date(from_2);
+		to_2.setDate( to_2.getDate() + range / 86400 / 1000 );
+		
+		var month = '' + (from_2.getMonth() + 1);
+		var date = '' + from_2.getDate();
+		var year = from_2.getFullYear();
+		if (month.length < 2) { month = '0' + month; }
+		if (date.length < 2) { date = '0' + date; }
+		from_2 = year + '-' + month + '-' + date;
+		var month = '' + (to_2.getMonth() + 1);
+		var date = '' + to_2.getDate();
+		var year = to_2.getFullYear();
+		if (month.length < 2) { month = '0' + month; }
+		if (date.length < 2) { date = '0' + date; }
+		to_2 = year + '-' + month + '-' + date;
+			
+		$('#piechart_time_3d_2').show();
+		var data34 = new google.visualization.DataTable();
+		data34.addColumn('string', 'Seller');
+		data34.addColumn('number', '販売シェア率');
+		data34.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_time_in_range_2.length; i++) {
+			sum = sum + window.market_rate_time_in_range_2[i][1];
+		}
+		
+		for (var i = 0; i < window.market_rate_time_in_range_2.length; i++) {
+			var rate = (window.market_rate_time_in_range_2[i][1] / sum * 100).toFixed(1);
+			 data34.addRows([[window.market_rate_time_in_range_2[i][0], window.market_rate_time_in_range_2[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_time_in_range_2[i][0] + '<br><b>' + window.market_rate_time_in_range_2[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: from_2 + ' ~ ' + to_2,
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var chart34 = new google.visualization.PieChart(document.getElementById('piechart_time_3d_2'));
+		chart34.draw(data34, options);
+	}
+	
+	
+	var dont_draw = 1;
+	$('#piechart_time_3d_3').hide();
+	for (var i = 0; i < window.market_rate_time_in_range_3.length; i++) {
+		if ( window.market_rate_time_in_range_3[i][1] < 0) {
+			window.market_rate_time_in_range_3[i][1] = 0;
+		}
+	}
+	for (var i = 0; i < window.market_rate_time_in_range_3.length; i++) {
+		if ( window.market_rate_time_in_range_3[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	}
+
+	
+	if (!dont_draw) {
+		var from = $('#from').val();
+		var to = $('#to').val();
+		
+		var range = Math.abs( new Date(from) - new Date(to) ) / 3;
+		
+		var from_3 =  new Date(from);
+		from_3.setDate( from_3.getDate() + 2 * range / 86400 / 1000 + 1);
+		var to_3 = new Date(to);
+		
+		var month = '' + (from_3.getMonth() + 1);
+		var date = '' + from_3.getDate();
+		var year = from_3.getFullYear();
+		if (month.length < 2) { month = '0' + month; }
+		if (date.length < 2) { date = '0' + date; }
+		from_3 = year + '-' + month + '-' + date;
+		var month = '' + (to_3.getMonth() + 1);
+		var date = '' + to_3.getDate();
+		var year = to_3.getFullYear();
+		if (month.length < 2) { month = '0' + month; }
+		if (date.length < 2) { date = '0' + date; }
+		to_3 = year + '-' + month + '-' + date;
+			
+		$('#piechart_time_3d_3').show();
+		
+		var data35 = new google.visualization.DataTable();
+		data35.addColumn('string', 'Seller');
+		data35.addColumn('number', '販売シェア率');
+		data35.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.market_rate_time_in_range_3.length; i++) {
+			sum = sum + window.market_rate_time_in_range_3[i][1];
+		}
+		
+		for (var i = 0; i < window.market_rate_time_in_range_3.length; i++) {
+			var rate = (window.market_rate_time_in_range_3[i][1] / sum * 100).toFixed(1);
+			 data35.addRows([[window.market_rate_time_in_range_3[i][0], window.market_rate_time_in_range_3[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.market_rate_time_in_range_3[i][0] + '<br><b>' + window.market_rate_time_in_range_3[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: from_3 + ' ~ ' + to_3,
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var chart35 = new google.visualization.PieChart(document.getElementById('piechart_time_3d_3'));
+		chart35.draw(data35, options)
+	}
 	
 	
 	// draw soldout rate piechart
@@ -4118,6 +4580,207 @@ function drawPieChart() {
 		var soldout_chart32 = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d_32'));
 		soldout_chart32.draw(soldout_data32, options);
 	}
+	
+	
+	//time chart
+
+	var dont_draw = 1;
+	$('#soldout_piechart_time_3d_1').hide();
+	
+	for (var i = 0; i < window.soldout_rate_time_in_range_1.length; i++) {
+		if ( window.soldout_rate_time_in_range_1[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	} 
+	
+	if (!dont_draw) {
+		var from = $('#from').val();
+		var to = $('#to').val();
+		
+		var range = Math.abs( new Date(from) - new Date(to) ) / 3;
+		
+		var from_1 =  new Date(from);
+		var to_1 = new Date(from_1);
+		to_1.setDate( to_1.getDate() + range / 86400 / 1000 );
+		
+		var month = '' + (from_1.getMonth() + 1);
+		var date = '' + from_1.getDate();
+		var year = from_1.getFullYear();
+		if (month.length < 2) { month = '0' + month; }
+		if (date.length < 2) { date = '0' + date; }
+		from_1 = year + '-' + month + '-' + date;
+		var month = '' + (to_1.getMonth() + 1);
+		var date = '' + to_1.getDate();
+		var year = to_1.getFullYear();
+		if (month.length < 2) { month = '0' + month; }
+		if (date.length < 2) { date = '0' + date; }
+		to_1 = year + '-' + month + '-' + date;
+			
+		$('#soldout_piechart_time_3d_1').show();
+		var soldout_data33 = new google.visualization.DataTable();
+		soldout_data33.addColumn('string', 'Seller');
+		soldout_data33.addColumn('number', '販売シェア率');
+		soldout_data33.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_time_in_range_1.length; i++) {
+			sum = sum + window.soldout_rate_time_in_range_1[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_time_in_range_1.length; i++) {
+			var rate = (window.soldout_rate_time_in_range_1[i][1] / sum * 100).toFixed(1);
+			 soldout_data33.addRows([[window.soldout_rate_time_in_range_1[i][0], window.soldout_rate_time_in_range_1[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_time_in_range_1[i][0] + '<br><b>' + window.soldout_rate_time_in_range_1[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: from_1 + ' ~ ' + to_1,
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart33 = new google.visualization.PieChart(document.getElementById('soldout_piechart_time_3d_1'));
+		soldout_chart33.draw(soldout_data33, options);
+	}
+	
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_time_3d_2').hide();
+	
+	for (var i = 0; i < window.soldout_rate_time_in_range_2.length; i++) {
+		if ( window.soldout_rate_time_in_range_2[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	} 
+	
+	if (!dont_draw) {
+		var from = $('#from').val();
+		var to = $('#to').val();
+		
+		var range = Math.abs( new Date(from) - new Date(to) ) / 3;
+		
+		var from_2 =  new Date(from);
+		from_2.setDate( from_2.getDate() + range / 86400 / 1000 + 1);
+		var to_2 = new Date(from_2);
+		to_2.setDate( to_2.getDate() + 2 * range / 86400 / 1000 );
+		
+		var month = '' + (from_2.getMonth() + 1);
+		var date = '' + from_2.getDate();
+		var year = from_2.getFullYear();
+		if (month.length < 2) { month = '0' + month; }
+		if (date.length < 2) { date = '0' + date; }
+		from_2 = year + '-' + month + '-' + date;
+		var month = '' + (to_2.getMonth() + 1);
+		var date = '' + to_2.getDate();
+		var year = to_2.getFullYear();
+		if (month.length < 2) { month = '0' + month; }
+		if (date.length < 2) { date = '0' + date; }
+		to_2 = year + '-' + month + '-' + date;
+			
+		$('#soldout_piechart_time_3d_2').show(); 
+		var soldout_data34 = new google.visualization.DataTable();
+		soldout_data34.addColumn('string', 'Seller');
+		soldout_data34.addColumn('number', '販売シェア率');
+		soldout_data34.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_time_in_range_2.length; i++) {
+			sum = sum + window.soldout_rate_time_in_range_2[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_time_in_range_2.length; i++) {
+			var rate = (window.soldout_rate_time_in_range_2[i][1] / sum * 100).toFixed(1);
+			soldout_data34.addRows([[window.soldout_rate_time_in_range_2[i][0], window.soldout_rate_time_in_range_2[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_time_in_range_2[i][0] + '<br><b>' + window.soldout_rate_time_in_range_2[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: from_2 + ' ~ ' + to_2,
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart34 = new google.visualization.PieChart(document.getElementById('soldout_piechart_time_3d_2'));
+		soldout_chart34.draw(soldout_data34, options);
+	}
+	
+	
+	var dont_draw = 1;
+	$('#soldout_piechart_time_3d_3').hide();
+	
+	for (var i = 0; i < window.soldout_rate_time_in_range_3.length; i++) {
+		if ( window.soldout_rate_time_in_range_3[i][1] != 0) {
+			dont_draw = 0;
+			break;
+		}
+	} 
+	
+	if (!dont_draw) {
+		var from = $('#from').val();
+		var to = $('#to').val();
+		
+		var range = Math.abs( new Date(from) - new Date(to) ) / 3;
+		
+		var from_3 =  new Date(from);
+		from_3.setDate( from_3.getDate() + 2 * range / 86400 / 1000 + 1);
+		var to_3 = new Date(to);
+		
+		var month = '' + (from_3.getMonth() + 1);
+		var date = '' + from_3.getDate();
+		var year = from_3.getFullYear();
+		if (month.length < 2) { month = '0' + month; }
+		if (date.length < 2) { date = '0' + date; }
+		from_3 = year + '-' + month + '-' + date;
+		var month = '' + (to_3.getMonth() + 1);
+		var date = '' + to_3.getDate();
+		var year = to_3.getFullYear();
+		if (month.length < 2) { month = '0' + month; }
+		if (date.length < 2) { date = '0' + date; }
+		to_3 = year + '-' + month + '-' + date;
+			
+		$('#soldout_piechart_time_3d_3').show();
+		var soldout_data35 = new google.visualization.DataTable();
+		soldout_data35.addColumn('string', 'Seller');
+		soldout_data35.addColumn('number', '販売シェア率');
+		soldout_data35.addColumn({type: 'string', label: 'Tooltip Chart', role: 'tooltip', 'p': {'html': true}});
+		
+		var sum = 0;
+		for (var i = 0; i < window.soldout_rate_time_in_range_3.length; i++) {
+			sum = sum + window.soldout_rate_time_in_range_3[i][1];
+		}
+		
+		for (var i = 0; i < window.soldout_rate_time_in_range_3.length; i++) {
+			var rate = (window.soldout_rate_time_in_range_3[i][1] / sum * 100).toFixed(1);
+			soldout_data35.addRows([[window.soldout_rate_time_in_range_3[i][0], window.soldout_rate_time_in_range_3[i][1], 
+								'<div style="width: 110px; background-color: white; padding: 5px">' + window.soldout_rate_time_in_range_3[i][0] + '<br><b>' + window.soldout_rate_time_in_range_3[i][1] + '件 (' + rate + '%)</b></div>']]);	
+		}
+		
+		var options = {
+		  title: from_3 + ' ~ ' + to_3,
+		  backgroundColor: '#D5D5D5',
+		  titleTextStyle: {fontSize: 18},
+		  legend: { textStyle: {fontSize: 13}},
+		  is3D: true,
+		  colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
+		  sliceVisibilityThreshold: 0,
+		  chartArea:{left: 10, width:'90%'}
+		};
+		
+		var soldout_chart35 = new google.visualization.PieChart(document.getElementById('soldout_piechart_time_3d_3'));
+		soldout_chart35.draw(soldout_data35, options);
+	}
 }
 
 
@@ -4129,8 +4792,8 @@ function resetAnalysisTable() {
 	$('#selling_number').html('<th>売出中物件数</th>');
 	$('#selling_rate').html('<th>売出中物件数シェア</th>');
 	$('#soldout_number').html('<th>成約物件数</th>');
-	$('#soldout_rate').html('<th>成約率</th>');
-	$('#soldout_before_complete_number').html('<th>売出前成約物件数</th>');
+	$('#soldout_rate').html('<th>成約件数シェア</th>');
+	$('#soldout_before_complete_number').html('<th>完成前成約物件数</th>');
 	$('#rate_soldout_before_complete').html('<th>売出前成約率</th>');
 	$('#avg_price_regist').html('<th>平均売出価格</th>');
 	$('#avg_price_sold').html('<th>平均成約価格</th>');

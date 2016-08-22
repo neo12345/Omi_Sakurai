@@ -1097,13 +1097,6 @@
 						+ change_price_diffDays + '日前)</div>'
 						+ '</div>';	  
 	}
-				  
-	data.addRows([[sixMonthsAgo, null, null, null, avg_price, tooltip1, style1,  null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
-	data.addRows([[now, null, null, null, avg_price, tooltip1, style1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
-	data.addRows([[sixMonthsAgo, null, null, null, null, null, null, max_price, tooltip2, style2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
-	data.addRows([[now, null, null, null, null, null, null, max_price, tooltip2, style2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
-	data.addRows([[sixMonthsAgo, null, null, null, null, null, null, null, null, null, min_price, tooltip3, style3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
-	data.addRows([[now, null, null, null, null, null, null, null, null, null, min_price, tooltip3, style3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
 	
 	
 	// Set chart options
@@ -1299,6 +1292,14 @@
 		yAxis_max = (yAxis_max > yAxis_max_2) ? yAxis_max : yAxis_max_2;
 		yAxis_min = (yAxis_min < yAxis_min_2) ? yAxis_min : yAxis_min_2;
 	}
+	
+	data.addRows([[xAxis_min, null, null, null, avg_price, tooltip1, style1,  null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+	data.addRows([[now, null, null, null, avg_price, tooltip1, style1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+	data.addRows([[xAxis_min, null, null, null, null, null, null, max_price, tooltip2, style2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+	data.addRows([[now, null, null, null, null, null, null, max_price, tooltip2, style2, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+	data.addRows([[xAxis_min, null, null, null, null, null, null, null, null, null, min_price, tooltip3, style3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+	data.addRows([[now, null, null, null, null, null, null, null, null, null, min_price, tooltip3, style3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+	
 	
 	$offset = (xAxis_max - xAxis_min) / 86400 / 1000 / 20;
 	$offset = ($offset < 2) ? 2 : $offset;

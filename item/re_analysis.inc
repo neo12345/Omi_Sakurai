@@ -17,7 +17,7 @@
         <div class="cnt_title clear w260"><h3>集計･解析</h3></div>
         <div class="tabl-analysis">
             <h4 class="mtit">地域</h4>
-            <h5 class="stit">福岡市</h5>
+            <h5 class="stit">福岡市 <input type="checkbox" id="zone_1"></h5>
 			<table class="form-analysis lst-check">
 				<tr>
 				<?php 
@@ -28,18 +28,15 @@
 								echo '</tr><tr>';
 							}
 							$count++;
-							echo '<td class="checkbox"><input type="checkbox" value="'; 
-							echo $RS_city[$i]['city_cd'] . '" name="city[]"></td><td class="analysis-name">';
-							echo $RS_city[$i]['city_name'];
-							echo '('. $RS_city[$i]['count_item'] .')';
-							echo '</td>';
+							echo '<td class="checkbox"><input data-checkbox="zone_1" type="checkbox" value="'.$RS_city[$i]['city_cd'] .'" name="city[]"></td>';
+							echo '<td class="analysis-name">'.$RS_city[$i]['city_name'].'('. $RS_city[$i]['count_item'] .')</td>';
 						}
 					}
 				?>
 				</tr>
 			</table>
 			
-            <h5 class="stit">福岡近郊</h5>
+            <h5 class="stit">福岡近郊 <input type="checkbox" id="zone_2"></h5>
 			<table class="form-analysis lst-check">
 				<tr>
 				<?php 
@@ -50,18 +47,15 @@
 								echo '</tr><tr>';
 							}
 							$count++;
-							echo '<td class="checkbox"><input type="checkbox" value="'; 
-							echo $RS_city[$i]['city_cd'] . '" name="city[]"></td><td class="analysis-name">';
-							echo $RS_city[$i]['city_name'];
-							echo '('. $RS_city[$i]['count_item'] .')';
-							echo '</td>';
+							echo '<td class="checkbox"><input data-checkbox="zone_2" type="checkbox" value="'.$RS_city[$i]['city_cd'] .'" name="city[]"></td>';
+							echo '<td class="analysis-name">'.$RS_city[$i]['city_name'].'('. $RS_city[$i]['count_item'] .')</td>';
 						}
 					}
 				?>
 				</tr>
 			</table>
             
-            <h5 class="stit">その他</h5>
+            <h5 class="stit">その他 <input type="checkbox" id="zone_3"></h5>
 			<table class="form-analysis lst-check">
 				<tr>
 				<?php 
@@ -72,11 +66,8 @@
 								echo '</tr><tr>';
 							}
 							$count++;
-							echo '<td class="checkbox"><input type="checkbox" value="'; 
-							echo $RS_city[$i]['city_cd'] . '" name="city[]"></td><td class="analysis-name">';
-							echo $RS_city[$i]['city_name'];
-							echo '('. $RS_city[$i]['count_item'] .')';
-							echo '</td>';
+							echo '<td class="checkbox"><input data-checkbox="zone_3" type="checkbox" value="'.$RS_city[$i]['city_cd'] .'" name="city[]"></td>';
+							echo '<td class="analysis-name">'.$RS_city[$i]['city_name'].'('. $RS_city[$i]['count_item'] .')</td>';
 						}
 					}
 				?>
@@ -182,7 +173,7 @@
 								<td><button class="btn btn-time" value="12"/>過去1 年間</button></td>
 								<td><button class="btn btn-time" value="24"/>過去2 年間</button></td>
 								<td><button class="btn btn-time" value="36"/>過去3 年間</button></td>
-								<td style="padding: 5px 100px"><button class="btn btn-time" value="0">期間比較</button></td>
+								<td style="padding: 5px 100px"><button class="btn btn-toggle" value="0" id="toggle_time_area">期間比較</button></td>
 							</tr>
 						</table>
 					</div>
@@ -252,7 +243,7 @@
 						<br><br>
 						
 						<div id="piechart" style="background-color: #D5D5D5; width: 100%">
-							<div id="title" style="padding: 10px; font-size: 16px; color: black;"><b>売出中物件数シェア</b></div>
+							<div id="title" class="chart-title" style="padding: 10px; font-size: 16px; color: black;"><b>売出中物件数シェア</b></div>
 							
 							<div class="area" style="clear: left;">	
 								<div id="piechart_3d" style="width: 450px; height: 300px; float: left;"></div>
@@ -302,7 +293,7 @@
 						<br><br>
 						
 						<div id="piechart" style="background-color: #D5D5D5; width: 100%">
-							<div style="padding: 10px; font-size: 16px; color: black;"><b>成約物件数シェア</b></div>
+							<div id="title" class="chart-title" style="padding: 10px; font-size: 16px; color: black;"><b>成約物件数シェア</b></div>
 							<div class="area" style="clear: left;">
 								<div id="soldout_piechart_3d" style="width: 450px; height: 300px; float: left;"></div>
 								<div id="soldout_piechart_3d_1" style="width: 450px; height: 300px; float: left;"></div>
@@ -353,7 +344,7 @@
 						<br><br>
 						
 						<div id="chart" style="background-color: #D5D5D5; width: 100%">
-							<div style="padding: 10px; font-size: 16px; color: black;"><b>新規売出物件数推移</b></div>
+							<div id="title" class="chart-title" style="padding: 10px; font-size: 16px; color: black;"><b>新規売出物件数推移</b></div>
 							
 							<div class="area" style="clear: left;">
 								<div id="chart_div_2" style="width: 450px; height: 300px; float: left;"></div>
@@ -391,7 +382,7 @@
 								<div id="chart_div_2_41341" style="width: 450px; height: 300px; float: left;"></div>
 							</div>
 								
-							<div classs="time" style="clear: left;">
+							<div class="time" style="clear: left;">
 								<div id="chart_div_2_0" style="width: 450px; height: 300px; float: left;"></div>
 								<div id="chart_div_2_1" style="width: 450px; height: 300px; float: left;"></div>
 								<div id="chart_div_2_2" style="width: 450px; height: 300px; float: left;"></div>
@@ -403,7 +394,7 @@
 						<br><br>
 						
 						<div id="chart" style="background-color: #D5D5D5; width: 100%">
-							<div style="padding: 10px; font-size: 16px; color: black;"><b>売出中物件数推移</b></div>
+							<div id="title" class="chart-title" style="padding: 10px; font-size: 16px; color: black;"><b>売出中物件数推移</b></div>
 							
 							<div class="area" style="clear: left;">
 								<div id="chart_div_3" style="width: 450px; height: 300px; float: left;"></div>
@@ -441,7 +432,7 @@
 								<div id="chart_div_3_41341" style="width: 450px; height: 300px; float: left;"></div>
 							</div>
 								
-							<div classs="time" style="clear: left;">
+							<div class="time" style="clear: left;">
 								<div id="chart_div_3_0" style="width: 450px; height: 300px; float: left;"></div>
 								<div id="chart_div_3_1" style="width: 450px; height: 300px; float: left;"></div>
 								<div id="chart_div_3_2" style="width: 450px; height: 300px; float: left;"></div>
@@ -453,7 +444,7 @@
 						<br><br>
 						
 						<div id="chart" style="background-color: #D5D5D5; width: 100%">
-							<div style="padding: 10px; font-size: 16px; color: black;"><b>成約物件数推移</b></div>
+							<div id="title" class="chart-title" style="padding: 10px; font-size: 16px; color: black;"><b>成約物件数推移</b></div>
 							
 							<div class="area" style="clear: left;">
 								<div id="chart_div_1" style="width: 450px; height: 300px; float: left;"></div>
@@ -491,7 +482,7 @@
 								<div id="chart_div_1_41341" style="width: 450px; height: 300px; float: left;"></div>
 							</div>
 								
-							<div classs="time" style="clear: left;">
+							<div class="time" style="clear: left;">
 								<div id="chart_div_1_0" style="width: 450px; height: 300px; float: left;"></div>
 								<div id="chart_div_1_1" style="width: 450px; height: 300px; float: left;"></div>
 								<div id="chart_div_1_2" style="width: 450px; height: 300px; float: left;"></div>
@@ -503,7 +494,7 @@
 						<br><br>
 						
 						<div id="chart" style="background-color: #D5D5D5; width: 100%">
-							<div style="padding: 10px; font-size: 16px; color: black;"><b>平均売出価格推移</b></div>
+							<div id="title" class="chart-title"  style="padding: 10px; font-size: 16px; color: black;"><b>平均売出価格推移</b></div>
 							
 							<div class="area" style="clear: left;">
 								<div id="chart_div_4" style="width: 450px; height: 300px; float: left;"></div>
@@ -541,7 +532,7 @@
 								<div id="chart_div_4_41341" style="width: 450px; height: 300px; float: left;"></div>
 							</div>
 								
-							<div classs="time"  style="clear: left;">
+							<div class="time" style="clear: left;">
 								<div id="chart_div_4_0" style="width: 450px; height: 300px; float: left;"></div>
 								<div id="chart_div_4_1" style="width: 450px; height: 300px; float: left;"></div>
 								<div id="chart_div_4_2" style="width: 450px; height: 300px; float: left;"></div>
@@ -553,7 +544,7 @@
 						<br><br>
 						
 						<div id="chart" style="background-color: #D5D5D5; width: 100%">
-							<div style="padding: 10px; font-size: 16px; color: black;"><b>平均成約価格推移</b></div>
+							<div id="title" class="chart-title" style="padding: 10px; font-size: 16px; color: black;"><b>平均成約価格推移</b></div>
 							
 							<div class="area"  style="clear: left;">
 								<div id="chart_div_5" style="width: 450px; height: 300px; float: left;"></div>
@@ -591,7 +582,7 @@
 								<div id="chart_div_5_41341" style="width: 450px; height: 300px; float: left;"></div>
 							</div>
 								
-							<div classs="time" style="clear: left;">
+							<div class="time" style="clear: left;">
 								<div id="chart_div_5_0" style="width: 450px; height: 300px; float: left;"></div>
 								<div id="chart_div_5_1" style="width: 450px; height: 300px; float: left;"></div>
 								<div id="chart_div_5_2" style="width: 450px; height: 300px; float: left;"></div>
@@ -626,6 +617,7 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">google.charts.load('current', {'packages': ['corechart', 'controls']});</script>
 <script src="/_js/item/analysis_chart.js" type="text/javascript"></script>
+<script src="/_js/item/common.js" type="text/javascript"></script>
 
 <script>
    $(function() {

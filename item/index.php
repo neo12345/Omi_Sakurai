@@ -2104,6 +2104,80 @@ case "get_info_item":
 		/*--Ominext end--*/
 	break;
 	
+	case "count_item_remaining":
+		/*--Ominext--*/
+		/*--count item remaining before a day*/
+		$from = $_POST['from'];
+		$seller = $_POST['seller'];
+		$city = $_POST['city'];
+		$result = array();
+		for ($m = 0; $m < count($seller); $m++){
+			for ($n = 0; $n < count($city); $n++) {
+				$where = 't_item.item_cd = r_item1.item_cd';
+				
+				if ($seller[$m] != 7) {
+					$where = $where . ' AND r_item1.seller_cd = \'' . $seller[$m] . '\'';
+				} else {
+					$where = $where . ' AND r_item1.seller_cd >= \'7\'';
+				}
+				
+				$where = $where . ' AND r_item1.city_cd = \'' . $city[$n] . '\'';
+				
+				if (isset($_POST['cat_item'])) {
+					$cat_item = $_POST['cat_item'];
+					$where = $where . ' AND r_item1.cat_item_cd IN (';
+					for ($i = 0; $i < count($cat_item); $i++) {
+						$where = $where . '\'' . $cat_item[$i] . '\', ';
+					}
+			
+					$where = substr($where, 0, -2);
+					$where = $where . ')';
+				}
+			
+				if (isset($_POST['condition'])) {
+					$condition = $_POST['condition'];
+					$where = $where . ' AND r_item1.condition_cd IN (';
+					for ($i = 0; $i < count($condition); $i++) {
+						$where = $where . '\'' . $condition[$i] . '\', ';
+					}
+					$where = substr($where, 0, -2);
+					$where = $where . ')';
+				}		
+				
+				//count item from beginning
+				$select_all_before = 'COUNT (t_item.item_cd) as count';
+				$table_all_before = 't_item, r_item1';
+				$where_all_before = $where . ' AND t_item.date_regist < \'' . $from . '\'';
+		
+				Omi_get_rs($select_all_before, $table_all_before, 'count_all_before', $where_all_before, '');
+				
+				$select_soldout_before = 'COUNT(t_item.item_cd) AS count';
+				$table_soldout_before = 't_item, r_item1';
+				$where_soldout_before = $where . ' AND t_item.date_soldout < \'' . $from . '\'';
+				$where_soldout_before = $where_soldout_before . ' AND t_item.flg_soldout = \'1\'';
+				
+				Omi_get_rs_with_group_by($select_soldout_before, $table_soldout_before, 'count_soldout_before', $where_soldout_before, '');
+				
+				$totalItemFromBegin = (int) ($RS_count_all_before[0]['count']) - (int) ($RS_count_soldout_before[0]['count']);
+				
+				$result[] = [
+					'seller_cd' => $seller[$m],
+					'city_cd' => $city[$n],
+					'count' => $totalItemFromBegin
+				];
+			}
+		}
+		
+		//convert to json
+		$result_json = json_encode($result);
+		header('Content-type:application/json;charset=utf-8');
+		echo $result_json;
+		return 1;
+		/*--Ominext end--*/
+
+		
+		/*--Ominext end--*/
+	break;
 	
 	case "get_analysis_chart_data":
 		/* --Ominext-- */
