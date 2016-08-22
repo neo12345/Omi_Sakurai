@@ -1153,13 +1153,13 @@ function insertAnalysisTable(analysis) {
 		var table = '<br><table class="form-compare-item" border="1" width="100%" id="seller_'
 					+ analysis[i].seller_cd +'">'
 					+ '<tr><th style="width:12%;">' + analysis[i].seller_name + '</th>' + th_year + '</tr>'
-					+ '<tr><th style="width:12%;">売出件数</th>' + td_sale_number + '</tr>'
+					+ '<tr><th style="width:12%;">新規売出物件数</th>' + td_sale_number + '</tr>'
 					+ '<tr><th>平均売出価格</th>' + td_avg_price_regist+ '</tr>'
 					+ '<tr><th>平均成約価格</th>' + td_avg_price_soldout + '</tr>'
 					+ '<tr><th>平均売出期間</th>' + time + '</tr>'
 					+ '<tr><th>平均価格改定周期</th>' + avg_time_change_price + '</tr>'
 					+ '<tr><th>平均値下率</th>' + avg_down_price_rate + '</tr>'
-					+ '<tr><th>販売シェア率</th>' + market_rate + '</tr>'
+					+ '<tr><th>新規売出物件数シェア</th>' + market_rate + '</tr>'
 					+ '</table><br>';
 		
 		$('#tbl-analysis').append(table);
