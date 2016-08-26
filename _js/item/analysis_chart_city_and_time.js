@@ -217,7 +217,11 @@ function drawChartForEachCity() {
     });
 
     if (!city[0]) {
-        city = ["40136", "40134", "40135", "40131", "40133", "40132", "40137", "40223", "40342", "40343", "40218", "40224", "40344", "40219", "40348", "40305", "40230", "40345", "40203", "40349", "40341", "40221", "40207", "40447", "41345", "40503", "40216", "40647", "40217", "41346", "41203", "41341"];
+        city = ["40136", "40134", "40135", "40131", "40133", "40132", "40137",
+            "40223", "40342", "40343", "40218", "40224", "40344", "40219",
+            "40348", "40305", "40230", "40345", "40203", "40349", "40341",
+            "40221", "40207", "40447", "41345", "40503", "40216", "40647",
+            "40217", "41346", "41203", "41341"];
     }
 
 
@@ -227,7 +231,7 @@ function drawChartForEachCity() {
         condition: condition,
         seller: seller,
         from: $("#from").val(),
-        to: $("#to").val(),
+        to: $("#to").val()
         //select_opt: j
     };
 
@@ -235,7 +239,7 @@ function drawChartForEachCity() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-    })
+    });
 
     $.ajax({
         url: "/item/?md=get_analysis_chart_data_total",
@@ -255,7 +259,7 @@ function drawChartForEachCity() {
         var opt = all_data[m].opt;
 
         if (!result) {
-            var error = '<div class="alert alert-danger">見付かっていません。</div>';
+            var error = '<div class="alert alert-danger"></div>';
             $('#error').html(error);
         } else {
             // create chart
@@ -328,7 +332,7 @@ function drawChartForEachCity() {
                         var month = d.getMonth() + 1;
                         var year = d.getFullYear();
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + year + '年' + month + '月</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
@@ -348,7 +352,7 @@ function drawChartForEachCity() {
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
@@ -368,13 +372,13 @@ function drawChartForEachCity() {
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
                     } else {
                         month = month + 1;
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 20px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month + '月' + date + '日</div><br><b>' + y_axis + '万円</b></div></div>';
                     }
@@ -386,7 +390,7 @@ function drawChartForEachCity() {
                         var month = d.getMonth() + 1;
                         var year = d.getFullYear();
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + year + '年' + month + '月</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
@@ -407,7 +411,7 @@ function drawChartForEachCity() {
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
@@ -428,7 +432,7 @@ function drawChartForEachCity() {
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
@@ -449,14 +453,14 @@ function drawChartForEachCity() {
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
 
                     } else {
                         month += 1;
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 20px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month + '月' + date + '日</div><br><div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
                     }
@@ -477,7 +481,7 @@ function drawChartForEachCity() {
                     actions: ['dragToZoom', 'rightClickToReset'],
                     axis: 'horizontal',
                     keepInBounds: true,
-                    zoomDelta: 0.5,
+                    zoomDelta: 0.5
                 },
                 backgroundColor: '#D5D5D5',
                 bar: {
@@ -490,7 +494,7 @@ function drawChartForEachCity() {
                     baseline: min_xAxis,
                     baselineColor: '#CCC',
                     textStyle: {
-                        fontSize: 13,
+                        fontSize: 13
                     },
                     slantedText: true,
                     format: 'M月d日',
@@ -504,7 +508,7 @@ function drawChartForEachCity() {
                         units: {
                             years: {format: ["yy/mm"]},
                             months: {format: ["mm/dd"]},
-                            days: {format: ["mm/dd"]},
+                            days: {format: ["mm/dd"]}
                         }
                     }
                 },
@@ -519,7 +523,7 @@ function drawChartForEachCity() {
                     actions: ['dragToZoom', 'rightClickToReset'],
                     axis: 'horizontal',
                     keepInBounds: true,
-                    zoomDelta: 0.5,
+                    zoomDelta: 0.5
                 },
                 backgroundColor: '#D5D5D5',
                 tooltip: {
@@ -529,7 +533,7 @@ function drawChartForEachCity() {
                     baseline: min_xAxis,
                     baselineColor: '#CCC',
                     textStyle: {
-                        fontSize: 13,
+                        fontSize: 13
                     },
                     slantedText: true,
                     format: 'M月d日',
@@ -543,7 +547,7 @@ function drawChartForEachCity() {
                         units: {
                             years: {format: ["yy/mm"]},
                             months: {format: ["mm/dd"]},
-                            days: {format: ["mm/dd"]},
+                            days: {format: ["mm/dd"]}
                         }
                     }
                 },
@@ -587,15 +591,15 @@ function drawChartForEachCity() {
         condition: condition,
         seller: seller,
         from: $("#from").val(),
-        to: $("#to").val(),
-        select_opt: j
+        to: $("#to").val()
+        //select_opt: j
     };
 
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-    })
+    });
 
     $.ajax({
         url: "/item/?md=get_analysis_chart_data_by_time",
@@ -612,7 +616,7 @@ function drawChartForEachCity() {
         var from = data_chart[j].from;
         var to = data_chart[j].to;
         var opt = data_chart[j].opt;
-        var result = data_chart[j].result
+        var result = data_chart[j].result;
 
         var range = (new Date(to) - new Date(from));
 
@@ -690,7 +694,7 @@ function drawChartForEachCity() {
                         var month = d.getMonth() + 1;
                         var year = d.getFullYear();
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 20px;">'
                                 + '<div style = "font-size: larger;">'
                                 + year + '年' + month + '月</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
@@ -699,18 +703,18 @@ function drawChartForEachCity() {
                         var d = new Date(result[i].x_axis);
 
                         d.setDate(d.getDate() - 7);
-                        d = (d > new Date(to)) ? d : new Date(from);
+                        d = (d > new Date(from)) ? d : new Date(from);
 
                         var date_start = d.getDate();
                         var month_start = d.getMonth() + 1;
 
                         d.setDate(d.getDate() + 13);
-                        d = (d < new Date(to)) ? d : new Date(from);
+                        d = (d < new Date(to)) ? d : new Date(to);
 
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 20px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
@@ -719,7 +723,7 @@ function drawChartForEachCity() {
                         var d = new Date(result[i].x_axis);
 
                         d.setDate(d.getDate() - 3);
-                        d = (d > new Date(from)) ? d : new Date(to);
+                        d = (d > new Date(from)) ? d : new Date(from);
 
                         var date_start = d.getDate();
                         var month_start = d.getMonth() + 1;
@@ -730,13 +734,13 @@ function drawChartForEachCity() {
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 20px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
                     } else {
                         month = month + 1;
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 20px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month + '月' + date + '日</div><br><b>' + y_axis + '万円</b></div></div>';
                     }
@@ -748,7 +752,7 @@ function drawChartForEachCity() {
                         var month = d.getMonth() + 1;
                         var year = d.getFullYear();
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 20px;">'
                                 + '<div style = "font-size: larger;">'
                                 + year + '年' + month + '月</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
@@ -769,7 +773,7 @@ function drawChartForEachCity() {
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 20px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
@@ -785,12 +789,12 @@ function drawChartForEachCity() {
                         var month_start = d.getMonth() + 1;
 
                         d.setDate(d.getDate() + 6);
-                        d = (d < new Date(to)) ? d : new Date(from);
+                        d = (d < new Date(to)) ? d : new Date(to);
 
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 20px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
@@ -800,25 +804,25 @@ function drawChartForEachCity() {
                         var d = new Date(result[i].x_axis);
 
                         d.setDate(d.getDate() - 1);
-                        d = (d > new Date(from)) ? d : new Date(to);
+                        d = (d > new Date(from)) ? d : new Date(from);
 
                         var date_start = d.getDate();
                         var month_start = d.getMonth() + 1;
 
                         d.setDate(d.getDate() + 2);
-                        d = (d < new Date(from)) ? d : new Date(to);
+                        d = (d < new Date(to)) ? d : new Date(to);
 
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
-
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 20px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
 
                     } else {
                         month += 1;
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 20px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month + '月' + date + '日</div><br><div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
                     }
@@ -841,7 +845,7 @@ function drawChartForEachCity() {
                     actions: ['dragToZoom', 'rightClickToReset'],
                     axis: 'horizontal',
                     keepInBounds: true,
-                    zoomDelta: 0.5,
+                    zoomDelta: 0.5
                 },
                 backgroundColor: '#D5D5D5',
                 bar: {
@@ -854,7 +858,7 @@ function drawChartForEachCity() {
                     baseline: min_xAxis,
                     baselineColor: '#CCC',
                     textStyle: {
-                        fontSize: 13,
+                        fontSize: 13
                     },
                     slantedText: true,
                     format: 'M月d日',
@@ -868,7 +872,7 @@ function drawChartForEachCity() {
                         units: {
                             years: {format: ["yy/mm"]},
                             months: {format: ["mm/dd"]},
-                            days: {format: ["mm/dd"]},
+                            days: {format: ["mm/dd"]}
                         }
                     }
                 },
@@ -883,7 +887,7 @@ function drawChartForEachCity() {
                     actions: ['dragToZoom', 'rightClickToReset'],
                     axis: 'horizontal',
                     keepInBounds: true,
-                    zoomDelta: 0.5,
+                    zoomDelta: 0.5
                 },
                 backgroundColor: '#D5D5D5',
                 tooltip: {
@@ -893,7 +897,7 @@ function drawChartForEachCity() {
                     baseline: min_xAxis,
                     baselineColor: '#CCC',
                     textStyle: {
-                        fontSize: 13,
+                        fontSize: 13
                     },
                     slantedText: true,
                     format: 'M月d日',
@@ -907,7 +911,7 @@ function drawChartForEachCity() {
                         units: {
                             years: {format: ["yy/mm"]},
                             months: {format: ["mm/dd"]},
-                            days: {format: ["mm/dd"]},
+                            days: {format: ["mm/dd"]}
                         }
                     }
                 },
@@ -946,15 +950,14 @@ function drawChartForEachCity() {
         condition: condition,
         seller: seller,
         from: $("#from").val(),
-        to: $("#to").val(),
-        select_opt: j
+        to: $("#to").val()
     };
 
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-    })
+    });
 
     $.ajax({
         url: "/item/?md=get_analysis_chart_data",
@@ -970,7 +973,7 @@ function drawChartForEachCity() {
     for (var j = 0; j < data_chart.length; j++) {
         var in_city = data_chart[j].city;
         var opt = data_chart[j].opt;
-        var result = data_chart[j].result
+        var result = data_chart[j].result;
 
         if (!result) {
             var error = '<div class="alert alert-danger"></div>';
@@ -1046,7 +1049,7 @@ function drawChartForEachCity() {
                         var month = d.getMonth() + 1;
                         var year = d.getFullYear();
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + year + '年' + month + '月</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
@@ -1066,7 +1069,7 @@ function drawChartForEachCity() {
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
@@ -1086,13 +1089,13 @@ function drawChartForEachCity() {
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
                     } else {
                         month = month + 1;
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month + '月' + date + '日</div><br><b>' + y_axis + '万円</b></div></div>';
                     }
@@ -1104,7 +1107,7 @@ function drawChartForEachCity() {
                         var month = d.getMonth() + 1;
                         var year = d.getFullYear();
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + year + '年' + month + '月</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
@@ -1125,7 +1128,7 @@ function drawChartForEachCity() {
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
@@ -1146,7 +1149,7 @@ function drawChartForEachCity() {
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
@@ -1167,14 +1170,14 @@ function drawChartForEachCity() {
                         var date_end = d.getDate();
                         var month_end = d.getMonth() + 1;
 
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                                 + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
 
                     } else {
                         month += 1;
-                        var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                        var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                                 + '<div style = "font-size: larger;">'
                                 + month + '月' + date + '日</div><br><div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
                     }
@@ -1294,7 +1297,7 @@ function drawChartForEachCity() {
                     actions: ['dragToZoom', 'rightClickToReset'],
                     axis: 'horizontal',
                     keepInBounds: true,
-                    zoomDelta: 0.5,
+                    zoomDelta: 0.5
                 },
                 backgroundColor: '#D5D5D5',
                 bar: {
@@ -1307,7 +1310,7 @@ function drawChartForEachCity() {
                     baseline: min_xAxis,
                     baselineColor: '#CCC',
                     textStyle: {
-                        fontSize: 13,
+                        fontSize: 13
                     },
                     slantedText: true,
                     format: 'M月d日',
@@ -1321,7 +1324,7 @@ function drawChartForEachCity() {
                         units: {
                             years: {format: ["yy/mm"]},
                             months: {format: ["mm/dd"]},
-                            days: {format: ["mm/dd"]},
+                            days: {format: ["mm/dd"]}
                         }
                     }
                 },
@@ -1336,7 +1339,7 @@ function drawChartForEachCity() {
                     actions: ['dragToZoom', 'rightClickToReset'],
                     axis: 'horizontal',
                     keepInBounds: true,
-                    zoomDelta: 0.5,
+                    zoomDelta: 0.5
                 },
                 backgroundColor: '#D5D5D5',
                 tooltip: {
@@ -1346,7 +1349,7 @@ function drawChartForEachCity() {
                     baseline: min_xAxis,
                     baselineColor: '#CCC',
                     textStyle: {
-                        fontSize: 13,
+                        fontSize: 13
                     },
                     slantedText: true,
                     format: 'M月d日',
@@ -1360,7 +1363,7 @@ function drawChartForEachCity() {
                         units: {
                             years: {format: ["yy/mm"]},
                             months: {format: ["mm/dd"]},
-                            days: {format: ["mm/dd"]},
+                            days: {format: ["mm/dd"]}
                         }
                     }
                 },
@@ -1388,4 +1391,3 @@ function drawChartForEachCity() {
         }
     }
 }
-;

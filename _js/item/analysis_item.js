@@ -52,7 +52,7 @@ $(document).ready(function () {
         window.list_item_compare = null;
         window.list_marker = initialize(similars);
         window.list_marker.map.setCenter(center);
-        window.list_marker.map.getZoom(zoom);
+        window.list_marker.map.setZoom(zoom);
 
         window.chart_result = drawChart(similars);
 
@@ -177,8 +177,6 @@ $(document).ready(function () {
         }
         event.stopPropagation();
     });
-    //---
-
 
     //auto redraw when click button search
     $('.tabl-analysis').on('click', '#btn_th', function (event) {
@@ -244,14 +242,14 @@ $(document).ready(function () {
 
         //recreate analysis table
         var formData = {
-            list_item: $("#list_item").val(),
+            list_item: $("#list_item").val()
         };
 
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
-        })
+        });
 
         var result;
 
@@ -263,7 +261,7 @@ $(document).ready(function () {
             async: false,
             success: function (data) {
                 result = data;
-                insertItem(result)
+                insertItem(result);
             }
         });
         //redraw chart
@@ -305,13 +303,13 @@ $(document).ready(function () {
         $("#list_item").val($("#list_item").val() + ',' + item_cd);
 
         var formData = {
-            list_item: $("#list_item").val(),
+            list_item: $("#list_item").val()
         };
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
-        })
+        });
 
         var result;
 
@@ -323,7 +321,7 @@ $(document).ready(function () {
             async: false,
             success: function (data) {
                 result = data;
-                insertItem(result)
+                insertItem(result);
             }
         });
 
@@ -353,7 +351,7 @@ $(document).ready(function () {
 });
 
 function searchItemOnDemand() {
-    //------------------------------------		
+    //------------------------------------
     //search in radius
 
     var item_cd = $('#item_cd').val();
@@ -394,8 +392,8 @@ function searchItemOnDemand() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-    })
-    var result
+    });
+    var result;
     $.ajax({
         url: "/item/?md=get_item_in_area",
         type: 'POST',
@@ -407,12 +405,11 @@ function searchItemOnDemand() {
         }
     });
 
-    return result
+    return result;
 }
 
-
 function analysisGroupItem() {
-    //------------------------------------		
+    //------------------------------------
     //search in radius
 
     var item_cd = $('#item_cd').val();
@@ -453,8 +450,8 @@ function analysisGroupItem() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-    })
-    var result
+    });
+    var result;
     $.ajax({
         url: "/item/?md=get_info_group_item_in_area",
         type: 'POST',
@@ -466,187 +463,47 @@ function analysisGroupItem() {
         }
     });
 
-    return result
+    return result;
 }
-
 
 function insertItem(result) {
-    //item 1
-    if (result[0].item_price != null) {
-        $('#item1_img').html('<button class="btn-close btn-close-item" id="item1-btn-close" value="'
-                + result[0].item_cd + '"><p style="font-size: large">x</p></button>'
-                + '<img width="100%" src="' + result[0].item_img + '" />');
-        $('#item1_name').html(result[0].item_name);
-        $('#item1_price').html(result[0].item_price + '万円（税込）');
-        $('#item1_date_soldout').html(result[0].date_soldout);
-        $('#item1_seller').html(result[0].seller);
-        $('#item1_size_land').html(result[0].item_size_land);
-        $('#item1_size_build').html(result[0].item_size_build);
-        $('#item1_layout').html(result[0].item_layout);
-        $('#item1_pubtrans').html(result[0].item_pubtrans);
-        $('#item1_road').html(result[0].item_road);
-        $('#item1_school').html(result[0].item_school);
-        $('#item1_equip').html(result[0].item_equip);
-        $('#item1_btn_details').html('<a href="/item/?md=analysis_item&item_cd=' + result[0].item_cd
-                + '" target="_blank"><button class="btn-ana-item"><span style="font-size:large;">詳　細</span></button></a>');
-    } else {
-        $('#item1_img').html('');
-        $('#item1_name').html('');
-        $('#item1_price').html('');
-        $('#item1_date_soldout').html('');
-        $('#item1_seller').html('');
-        $('#item1_size_land').html('');
-        $('#item1_size_build').html('');
-        $('#item1_layout').html('');
-        $('#item1_pubtrans').html('');
-        $('#item1_road').html('');
-        $('#item1_school').html('');
-        $('#item1_equip').html('');
-        $('#close_item1').html('');
-        $('#item1_btn_details').html('');
-    }
-
-    //item 2
-    if (result[1].item_price != null) {
-        $('#item2_img').html('<button class="btn-close btn-close-item" id="item2-btn-close" value="'
-                + result[1].item_cd + '"><p style="font-size: large">x</p></button>'
-                + '<img width="100%" src="' + result[1].item_img + '" />');
-        $('#item2_name').html(result[1].item_name);
-        $('#item2_price').html(result[1].item_price + '万円（税込）');
-        $('#item2_date_soldout').html(result[1].date_soldout);
-        $('#item2_seller').html(result[1].seller);
-        $('#item2_size_land').html(result[1].item_size_land);
-        $('#item2_size_build').html(result[1].item_size_build);
-        $('#item2_layout').html(result[1].item_layout);
-        $('#item2_pubtrans').html(result[1].item_pubtrans);
-        $('#item2_road').html(result[1].item_road);
-        $('#item2_school').html(result[1].item_school);
-        $('#item2_equip').html(result[1].item_equip);
-        $('#item2_btn_details').html('<a href="/item/?md=analysis_item&item_cd=' + result[1].item_cd
-                + '" target="_blank"><button class="btn-ana-item"><span style="font-size:large;">詳　細</span></button></a>');
-    } else {
-        $('#item2_img').html('');
-        $('#item2_name').html('');
-        $('#item2_price').html('');
-        $('#item2_date_soldout').html('');
-        $('#item2_seller').html('');
-        $('#item2_size_land').html('');
-        $('#item2_size_build').html('');
-        $('#item2_layout').html('');
-        $('#item2_pubtrans').html('');
-        $('#item2_road').html('');
-        $('#item2_school').html('');
-        $('#item2_equip').html('');
-        $('#close_item2').html('');
-        $('#item2_btn_details').html('');
-    }
-
-    //item 3
-    if (result[2].item_price != null) {
-        $('#item3_img').html('<button class="btn-close btn-close-item" id="item3-btn-close" value="'
-                + result[2].item_cd + '"><p style="font-size: large">x</p></button>'
-                + '<img width="100%" src="' + result[2].item_img + '" />');
-        $('#item3_name').html(result[2].item_name);
-        $('#item3_price').html(result[2].item_price + '万円（税込）');
-        $('#item3_date_soldout').html(result[2].date_soldout);
-        $('#item3_seller').html(result[2].seller);
-        $('#item3_size_land').html(result[2].item_size_land);
-        $('#item3_size_build').html(result[2].item_size_build);
-        $('#item3_layout').html(result[2].item_layout);
-        $('#item3_pubtrans').html(result[2].item_pubtrans);
-        $('#item3_road').html(result[2].item_road);
-        $('#item3_school').html(result[2].item_school);
-        $('#item3_equip').html(result[2].item_equip);
-        $('#item3_btn_details').html('<a href="/item/?md=analysis_item&item_cd=' + result[2].item_cd
-                + '" target="_blank"><button class="btn-ana-item"><span style="font-size:large;">詳　細</span></button></a>');
-    } else {
-        $('#item3_img').html('');
-        $('#item3_name').html('');
-        $('#item3_price').html('');
-        $('#item3_date_soldout').html('');
-        $('#item3_seller').html('');
-        $('#item3_size_land').html('');
-        $('#item3_size_build').html('');
-        $('#item3_layout').html('');
-        $('#item3_pubtrans').html('');
-        $('#item3_road').html('');
-        $('#item3_school').html('');
-        $('#item3_equip').html('');
-        $('#close_item3').html('');
-        $('#item3_btn_details').html('');
-    }
-
-    //item 4
-    if (result[3].item_price != null) {
-        $('#item4_img').html('<button class="btn-close btn-close-item" id="item4-btn-close" value="'
-                + result[3].item_cd + '"><p style="font-size: large">x</p></button>'
-                + '<img width="100%" src="' + result[3].item_img + '" />');
-        $('#item4_name').html(result[3].item_name);
-        $('#item4_price').html(result[3].item_price + '万円（税込）');
-        $('#item4_date_soldout').html(result[3].date_soldout);
-        $('#item4_seller').html(result[3].seller);
-        $('#item4_size_land').html(result[3].item_size_land);
-        $('#item4_size_build').html(result[3].item_size_build);
-        $('#item4_layout').html(result[3].item_layout);
-        $('#item4_pubtrans').html(result[3].item_pubtrans);
-        $('#item4_road').html(result[3].item_road);
-        $('#item4_school').html(result[3].item_school);
-        $('#item4_equip').html(result[3].item_equip);
-        $('#item4_btn_details').html('<a href="/item/?md=analysis_item&item_cd=' + result[3].item_cd
-                + '" target="_blank"><button class="btn-ana-item"><span style="font-size:large;">詳　細</span></button></a>');
-    } else {
-        $('#item4_img').html('');
-        $('#item4_name').html('');
-        $('#item4_price').html('');
-        $('#item4_date_soldout').html('');
-        $('#item4_seller').html('');
-        $('#item4_size_land').html('');
-        $('#item4_size_build').html('');
-        $('#item4_layout').html('');
-        $('#item4_pubtrans').html('');
-        $('#item4_road').html('');
-        $('#item4_school').html('');
-        $('#item4_equip').html('');
-        $('#close_item4').html('');
-        $('#item4_btn_details').html('');
-    }
-
-    //item 5
-    if (result[4].item_price != null) {
-        $('#item5_img').html('<button class="btn-close btn-close-item" id="item5-btn-close" value="'
-                + result[4].item_cd + '"><p style="font-size: large">x</p></button>'
-                + '<img width="100%" src="' + result[4].item_img + '" />');
-        $('#item5_name').html(result[4].item_name);
-        $('#item5_price').html(result[4].item_price + '万円（税込）');
-        $('#item5_date_soldout').html(result[4].date_soldout);
-        $('#item5_seller').html(result[4].seller);
-        $('#item5_size_land').html(result[4].item_size_land);
-        $('#item5_size_build').html(result[4].item_size_build);
-        $('#item5_layout').html(result[4].item_layout);
-        $('#item5_pubtrans').html(result[4].item_pubtrans);
-        $('#item5_road').html(result[4].item_road);
-        $('#item5_school').html(result[4].item_school);
-        $('#item5_equip').html(result[4].item_equip);
-        $('#item5_btn_details').html('<a href="/item/?md=analysis_item&item_cd=' + result[4].item_cd
-                + '" target="_blank"><button class="btn-ana-item"><span style="font-size:large;">詳　細</span></button></a>');
-    } else {
-        $('#item5_img').html('');
-        $('#item5_name').html('');
-        $('#item5_price').html('');
-        $('#item5_date_soldout').html('');
-        $('#item5_seller').html('');
-        $('#item5_size_land').html('');
-        $('#item5_size_build').html('');
-        $('#item5_layout').html('');
-        $('#item5_pubtrans').html('');
-        $('#item5_road').html('');
-        $('#item5_school').html('');
-        $('#item5_equip').html('');
-        $('#close_item5').html('');
-        $('#item5_btn_details').html('');
+    //insert 5 items to table compare item table
+    for (var m = 1; m <= 5; m++) {
+        if (result[m - 1].item_price != null) {
+            $('#item' + m + '_img').html('<button class="btn-close btn-close-item" id="item' + m + '-btn-close" value="'
+                    + result[m - 1].item_cd + '"><p style="font-size: large">x</p></button>'
+                    + '<img width="100%" src="' + result[m - 1].item_img + '" />');
+            $('#item' + m + '_name').html(result[m - 1].item_name);
+            $('#item' + m + '_price').html(result[m - 1].item_price + '万円（税込）');
+            $('#item' + m + '_date_soldout').html(result[m - 1].date_soldout);
+            $('#item' + m + '_seller').html(result[m - 1].seller);
+            $('#item' + m + '_size_land').html(result[m - 1].item_size_land);
+            $('#item' + m + '_size_build').html(result[m - 1].item_size_build);
+            $('#item' + m + '_layout').html(result[m - 1].item_layout);
+            $('#item' + m + '_pubtrans').html(result[m - 1].item_pubtrans);
+            $('#item' + m + '_road').html(result[m - 1].item_road);
+            $('#item' + m + '_school').html(result[m - 1].item_school);
+            $('#item' + m + '_equip').html(result[m - 1].item_equip);
+            $('#item' + m + '_btn_details').html('<a href="/item/?md=analysis_item&item_cd=' + result[m - 1].item_cd
+                    + '" target="_blank"><button class="btn-ana-item"><span style="font-size:large;">詳　細</span></button></a>');
+        } else { //if item dont exist clear table
+            $('#item' + m + '_img').html('');
+            $('#item' + m + '_name').html('');
+            $('#item' + m + '_price').html('');
+            $('#item' + m + '_date_soldout').html('');
+            $('#item' + m + '_seller').html('');
+            $('#item' + m + '_size_land').html('');
+            $('#item' + m + '_size_build').html('');
+            $('#item' + m + '_layout').html('');
+            $('#item' + m + '_pubtrans').html('');
+            $('#item' + m + '_road').html('');
+            $('#item' + m + '_school').html('');
+            $('#item' + m + '_equip').html('');
+            $('#close_item' + m).html('');
+            $('#item' + m + '_btn_details').html('');
+        }
     }
 }
-
 
 function removeItem(item_cd) {
     //delete from queue
@@ -661,14 +518,14 @@ function removeItem(item_cd) {
 
     //recreate analysis table
     var formData = {
-        list_item: $("#list_item").val(),
+        list_item: $("#list_item").val()
     };
 
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-    })
+    });
 
     var result;
 
@@ -680,7 +537,7 @@ function removeItem(item_cd) {
         async: false,
         success: function (data) {
             result = data;
-            insertItem(result)
+            insertItem(result);
         }
     });
 
@@ -700,19 +557,6 @@ function removeItem(item_cd) {
 
     return window.chart_result.list_item_compare;
 }
-
-
-function endChange() {
-    if (new Date() - window.rtime < 20) {
-        setTimeout(endChange, 20);
-    } else {
-        eventChangeChartLegends();
-        window.timeout = false;
-    }
-}
-
-
-
 
 function setChartEvent(point) {
     if (point.length > 0) {
@@ -775,8 +619,6 @@ function setChartEvent(point) {
     }
 }
 
-
-
 function eventChangeChartLegends() {
     //change color
     //add close button
@@ -837,14 +679,14 @@ function eventChangeChartLegends() {
                     $(this).attr('fill', '#7fff00');
 
                     $('#close_item4').attr('style', 'top: ' + top + 'px; left: ' + left + 'px');
-                    $('#close_item4').html('<button class="btn-close-chart"><p style="font-size: large">x</p><button>');
+                    $('#close_item4').html('<button class="btn-close-chart"><p style="font-size: large">x</p></button>');
                     break;
 
                 case '#ff1493':
                     $(this).attr('fill', '#ff1493');
 
                     $('#close_item5').attr('style', 'top: ' + top + 'px; left: ' + left + 'px');
-                    $('#close_item5').html('<button class="btn-close-chart"><p style="font-size: large">x</p><button>');
+                    $('#close_item5').html('<button class="btn-close-chart"><p style="font-size: large">x</p></button>');
                     break;
 
                 default:
@@ -853,9 +695,6 @@ function eventChangeChartLegends() {
         }
     });
 }
-
-
-
 
 function change_marker_selected_icon() {
     var str = $("#list_item").val();
@@ -868,7 +707,6 @@ function change_marker_selected_icon() {
             list_item_compare.push(list_item[j]);
         }
     }
-
 
     for (var j = 0; j < list_item_compare.length; j++) {
         for (var k = 0; k < window.search_result.length; k++) {
@@ -893,8 +731,6 @@ function change_marker_selected_icon() {
         }
     }
 }
-
-
 
 function change_map_zoom() {
     //change map zoom
@@ -934,9 +770,6 @@ function change_map_zoom() {
     }
 }
 
-
-
-
 function insertAnalysisTable(analysis) {
     $("#tbl-analysis").html('');
     $("#name").html('<th style="width:12%;">地域の総合</th>');
@@ -950,7 +783,7 @@ function insertAnalysisTable(analysis) {
     if (analysis[0].seller_cd == null) {
         return true;
     }
-
+    //table for each seller
     for (var i = 0; i < analysis.length; i++) {
         var years = Array();
         for (var j = 0; j < analysis[i].items.length; j++) {
@@ -977,7 +810,6 @@ function insertAnalysisTable(analysis) {
 
 
         for (var j = 0; j < count; j++) {
-
             var count_item_sale_number = 0;
             var sum_price_regist = 0;
             var count_item_price_regist = 0;
@@ -1009,14 +841,14 @@ function insertAnalysisTable(analysis) {
                 //avg down price rate
                 //market rate
                 if (analysis[i].items[k].regist != null) {
-                    var hist_regist = new Date(analysis[i].items[k].regist)
+                    var hist_regist = new Date(analysis[i].items[k].regist);
                     if (hist_regist.getFullYear() == years[j]) {
                         //sale number
                         count_item_sale_number++;
 
                         //avg price regist
                         if (analysis[i].items[k].price_regist != null) {
-                            count_item_price_regist++
+                            count_item_price_regist++;
                             sum_price_regist = sum_price_regist + parseInt(analysis[i].items[k].price_regist);
                         }
 
@@ -1035,7 +867,7 @@ function insertAnalysisTable(analysis) {
                 //time sale
                 //avg time change price
                 if (analysis[i].items[k].date_soldout != null) {
-                    var hist_regist = new Date(analysis[i].items[k].date_soldout)
+                    var hist_regist = new Date(analysis[i].items[k].date_soldout);
                     if (hist_regist.getFullYear() == years[j]) {
                         //avg price soldout
                         if (analysis[i].items[k].price_soldout != null) {
@@ -1142,7 +974,6 @@ function insertAnalysisTable(analysis) {
                     + '" value="' + rate_market_rate + '" /></td>';
         }
 
-
         var table = '<br><table class="form-compare-item" border="1" width="100%" id="seller_'
                 + analysis[i].seller_cd + '">'
                 + '<tr><th style="width:12%;">' + analysis[i].seller_name + '</th>' + th_year + '</tr>'
@@ -1150,14 +981,13 @@ function insertAnalysisTable(analysis) {
                 + '<tr><th>平均売出価格</th>' + td_avg_price_regist + '</tr>'
                 + '<tr><th>平均成約価格</th>' + td_avg_price_soldout + '</tr>'
                 + '<tr><th>平均売出期間</th>' + time + '</tr>'
-                + '<tr><th>平均価格改定周期</th>' + avg_time_change_price + '</tr>'
                 + '<tr><th>平均値下率</th>' + avg_down_price_rate + '</tr>'
+                + '<tr><th>平均価格改定周期</th>' + avg_time_change_price + '</tr>'
                 + '<tr><th>新規売出物件数シェア</th>' + market_rate + '</tr>'
                 + '</table><br>';
 
         $('#tbl-analysis').append(table);
     }
-
 
     //total
     var years = Array();
@@ -1176,7 +1006,6 @@ function insertAnalysisTable(analysis) {
     years.sort();
 
     for (var j = 0; j < years.length; j++) {
-
         var sale_number = 0;
         var avg_price_regist = 0;
         var avg_price_sold = 0;
@@ -1186,9 +1015,7 @@ function insertAnalysisTable(analysis) {
         var count_item = 0;
         var down_price_rate = 0;
 
-
         for (var i = 0; i < analysis.length; i++) {
-
             //sale number
             var per_seller = parseInt($('#sale_number_' + analysis[i].seller_cd + '_' + years[j]).val());
             if (per_seller) {
@@ -1225,7 +1052,6 @@ function insertAnalysisTable(analysis) {
                 time = time + per_seller;
             }
 
-
             //avg time change price
             for (var k = 0; k < analysis[i].items.length; k++) {
                 var hist_regist = new Date(analysis[i].items[k].date_soldout);
@@ -1252,32 +1078,26 @@ function insertAnalysisTable(analysis) {
                 }
             }
 
-
             //avg down price rate
             var per_seller = 0;
             per_seller = parseFloat($('#down_price_rate_' + analysis[i].seller_cd + '_' + years[j]).val())
                     * parseInt($('#sale_number_' + analysis[i].seller_cd + '_' + years[j]).val())
                     ;
-
             if (per_seller) {
                 down_price_rate = down_price_rate + per_seller;
             }
-
         }
 
         //avg price regist
         avg_price_regist = Math.ceil(avg_price_regist / sale_number);
 
-
         //avg price soldout
         avg_price_sold = Math.ceil(avg_price_sold / sale_number);
 
-
-        //time sale	
+        //time sale
         time = Math.ceil(time / sale_number);
 
-
-        //avg time change price		
+        //avg time change price
         avg_time_change_circle = Math.ceil(sum / count_item);
         if (count_item == 0) {
             avg_time_change_circle = '----';
@@ -1286,14 +1106,12 @@ function insertAnalysisTable(analysis) {
         //avg down price rate
         down_price_rate = (down_price_rate / sale_number).toFixed(2);
 
-
         if (sale_number == 0) {
             avg_price_regist = '----';
             avg_price_sold = '----';
             time = '----';
             down_price_rate = '----';
         }
-
 
         $('#name').append('<th>' + years[j] + '</th>');
         $('#sale_number').append('<td>' + sale_number
@@ -1305,5 +1123,4 @@ function insertAnalysisTable(analysis) {
         $('#avg_time_change_circle').append('<td>' + avg_time_change_circle + '日間</td>');
         $('#avg_down_price_rate').append('<td>' + down_price_rate + '%</td>');
     }
-
 }

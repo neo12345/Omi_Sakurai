@@ -7,7 +7,7 @@ function initialize(result) {
         center: new google.maps.LatLng(lat, lng),
         zoom: zoom,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        scrollwheel: false,
+        scrollwheel: false
     };
     var gm = google.maps;
     var map = new gm.Map(document.getElementById("googleMap"), mapProp);
@@ -15,7 +15,7 @@ function initialize(result) {
     var bounds = new gm.LatLngBounds();
 
     var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(lat, lng),
+        position: new google.maps.LatLng(lat, lng)
     });
 
     marker.setMap(map);
@@ -187,18 +187,6 @@ function initialize(result) {
 
         var link_img = '/_up/item/' + folder + '/main_s.jpg';
 
-
-        var content = '<div style="width: 300px; height: auto;">'
-                + '<table style="width: 100%; border: 0px">'
-                + '<tr><td colspan="2" style="border: 0px">'
-                + '<div style="font-size: 16px">' + result[i].item_name + '</div></td></tr>'
-                + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
-                + year + '年' + month + '月' + date + '日</div></td>'
-                + '<td style="width: 33%; border: 0px" rowspan="2"><img width="100px" src="' + link_img + '"/></td>'
-                + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 16px"><span style="color: blue">成約価格 </span>'
-                + '<b>' + result[i].hist_price + '万円</b></div></td></tr>'
-                + '</div>';
-
         if (result[i].status == 2) {
             var pop_up = '<div style="width: 320px; height: auto; background-color: white; padding: 10px 5px;border:groove thin;">'
                     + '<button id="btn_close" class="btn-close">X'
@@ -260,14 +248,6 @@ function initialize(result) {
                     + '</div>';
         }
 
-        var infowindow = new google.maps.InfoWindow();
-
-        google.maps.event.addListener(marker, 'mouseout', (function (marker, i, infowindow) {
-            return function () {
-                infowindow.close(map, marker);
-            }
-        })(marker, i, infowindow));
-
         google.maps.event.addListener(map, 'click', function (event) {
             var str = $("#list_item").val();
             var list_item = str.split(",");
@@ -317,10 +297,6 @@ function initialize(result) {
                     list_marker[j].setIcon(list_icon[j].url);
                 }
 
-
-
-                //map.setCenter(marker.position);
-
                 if (result[i].cat_item == 1 && result[i].status == 1) {
                     marker.setIcon({
                         url: '/_img/common/map-markers/map-marker-11-click.png',
@@ -365,7 +341,6 @@ function initialize(result) {
                     });
                 }
 
-
                 var str = $("#list_item").val();
                 var list_item = str.split(",");
 
@@ -403,7 +378,7 @@ function initialize(result) {
 
                 }
 
-            }
+            };
         })(marker, pop_up, result, i));
 
         oms.addMarker(marker);
@@ -416,7 +391,7 @@ function initialize(result) {
         map: map,
         list_marker: list_marker,
         list_icon: list_icon,
-        list_marker_cd: list_marker_cd,
+        list_marker_cd: list_marker_cd
     };
     return output;
 //----------------------------------

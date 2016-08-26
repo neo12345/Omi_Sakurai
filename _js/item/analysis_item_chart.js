@@ -10,7 +10,7 @@ function drawChart(similars) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-    })
+    });
 
     var formData = {
         item_cd: item_cd
@@ -48,7 +48,7 @@ function drawChart(similars) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-    })
+    });
 
     $.ajax({
         url: "/item/?md=get_item_compare",
@@ -81,7 +81,7 @@ function drawChart(similars) {
             }
             if (min_price > parseInt(similars[i].hist_price)) {
                 min_price = parseInt(similars[i].hist_price);
-                min_index = i
+                min_index = i;
             }
         }
     }
@@ -104,6 +104,7 @@ function drawChart(similars) {
     // create chart
     var data = new google.visualization.DataTable();
     data.addColumn('date', 'Date');
+
     data.addColumn('number', item_info.hist_price + '万円 (' + item_info.item_name + ') ' + item_info.seller);
     data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
     data.addColumn({'type': 'string', 'role': 'style'});
@@ -144,275 +145,98 @@ function drawChart(similars) {
     //primary item
     var change_price_day = null;
     for (var i = 0; i < hist.length; i++) {
-        var datetime = new Date(hist[i].date_regist);
-        var hist_price = parseInt(hist[i].hist_price);
-        var stat_name = hist[i].stat_name;
+        var point = pointOptions(hist, i, change_price_day, hist[0].date_regist);
 
+        var datetime = point.datetime;
+        var hist_price = point.hist_price;
+        var tooltip = point.tooltip;
+        var style = point.style;
+        var stat_name = point.stat_name;
 
-        var datetime1 = new Date(datetime);
-        datetime1.setDate(datetime1.getDate() - 1);
-
-        var date = datetime.getDate();
-        var month = datetime.getMonth() + 1;
-        var year = datetime.getFullYear();
-
-        var oneDay = 24 * 60 * 60 * 1000;
-        var firstDate = new Date(hist[i].date_regist);
-        var secondDate = new Date(hist[0].date_regist);
-        var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-        var date_diff = '---';
-        var month_diff = '---';
-        var year_diff = '---';
-        var change_price_diffDays = '----';
-
-        if (change_price_day != null) {
-            lastday = new Date(hist[change_price_day].date_regist);
-
-            date_diff = lastday.getDate();
-            month_diff = lastday.getMonth() + 1;
-            year_diff = lastday.getFullYear();
-
-            var firstDate = new Date(hist[i].date_regist);
-            var secondDate = new Date(hist[change_price_day].date_regist);
-            var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-        }
         if (stat_name == '価格改定') {
             change_price_day = i;
         }
 
-        if (stat_name == '販売開始') {
-            var style = 'point {fill-color: #000000;}';
-        }
-        if (stat_name == '価格改定') {
-            var style = 'point {fill-color: #FF0000;}';
-        }
-        if (stat_name == '商談') {
-            var style = 'point {fill-color: #0000FF;}';
-        }
-        if (stat_name == '再販' && hist[i - 1].stat_name != '商談') {
-            var style = 'point {fill-color: #1170FF;}}';
-        }
-        if (stat_name == '再販' && hist[i - 1].stat_name == '商談') {
-            var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
-        }
-        if (stat_name == '問合せ') {
-            var style = 'point {fill-color: #006600;}';
-        }
-        if (stat_name == '成約') {
-            var style = 'point {fill-color: #000000;}';
-        }
-        data.addRows([[datetime, hist_price,
-                '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                        + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                        + '<div>売出開始日から' + diffDays + '日</div>'
-                        + '<div style = "font-size: large;"><span style="color: blue">'
-                        + stat_name + ': </span>' + hist_price + '万円</div>'
-                        + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                        + change_price_diffDays + '日前)</div>'
-                        + '</div>', style,
-                null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+        data.addRows([[datetime, hist_price, tooltip, style,
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null]]);
     }
 
     var datetime = new Date();
     var hist_price = parseInt(hist[hist.length - 1].hist_price);
     var stat_name = hist[hist.length - 1].stat_name;
 
-    var date = datetime.getDate();
-    var month = datetime.getMonth() + 1;
-    var year = datetime.getFullYear();
-
-    var oneDay = 24 * 60 * 60 * 1000;
-    var firstDate = new Date();
-    var secondDate = new Date(hist[0].date_regist);
-    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-    var date_diff = '---';
-    var month_diff = '---';
-    var year_diff = '---';
-    var change_price_diffDays = '----';
-
-    if (change_price_day != null) {
-        lastday = new Date(hist[change_price_day].date_regist);
-
-        date_diff = lastday.getDate();
-        month_diff = lastday.getMonth() + 1;
-        year_diff = lastday.getFullYear();
-
-        var firstDate = new Date();
-        var secondDate = new Date(hist[change_price_day].date_regist);
-        var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+    var change_price_date_regist = null;
+    if (change_price_day) {
+        change_price_date_regist = hist[change_price_day].date_regist;
     }
 
-    if (stat_name == '販売開始') {
-        var style = 'point {fill-color: #000000;}';
-    }
-    if (stat_name == '価格改定') {
-        var style = 'point {fill-color: #FF0000;}';
-    }
-    if (stat_name == '商談') {
-        var style = 'point {fill-color: #0000FF;}';
-    }
-    if (stat_name == '再販' && hist[hist.length - 2].stat_name != '商談') {
-        var style = 'point {fill-color: #1170FF;}}';
-    }
-    if (stat_name == '再販' && hist[hist.length - 2].stat_name == '商談') {
-        var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
-    }
-    if (stat_name == '問合せ') {
-        var style = 'point {fill-color: #006600;}';
-    }
-    if (stat_name == '成約') {
-        var style = 'point {fill-color: #000000;}';
-    }
-    data.addRows([[datetime, hist_price,
-            '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                    + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                    + '<div>売出開始日から' + diffDays + '日</div>'
-                    + '<div style = "font-size: large;"><span style="color: blue">'
-                    + stat_name + ': </span>' + hist_price + '万円</div>'
-                    + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                    + change_price_diffDays + '日前)</div>'
-                    + '</div>', style,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]]);
+    var tooltip = createPointTooltip(datetime, hist_price, stat_name,
+            change_price_date_regist, hist[0].date_regist);
 
+    var last_stat_name = null;
+    if (hist[hist.length - 2]) {
+        last_stat_name = hist[hist.length - 2].stat_name;
+    }
+    var style = createPointStyle(stat_name, last_stat_name);
 
+    data.addRows([[datetime, hist_price, tooltip, style, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null]]);
 
 
     var j;
     var list_item_compare = new Array(5);
+
     //item 1
     var change_price_day = null;
     if (item_compare[0] != null) {
         list_item_compare[0] = item_compare[0][0].item_cd;
         for (j = 0; j < item_compare[0].length; j++) {
-            var datetime = new Date(item_compare[0][j].date_regist);
-            var hist_price = parseInt(item_compare[0][j].hist_price);
-            var stat_name = item_compare[0][j].stat_name;
+            var point = pointOptions(item_compare[0],
+                    j,
+                    change_price_day,
+                    item_compare[0][0].date_regist);
 
-            var date = datetime.getDate();
-            var month = datetime.getMonth() + 1;
-            var year = datetime.getFullYear();
+            var datetime = point.datetime;
+            var hist_price = point.hist_price;
+            var tooltip = point.tooltip;
+            var style = point.style;
+            var stat_name = point.stat_name;
 
-            var oneDay = 24 * 60 * 60 * 1000;
-            var firstDate = new Date(item_compare[0][j].date_regist);
-            var secondDate = new Date(item_compare[0][0].date_regist);
-            var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-            var date_diff = '---';
-            var month_diff = '---';
-            var year_diff = '---';
-            var change_price_diffDays = '----';
-
-            if (change_price_day != null) {
-                lastday = new Date(item_compare[0][change_price_day].date_regist);
-
-                date_diff = lastday.getDate();
-                month_diff = lastday.getMonth() + 1;
-                year_diff = lastday.getFullYear();
-
-                var firstDate = new Date(item_compare[0][j].date_regist);
-                var secondDate = new Date(item_compare[0][change_price_day].date_regist);
-                var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-            }
             if (stat_name == '価格改定') {
                 change_price_day = j;
             }
 
-            if (stat_name == '販売開始') {
-                var style = 'point {fill-color: #000000;}';
-            }
-            if (stat_name == '価格改定') {
-                var style = 'point {fill-color: #FF0000;}';
-            }
-            if (stat_name == '商談') {
-                var style = 'point {fill-color: #0000FF;}';
-            }
-            if (stat_name == '再販' && item_compare[0][j - 1].stat_name != '商談') {
-                var style = 'point {fill-color: #1170FF;}}';
-            }
-            if (stat_name == '再販' && item_compare[0][j - 1].stat_name == '商談') {
-                var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
-            }
-            if (stat_name == '問合せ') {
-                var style = 'point {fill-color: #006600;}';
-            }
-            if (stat_name == '成約') {
-                var style = 'point {fill-color: #000000;}';
-            }
             data.addRows([[
-                    datetime, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
-                    '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                            + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                            + '<div>売出開始日から' + diffDays + '日</div>'
-                            + '<div style = "font-size: large;"><span style="color: blue">'
-                            + stat_name + ': </span>' + hist_price + '万円</div>'
-                            + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                            + change_price_diffDays + '日前)</div>'
-                            + '</div>', style, null, null, null, null, null, null, null, null, null, null, null, null]]);
+                    datetime, null, null, null, null, null, null, null, null,
+                    null, null, null, null, hist_price, tooltip, style, null,
+                    null, null, null, null, null, null, null, null, null, null, null]]);
         }
 
         var datetime = new Date();
         var hist_price = parseInt(item_compare[0][item_compare[0].length - 1].hist_price);
         var stat_name = item_compare[0][item_compare[0].length - 1].stat_name;
 
-        var date = datetime.getDate();
-        var month = datetime.getMonth() + 1;
-        var year = datetime.getFullYear();
-
-        var oneDay = 24 * 60 * 60 * 1000;
-        var firstDate = new Date();
-        var secondDate = new Date(item_compare[0][0].date_regist);
-        var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-        var date_diff = '---';
-        var month_diff = '---';
-        var year_diff = '---';
-        var change_price_diffDays = '----';
-
-        if (change_price_day != null) {
-            lastday = new Date(item_compare[0][change_price_day].date_regist);
-
-            date_diff = lastday.getDate();
-            month_diff = lastday.getMonth() + 1;
-            year_diff = lastday.getFullYear();
-
-            var firstDate = new Date();
-            var secondDate = new Date(item_compare[0][change_price_day].date_regist);
-            var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+        var change_price_date_regist = null;
+        if (change_price_day) {
+            change_price_date_regist = item_compare[0][change_price_day].date_regist;
         }
 
-        if (stat_name == '販売開始') {
-            var style = 'point {fill-color: #000000;}';
+        var tooltip = createPointTooltip(datetime, hist_price, stat_name,
+                change_price_date_regist, item_compare[0][0].date_regist);
+
+        var last_stat_name = null;
+        if (item_compare[0][item_compare[0].length - 2]) {
+            last_stat_name = item_compare[0][item_compare[0].length - 2].stat_name;
         }
-        if (stat_name == '価格改定') {
-            var style = 'point {fill-color: #FF0000;}';
-        }
-        if (stat_name == '商談') {
-            var style = 'point {fill-color: #0000FF;}';
-        }
-        if (stat_name == '再販' && hist[item_compare[0].length - 2].stat_name != '商談') {
-            var style = 'point {fill-color: #1170FF;}}';
-        }
-        if (stat_name == '再販' && hist[item_compare[0].length - 2].stat_name == '商談') {
-            var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
-        }
-        if (stat_name == '問合せ') {
-            var style = 'point {fill-color: #006600;}';
-        }
-        if (stat_name == '成約') {
-            var style = 'point {fill-color: #000000;}';
-        }
+        var style = createPointStyle(stat_name, last_stat_name);
+
         data.addRows([[
-                datetime, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
-                '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                        + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                        + '<div>売出開始日から' + diffDays + '日</div>'
-                        + '<div style = "font-size: large;"><span style="color: blue">'
-                        + stat_name + ': </span>' + hist_price + '万円</div>'
-                        + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                        + change_price_diffDays + '日前)</div>'
-                        + '</div>', style, null, null, null, null, null, null, null, null, null, null, null, null]]);
+                datetime, null, null, null, null, null, null, null, null, null,
+                null, null, null, hist_price, tooltip, style, null, null, null,
+                null, null, null, null, null, null, null, null, null]]);
     }
 
     //item 2
@@ -420,133 +244,50 @@ function drawChart(similars) {
     if (item_compare[1] != null) {
         list_item_compare[1] = item_compare[1][0].item_cd;
         for (j = 0; j < item_compare[1].length; j++) {
-            var datetime = new Date(item_compare[1][j].date_regist);
-            var hist_price = parseInt(item_compare[1][j].hist_price);
-            var stat_name = item_compare[1][j].stat_name;
+            var point = pointOptions(item_compare[1],
+                    j,
+                    change_price_day,
+                    item_compare[1][0].date_regist);
 
-            var date = datetime.getDate();
-            var month = datetime.getMonth() + 1;
-            var year = datetime.getFullYear();
+            var datetime = point.datetime;
+            var hist_price = point.hist_price;
+            var tooltip = point.tooltip;
+            var style = point.style;
+            var stat_name = point.stat_name;
 
-            var oneDay = 24 * 60 * 60 * 1000;
-            var firstDate = new Date(item_compare[1][j].date_regist);
-            var secondDate = new Date(item_compare[1][0].date_regist);
-            var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-            var date_diff = '---';
-            var month_diff = '---';
-            var year_diff = '---';
-            var change_price_diffDays = '----';
-
-            if (change_price_day != null) {
-                lastday = new Date(item_compare[1][change_price_day].date_regist);
-
-                date_diff = lastday.getDate();
-                month_diff = lastday.getMonth() + 1;
-                year_diff = lastday.getFullYear();
-
-                var firstDate = new Date(item_compare[1][j].date_regist);
-                var secondDate = new Date(item_compare[1][change_price_day].date_regist);
-                var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-            }
             if (stat_name == '価格改定') {
                 change_price_day = j;
             }
 
-            if (stat_name == '販売開始') {
-                var style = 'point {fill-color: #000000;}';
-            }
-            if (stat_name == '価格改定') {
-                var style = 'point {fill-color: #FF0000;}';
-            }
-            if (stat_name == '商談') {
-                var style = 'point {fill-color: #0000FF;}';
-            }
-            if (stat_name == '再販' && item_compare[1][j - 1].stat_name != '商談') {
-                var style = 'point {fill-color: #1170FF;}}';
-            }
-            if (stat_name == '再販' && item_compare[1][j - 1].stat_name == '商談') {
-                var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
-            }
-            if (stat_name == '問合せ') {
-                var style = 'point {fill-color: #006600;}';
-            }
-            if (stat_name == '成約') {
-                var style = 'point {fill-color: #000000;}';
-            }
             data.addRows([[
-                    datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
-                    '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                            + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                            + '<div>売出開始日から' + diffDays + '日</div>'
-                            + '<div style = "font-size: large;"><span style="color: blue">'
-                            + stat_name + ': </span>' + hist_price + '万円</div>'
-                            + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                            + change_price_diffDays + '日前)</div>'
-                            + '</div>', style, null, null, null, null, null, null, null, null, null]]);
+                    datetime, null, null, null, null, null, null, null, null,
+                    null, null, null, null, null, null, null,
+                    hist_price, tooltip, style, null, null,
+                    null, null, null, null, null, null, null]]);
         }
 
         var datetime = new Date();
         var hist_price = parseInt(item_compare[1][item_compare[1].length - 1].hist_price);
         var stat_name = item_compare[1][item_compare[1].length - 1].stat_name;
 
-        var date = datetime.getDate();
-        var month = datetime.getMonth() + 1;
-        var year = datetime.getFullYear();
-
-        var oneDay = 24 * 60 * 60 * 1000;
-        var firstDate = new Date();
-        var secondDate = new Date(item_compare[1][0].date_regist);
-        var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-        var date_diff = '---';
-        var month_diff = '---';
-        var year_diff = '---';
-        var change_price_diffDays = '----';
-
-        if (change_price_day != null) {
-            lastday = new Date(item_compare[1][change_price_day].date_regist);
-
-            date_diff = lastday.getDate();
-            month_diff = lastday.getMonth() + 1;
-            year_diff = lastday.getFullYear();
-
-            var firstDate = new Date();
-            var secondDate = new Date(item_compare[1][change_price_day].date_regist);
-            var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+        var change_price_date_regist = null;
+        if (change_price_day) {
+            change_price_date_regist = item_compare[1][change_price_day].date_regist;
         }
 
-        if (stat_name == '販売開始') {
-            var style = 'point {fill-color: #000000;}';
+        var tooltip = createPointTooltip(datetime, hist_price, stat_name,
+                change_price_date_regist, item_compare[1][0].date_regist);
+
+        var last_stat_name = null;
+        if (item_compare[1][item_compare[1].length - 2]) {
+            last_stat_name = item_compare[1][item_compare[1].length - 2].stat_name;
         }
-        if (stat_name == '価格改定') {
-            var style = 'point {fill-color: #FF0000;}';
-        }
-        if (stat_name == '商談') {
-            var style = 'point {fill-color: #0000FF;}';
-        }
-        if (stat_name == '再販' && item_compare[1][item_compare[1].length - 2].stat_name != '商談') {
-            var style = 'point {fill-color: #1170FF;}}';
-        }
-        if (stat_name == '再販' && item_compare[1][item_compare[1].length - 2].stat_name == '商談') {
-            var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
-        }
-        if (stat_name == '問合せ') {
-            var style = 'point {fill-color: #006600;}';
-        }
-        if (stat_name == '成約') {
-            var style = 'point {fill-color: #000000;}';
-        }
+        var style = createPointStyle(stat_name, last_stat_name);
+
         data.addRows([[
-                datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
-                '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                        + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                        + '<div>売出開始日から' + diffDays + '日</div>'
-                        + '<div style = "font-size: large;"><span style="color: blue">'
-                        + stat_name + ': </span>' + hist_price + '万円</div>'
-                        + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                        + change_price_diffDays + '日前)</div>'
-                        + '</div>', style, null, null, null, null, null, null, null, null, null]]);
+                datetime, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, hist_price, tooltip, style,
+                null, null, null, null, null, null, null, null, null]]);
     }
 
     //item 3
@@ -554,133 +295,48 @@ function drawChart(similars) {
     if (item_compare[2] != null) {
         list_item_compare[2] = item_compare[2][0].item_cd;
         for (j = 0; j < item_compare[2].length; j++) {
-            var datetime = new Date(item_compare[2][j].date_regist);
-            var hist_price = parseInt(item_compare[2][j].hist_price);
-            var stat_name = item_compare[2][j].stat_name;
+            var point = pointOptions(item_compare[2],
+                    j,
+                    change_price_day,
+                    item_compare[2][0].date_regist);
 
-            var date = datetime.getDate();
-            var month = datetime.getMonth() + 1;
-            var year = datetime.getFullYear();
+            var datetime = point.datetime;
+            var hist_price = point.hist_price;
+            var tooltip = point.tooltip;
+            var style = point.style;
+            var stat_name = point.stat_name;
 
-            var oneDay = 24 * 60 * 60 * 1000;
-            var firstDate = new Date(item_compare[2][j].date_regist);
-            var secondDate = new Date(item_compare[2][0].date_regist);
-            var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-            var date_diff = '---';
-            var month_diff = '---';
-            var year_diff = '---';
-            var change_price_diffDays = '----';
-
-            if (change_price_day != null) {
-                lastday = new Date(item_compare[2][change_price_day].date_regist);
-
-                date_diff = lastday.getDate();
-                month_diff = lastday.getMonth() + 1;
-                year_diff = lastday.getFullYear();
-
-                var firstDate = new Date(item_compare[2][j].date_regist);
-                var secondDate = new Date(item_compare[2][change_price_day].date_regist);
-                var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-            }
             if (stat_name == '価格改定') {
                 change_price_day = j;
             }
-
-            if (stat_name == '販売開始') {
-                var style = 'point {fill-color: #000000;}';
-            }
-            if (stat_name == '価格改定') {
-                var style = 'point {fill-color: #FF0000;}';
-            }
-            if (stat_name == '商談') {
-                var style = 'point {fill-color: #0000FF;}';
-            }
-            if (stat_name == '再販' && item_compare[2][j - 1].stat_name != '商談') {
-                var style = 'point {fill-color: #1170FF;}}';
-            }
-            if (stat_name == '再販' && item_compare[2][j - 1].stat_name == '商談') {
-                var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
-            }
-            if (stat_name == '問合せ') {
-                var style = 'point {fill-color: #006600;}';
-            }
-            if (stat_name == '成約') {
-                var style = 'point {fill-color: #000000;}';
-            }
             data.addRows([[
-                    datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
-                    '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                            + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                            + '<div>売出開始日から' + diffDays + '日</div>'
-                            + '<div style = "font-size: large;"><span style="color: blue">'
-                            + stat_name + ': </span>' + hist_price + '万円</div>'
-                            + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                            + change_price_diffDays + '日前)</div>'
-                            + '</div>', style, null, null, null, null, null, null]]);
+                    datetime, null, null, null, null, null, null, null, null,
+                    null, null, null, null, null, null, null, null, null, null,
+                    hist_price, tooltip, style, null, null, null, null, null, null]]);
         }
 
         var datetime = new Date();
         var hist_price = parseInt(item_compare[2][item_compare[2].length - 1].hist_price);
         var stat_name = item_compare[2][item_compare[2].length - 1].stat_name;
 
-        var date = datetime.getDate();
-        var month = datetime.getMonth() + 1;
-        var year = datetime.getFullYear();
-
-        var oneDay = 24 * 60 * 60 * 1000;
-        var firstDate = new Date();
-        var secondDate = new Date(item_compare[2][0].date_regist);
-        var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-        var date_diff = '---';
-        var month_diff = '---';
-        var year_diff = '---';
-        var change_price_diffDays = '----';
-
-        if (change_price_day != null) {
-            lastday = new Date(item_compare[2][change_price_day].date_regist);
-
-            date_diff = lastday.getDate();
-            month_diff = lastday.getMonth() + 1;
-            year_diff = lastday.getFullYear();
-
-            var firstDate = new Date();
-            var secondDate = new Date(item_compare[2][change_price_day].date_regist);
-            var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+        var change_price_date_regist = null;
+        if (change_price_day) {
+            change_price_date_regist = item_compare[2][change_price_day].date_regist;
         }
 
-        if (stat_name == '販売開始') {
-            var style = 'point {fill-color: #000000;}';
+        var tooltip = createPointTooltip(datetime, hist_price, stat_name,
+                change_price_date_regist, item_compare[2][0].date_regist);
+
+        var last_stat_name = null;
+        if (item_compare[2][item_compare[2].length - 2]) {
+            last_stat_name = item_compare[2][item_compare[2].length - 2].stat_name;
         }
-        if (stat_name == '価格改定') {
-            var style = 'point {fill-color: #FF0000;}';
-        }
-        if (stat_name == '商談') {
-            var style = 'point {fill-color: #0000FF;}';
-        }
-        if (stat_name == '再販' && item_compare[2][item_compare[2].length - 2].stat_name != '商談') {
-            var style = 'point {fill-color: #1170FF;}}';
-        }
-        if (stat_name == '再販' && item_compare[2][item_compare[2].length - 2].stat_name == '商談') {
-            var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
-        }
-        if (stat_name == '問合せ') {
-            var style = 'point {fill-color: #006600;}';
-        }
-        if (stat_name == '成約') {
-            var style = 'point {fill-color: #000000;}';
-        }
+        var style = createPointStyle(stat_name, last_stat_name);
+
         data.addRows([[
-                datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
-                '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                        + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                        + '<div>売出開始日から' + diffDays + '日</div>'
-                        + '<div style = "font-size: large;"><span style="color: blue">'
-                        + stat_name + ': </span>' + hist_price + '万円</div>'
-                        + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                        + change_price_diffDays + '日前)</div>'
-                        + '</div>', style, null, null, null, null, null, null]]);
+                datetime, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null,
+                hist_price, tooltip, style, null, null, null, null, null, null]]);
     }
 
     //item 4
@@ -688,133 +344,49 @@ function drawChart(similars) {
     if (item_compare[3] != null) {
         list_item_compare[3] = item_compare[3][0].item_cd;
         for (j = 0; j < item_compare[3].length; j++) {
-            var datetime = new Date(item_compare[3][j].date_regist);
-            var hist_price = parseInt(item_compare[3][j].hist_price);
-            var stat_name = item_compare[3][j].stat_name;
+            var point = pointOptions(item_compare[3],
+                    j,
+                    change_price_day,
+                    item_compare[3][0].date_regist);
 
-            var date = datetime.getDate();
-            var month = datetime.getMonth() + 1;
-            var year = datetime.getFullYear();
+            change_price_day = point.change_price_day;
+            var datetime = point.datetime;
+            var hist_price = point.hist_price;
+            var tooltip = point.tooltip;
+            var style = point.style;
+            var stat_name = point.stat_name;
 
-            var oneDay = 24 * 60 * 60 * 1000;
-            var firstDate = new Date(item_compare[3][j].date_regist);
-            var secondDate = new Date(item_compare[3][0].date_regist);
-            var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-            var date_diff = '---';
-            var month_diff = '---';
-            var year_diff = '---';
-            var change_price_diffDays = '----';
-
-            if (change_price_day != null) {
-                lastday = new Date(item_compare[3][change_price_day].date_regist);
-
-                date_diff = lastday.getDate();
-                month_diff = lastday.getMonth() + 1;
-                year_diff = lastday.getFullYear();
-
-                var firstDate = new Date(item_compare[3][j].date_regist);
-                var secondDate = new Date(item_compare[3][change_price_day].date_regist);
-                var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-            }
             if (stat_name == '価格改定') {
                 change_price_day = j;
             }
-
-            if (stat_name == '販売開始') {
-                var style = 'point {fill-color: #000000;}';
-            }
-            if (stat_name == '価格改定') {
-                var style = 'point {fill-color: #FF0000;}';
-            }
-            if (stat_name == '商談') {
-                var style = 'point {fill-color: #0000FF;}';
-            }
-            if (stat_name == '再販' && item_compare[3][j - 1].stat_name != '商談') {
-                var style = 'point {fill-color: #1170FF;}}';
-            }
-            if (stat_name == '再販' && item_compare[3][j - 1].stat_name == '商談') {
-                var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
-            }
-            if (stat_name == '問合せ') {
-                var style = 'point {fill-color: #006600;}';
-            }
-            if (stat_name == '成約') {
-                var style = 'point {fill-color: #000000;}';
-            }
             data.addRows([[
-                    datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
-                    '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                            + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                            + '<div>売出開始日から' + diffDays + '日</div>'
-                            + '<div style = "font-size: large;"><span style="color: blue">'
-                            + stat_name + ': </span>' + hist_price + '万円</div>'
-                            + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                            + change_price_diffDays + '日前)</div>'
-                            + '</div>', style, null, null, null]]);
+                    datetime, null, null, null, null, null, null, null, null,
+                    null, null, null, null, null, null, null, null, null, null,
+                    null, null, null, hist_price, tooltip, style, null, null, null]]);
         }
 
         var datetime = new Date();
         var hist_price = parseInt(item_compare[3][item_compare[3].length - 1].hist_price);
         var stat_name = item_compare[3][item_compare[3].length - 1].stat_name;
 
-        var date = datetime.getDate();
-        var month = datetime.getMonth() + 1;
-        var year = datetime.getFullYear();
-
-        var oneDay = 24 * 60 * 60 * 1000;
-        var firstDate = new Date();
-        var secondDate = new Date(item_compare[3][0].date_regist);
-        var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-        var date_diff = '---';
-        var month_diff = '---';
-        var year_diff = '---';
-        var change_price_diffDays = '----';
-
-        if (change_price_day != null) {
-            lastday = new Date(item_compare[3][change_price_day].date_regist);
-
-            date_diff = lastday.getDate();
-            month_diff = lastday.getMonth() + 1;
-            year_diff = lastday.getFullYear();
-
-            var firstDate = new Date();
-            var secondDate = new Date(item_compare[3][change_price_day].date_regist);
-            var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+        var change_price_date_regist = null;
+        if (change_price_day) {
+            change_price_date_regist = item_compare[3][change_price_day].date_regist;
         }
 
-        if (stat_name == '販売開始') {
-            var style = 'point {fill-color: #000000;}';
+        var tooltip = createPointTooltip(datetime, hist_price, stat_name,
+                change_price_date_regist, item_compare[3][0].date_regist);
+
+        var last_stat_name = null;
+        if (item_compare[3][item_compare[3].length - 2]) {
+            last_stat_name = item_compare[3][item_compare[3].length - 2].stat_name;
         }
-        if (stat_name == '価格改定') {
-            var style = 'point {fill-color: #FF0000;}';
-        }
-        if (stat_name == '商談') {
-            var style = 'point {fill-color: #0000FF;}';
-        }
-        if (stat_name == '再販' && item_compare[3][item_compare[3].length - 2].stat_name != '商談') {
-            var style = 'point {fill-color: #1170FF;}}';
-        }
-        if (stat_name == '再販' && item_compare[3][item_compare[3].length - 2].stat_name == '商談') {
-            var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
-        }
-        if (stat_name == '問合せ') {
-            var style = 'point {fill-color: #006600;}';
-        }
-        if (stat_name == '成約') {
-            var style = 'point {fill-color: #000000;}';
-        }
+        var style = createPointStyle(stat_name, last_stat_name);
+
         data.addRows([[
-                datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
-                '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                        + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                        + '<div>売出開始日から' + diffDays + '日</div>'
-                        + '<div style = "font-size: large;"><span style="color: blue">'
-                        + stat_name + ': </span>' + hist_price + '万円</div>'
-                        + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                        + change_price_diffDays + '日前)</div>'
-                        + '</div>', style, null, null, null]]);
+                datetime, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, hist_price, tooltip, style, null, null, null]]);
     }
 
     //item 5
@@ -822,138 +394,56 @@ function drawChart(similars) {
     if (item_compare[4] != null) {
         list_item_compare[4] = item_compare[4][0].item_cd;
         for (j = 0; j < item_compare[4].length; j++) {
-            var datetime = new Date(item_compare[4][j].date_regist);
-            var hist_price = parseInt(item_compare[4][j].hist_price);
-            var stat_name = item_compare[4][j].stat_name;
+            var point = pointOptions(item_compare[4],
+                    j,
+                    change_price_day,
+                    item_compare[4][0].date_regist);
 
-            var date = datetime.getDate();
-            var month = datetime.getMonth() + 1;
-            var year = datetime.getFullYear();
+            change_price_day = point.change_price_day;
+            var datetime = point.datetime;
+            var hist_price = point.hist_price;
+            var tooltip = point.tooltip;
+            var style = point.style;
+            var stat_name = point.stat_name;
 
-            var oneDay = 24 * 60 * 60 * 1000;
-            var firstDate = new Date(item_compare[4][j].date_regist);
-            var secondDate = new Date(item_compare[4][0].date_regist);
-            var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-            var date_diff = '---';
-            var month_diff = '---';
-            var year_diff = '---';
-            var change_price_diffDays = '----';
-
-            if (change_price_day != null) {
-                lastday = new Date(item_compare[4][change_price_day].date_regist);
-
-                date_diff = lastday.getDate();
-                month_diff = lastday.getMonth() + 1;
-                year_diff = lastday.getFullYear();
-
-                var firstDate = new Date(item_compare[4][j].date_regist);
-                var secondDate = new Date(item_compare[4][change_price_day].date_regist);
-                var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-            }
             if (stat_name == '価格改定') {
                 change_price_day = j;
             }
 
-            if (stat_name == '販売開始') {
-                var style = 'point {fill-color: #000000;}';
-            }
-            if (stat_name == '価格改定') {
-                var style = 'point {fill-color: #FF0000;}';
-            }
-            if (stat_name == '商談') {
-                var style = 'point {fill-color: #0000FF;}';
-            }
-            if (stat_name == '再販' && item_compare[4][j - 1].stat_name != '商談') {
-                var style = 'point {fill-color: #1170FF;}}';
-            }
-            if (stat_name == '再販' && item_compare[4][j - 1].stat_name == '商談') {
-                var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
-            }
-            if (stat_name == '問合せ') {
-                var style = 'point {fill-color: #006600;}';
-            }
-            if (stat_name == '成約') {
-                var style = 'point {fill-color: #000000;}';
-            }
             data.addRows([[
-                    datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
-                    '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                            + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                            + '<div>売出開始日から' + diffDays + '日</div>'
-                            + '<div style = "font-size: large;"><span style="color: blue">'
-                            + stat_name + ': </span>' + hist_price + '万円</div>'
-                            + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                            + change_price_diffDays + '日前)</div>'
-                            + '</div>', style]]);
+                    datetime, null, null, null, null, null, null, null, null,
+                    null, null, null, null, null, null, null, null, null, null,
+                    null, null, null, null, null, null,
+                    hist_price, tooltip, style]]);
         }
 
         var datetime = new Date();
         var hist_price = parseInt(item_compare[4][item_compare[4].length - 1].hist_price);
         var stat_name = item_compare[4][item_compare[4].length - 1].stat_name;
 
-        var date = datetime.getDate();
-        var month = datetime.getMonth() + 1;
-        var year = datetime.getFullYear();
-
-        var oneDay = 24 * 60 * 60 * 1000;
-        var firstDate = new Date();
-        var secondDate = new Date(item_compare[4][0].date_regist);
-        var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-        var date_diff = '---';
-        var month_diff = '---';
-        var year_diff = '---';
-        var change_price_diffDays = '----';
-
-        if (change_price_day != null) {
-            lastday = new Date(item_compare[4][change_price_day].date_regist);
-
-            date_diff = lastday.getDate();
-            month_diff = lastday.getMonth() + 1;
-            year_diff = lastday.getFullYear();
-
-            var firstDate = new Date();
-            var secondDate = new Date(item_compare[4][change_price_day].date_regist);
-            var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+        var change_price_date_regist = null;
+        if (change_price_day) {
+            change_price_date_regist = item_compare[4][change_price_day].date_regist;
         }
 
-        if (stat_name == '販売開始') {
-            var style = 'point {fill-color: #000000;}';
+        var tooltip = createPointTooltip(datetime, hist_price, stat_name,
+                change_price_date_regist, item_compare[4][0].date_regist);
+
+        var last_stat_name = null;
+        if (item_compare[4][item_compare[4].length - 2]) {
+            last_stat_name = item_compare[4][item_compare[4].length - 2].stat_name;
         }
-        if (stat_name == '価格改定') {
-            var style = 'point {fill-color: #FF0000;}';
-        }
-        if (stat_name == '商談') {
-            var style = 'point {fill-color: #0000FF;}';
-        }
-        if (stat_name == '再販' && item_compare[4][item_compare[4].length - 2].stat_name != '商談') {
-            var style = 'point {fill-color: #1170FF;}}';
-        }
-        if (stat_name == '再販' && item_compare[4][item_compare[4].length - 2].stat_name == '商談') {
-            var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
-        }
-        if (stat_name == '問合せ') {
-            var style = 'point {fill-color: #006600;}';
-        }
-        if (stat_name == '成約') {
-            var style = 'point {fill-color: #000000;}';
-        }
+        var style = createPointStyle(stat_name, last_stat_name);
+
         data.addRows([[
-                datetime, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, hist_price,
-                '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                        + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                        + '<div>売出開始日から' + diffDays + '日</div>'
-                        + '<div style = "font-size: large;"><span style="color: blue">'
-                        + stat_name + ': </span>' + hist_price + '万円</div>'
-                        + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                        + change_price_diffDays + '日前)</div>'
-                        + '</div>', style]]);
+                datetime, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, hist_price, tooltip, style]]);
     }
 
     //max, min, avg price
     var now = new Date();
-    var sixMonthsAgo = new Date()
+    var sixMonthsAgo = new Date();
     sixMonthsAgo.setDate(sixMonthsAgo.getDate() - 6 * 30);
 
     var style1 = 'point {fill-color: transparent;}';
@@ -962,9 +452,6 @@ function drawChart(similars) {
 
     var tooltip1 = '<div style = "width: auto; height: auto; padding: 10px 10px; font-size: 14px;">'
             + '<span style="color: blue">平均成約価格:</span> <b>' + avg_price + '万円</b></div>';
-    var tooltip2 = '----';
-    var tooltip3 = '----';
-
 
     if (similars[max_index] && similars[min_index]) {
         //get info item
@@ -979,7 +466,7 @@ function drawChart(similars) {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
-        })
+        });
 
         $.ajax({
             url: "/item/?md=get_item_compare",
@@ -996,7 +483,7 @@ function drawChart(similars) {
             var item_max = 0;
             var item_min = 0;
         } else {
-            if (item_max_min[0][0].item_cd = similars[max_index].item_cd) {
+            if (item_max_min[0][0].item_cd == similars[max_index].item_cd) {
                 var item_max = 0;
                 var item_min = 1;
             } else {
@@ -1010,94 +497,29 @@ function drawChart(similars) {
         var hist_price = parseInt(similars[max_index].hist_price);
         var stat_name = '成約';
 
-        var date = datetime.getDate();
-        var month = datetime.getMonth() + 1;
-        var year = datetime.getFullYear();
-
-        var oneDay = 24 * 60 * 60 * 1000;
-        var firstDate = new Date();
-        var secondDate = new Date(similars[max_index].date_regist);
-        var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-        var lastday = null;
-        var date_diff = '---';
-        var month_diff = '---';
-        var year_diff = '---';
-        var change_price_diffDays = '----';
-
         for (var i = item_max_min[item_max].length - 1; i >= 0; i--) {
             if (item_max_min[item_max][i].stat_name == '価格改定') {
-                lastday = new Date(item_max_min[item_max][i].date_regist);
+                var lastday = new Date(item_max_min[item_max][i].date_regist);
                 break;
             }
         }
-        if (lastday) {
-            date_diff = lastday.getDate();
-            month_diff = lastday.getMonth() + 1;
-            year_diff = lastday.getFullYear();
-
-            var firstDate = new Date();
-            var secondDate = lastday;
-            var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-        }
-
-
-        var tooltip2 = '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                + '<div>売出開始日から' + diffDays + '日</div>'
-                + '<div style = "font-size: large;"><span style="color: blue">'
-                + stat_name + ': </span>' + hist_price + '万円</div>'
-                + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                + change_price_diffDays + '日前)</div>'
-                + '</div>';
-
+        var tooltip2 = createPointTooltip(datetime, hist_price, stat_name,
+                lastday, similars[max_index].date_regist);
 
         //tooltip 3
         var datetime = new Date();
         var hist_price = parseInt(similars[min_index].hist_price);
         var stat_name = '成約';
 
-        var date = datetime.getDate();
-        var month = datetime.getMonth() + 1;
-        var year = datetime.getFullYear();
-
-        var oneDay = 24 * 60 * 60 * 1000;
-        var firstDate = new Date();
-        var secondDate = new Date(similars[min_index].date_regist);
-        var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-
-        var lastday = null;
-        var date_diff = '---';
-        var month_diff = '---';
-        var year_diff = '---';
-        var change_price_diffDays = '----';
-
         for (var i = item_max_min[item_min].length - 1; i >= 0; i--) {
             if (item_max_min[item_min][i].stat_name == '価格改定') {
-                lastday = new Date(item_max_min[item_min][i].date_regist);
+                var lastday = new Date(item_max_min[item_min][i].date_regist);
                 break;
             }
         }
-        if (lastday) {
-            date_diff = lastday.getDate();
-            month_diff = lastday.getMonth() + 1;
-            year_diff = lastday.getFullYear();
-
-            var firstDate = new Date();
-            var secondDate = lastday;
-            var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-        }
-
-        tooltip3 = '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
-                + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
-                + '<div>売出開始日から' + diffDays + '日</div>'
-                + '<div style = "font-size: large;"><span style="color: blue">'
-                + stat_name + ': </span>' + hist_price + '万円</div>'
-                + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
-                + change_price_diffDays + '日前)</div>'
-                + '</div>';
+        var tooltip3 = createPointTooltip(datetime, hist_price, stat_name,
+                lastday, similars[min_index].date_regist);
     }
-
 
     // Set chart options
     //var xAxis_max_0 = new Date(hist[hist.length - 1].date_regist);
@@ -1105,116 +527,72 @@ function drawChart(similars) {
     xAxis_max_0.setDate(xAxis_max_0.getDate() + 5);
 
     if (item_compare[0] != null) {
-        var xAxis_max_1 = new Date(item_compare[0].reduce(function (max, obj) {
-            return max >= obj.date_regist ? max : obj.date_regist;
-        }, -Infinity));
+        var xAxis_max_1 = new Date(get_max_date_in_array(item_compare[0]));
     }
     if (item_compare[1] != null) {
-        var xAxis_max_2 = new Date(item_compare[1].reduce(function (max, obj) {
-            return max >= obj.date_regist ? max : obj.date_regist;
-        }, -Infinity));
+        var xAxis_max_2 = new Date(get_max_date_in_array(item_compare[1]));
     }
     if (item_compare[2] != null) {
-        var xAxis_max_3 = new Date(item_compare[2].reduce(function (max, obj) {
-            return max >= obj.date_regist ? max : obj.date_regist;
-        }, -Infinity));
+        var xAxis_max_3 = new Date(get_max_date_in_array(item_compare[2]));
     }
     if (item_compare[3] != null) {
-        var xAxis_max_4 = new Date(item_compare[3].reduce(function (max, obj) {
-            return max >= obj.date_regist ? max : obj.date_regist;
-        }, -Infinity));
+        var xAxis_max_4 = new Date(get_max_date_in_array(item_compare[3]));
     }
     if (item_compare[4] != null) {
-        var xAxis_max_5 = new Date(item_compare[4].reduce(function (max, obj) {
-            return max >= obj.date_regist ? max : obj.date_regist;
-        }, -Infinity));
+        var xAxis_max_5 = new Date(get_max_date_in_array(item_compare[4]));
     }
 
 
     var xAxis_min_0 = new Date(hist[0].date_regist);
 
     if (item_compare[0] != null) {
-        var xAxis_min_1 = new Date(item_compare[0].reduce(function (min, obj) {
-            return min <= obj.date_regist ? min : obj.date_regist;
-        }, Infinity));
+        var xAxis_min_1 = new Date(get_min_date_in_array(item_compare[0]));
     }
     if (item_compare[1] != null) {
-        var xAxis_min_2 = new Date(item_compare[1].reduce(function (min, obj) {
-            return min <= obj.date_regist ? min : obj.date_regist;
-        }, Infinity));
+        var xAxis_min_2 = new Date(get_min_date_in_array(item_compare[1]));
     }
     if (item_compare[2] != null) {
-        var xAxis_min_3 = new Date(item_compare[2].reduce(function (min, obj) {
-            return min <= obj.date_regist ? min : obj.date_regist;
-        }, Infinity));
+        var xAxis_min_3 = new Date(get_min_date_in_array(item_compare[2]));
     }
     if (item_compare[3] != null) {
-        var xAxis_min_4 = new Date(item_compare[3].reduce(function (min, obj) {
-            return min <= obj.date_regist ? min : obj.date_regist;
-        }, Infinity));
+        var xAxis_min_4 = new Date(get_min_date_in_array(item_compare[3]));
     }
     if (item_compare[4] != null) {
-        var xAxis_min_5 = new Date(item_compare[4].reduce(function (min, obj) {
-            return min <= obj.date_regist ? min : obj.date_regist;
-        }, Infinity));
+        var xAxis_min_5 = new Date(get_min_date_in_array(item_compare[4]));
     }
 
-    var yAxis_max_0 = parseInt(hist.reduce(function (max, obj) {
-        return max >= obj.hist_price ? max : obj.hist_price;
-    }, -Infinity)) + 200;
+    var yAxis_max_0 = parseInt(get_max_price_in_array(hist)) + 200;
     if (item_compare[0] != null) {
-        var yAxis_max_1 = parseInt(item_compare[0].reduce(function (max, obj) {
-            return max >= obj.hist_price ? max : obj.hist_price;
-        }, -Infinity)) + 200;
+        var yAxis_max_1 = parseInt(get_max_price_in_array(item_compare[0])) + 200;
     }
     if (item_compare[1] != null) {
-        var yAxis_max_2 = parseInt(item_compare[1].reduce(function (max, obj) {
-            return max >= obj.hist_price ? max : obj.hist_price;
-        }, -Infinity)) + 200;
+        var yAxis_max_2 = parseInt(get_max_price_in_array(item_compare[1])) + 200;
     }
     if (item_compare[2] != null) {
-        var yAxis_max_3 = parseInt(item_compare[2].reduce(function (max, obj) {
-            return max >= obj.hist_price ? max : obj.hist_price;
-        }, -Infinity)) + 200;
+        var yAxis_max_3 = parseInt(get_max_price_in_array(item_compare[2])) + 200;
     }
     if (item_compare[3] != null) {
-        var yAxis_max_4 = parseInt(item_compare[3].reduce(function (max, obj) {
-            return max >= obj.hist_price ? max : obj.hist_price;
-        }, -Infinity)) + 200;
+        var yAxis_max_4 = parseInt(get_max_price_in_array(item_compare[3])) + 200;
     }
     if (item_compare[4] != null) {
-        var yAxis_max_5 = parseInt(item_compare[4].reduce(function (max, obj) {
-            return max >= obj.hist_price ? max : obj.hist_price;
-        }, -Infinity)) + 200;
+        var yAxis_max_5 = parseInt(get_max_price_in_array(item_compare[4])) + 200;
     }
 
-    var yAxis_min_0 = parseInt(hist.reduce(function (min, obj) {
-        return min <= obj.hist_price ? min : obj.hist_price;
-    }, Infinity)) - 200;
+    var yAxis_min_0 = parseInt(get_min_price_in_array(hist)) - 200;
     if (item_compare[0] != null) {
-        var yAxis_min_1 = parseInt(item_compare[0].reduce(function (min, obj) {
-            return min <= obj.hist_price ? min : obj.hist_price;
-        }, Infinity)) - 200;
+        var yAxis_min_1 = parseInt(get_max_price_in_array(item_compare[0])) - 200;
     }
     if (item_compare[1] != null) {
-        var yAxis_min_2 = parseInt(item_compare[1].reduce(function (min, obj) {
-            return min <= obj.hist_price ? min : obj.hist_price;
-        }, Infinity)) - 200;
+        var yAxis_min_2 = parseInt(get_max_price_in_array(item_compare[1])) - 200;
     }
     if (item_compare[2] != null) {
-        var yAxis_min_3 = parseInt(item_compare[2].reduce(function (min, obj) {
-            return min <= obj.hist_price ? min : obj.hist_price;
-        }, Infinity)) - 200;
+        var yAxis_min_3 = parseInt(get_max_price_in_array(item_compare[2])) - 200;
     }
     if (item_compare[3] != null) {
-        var yAxis_min_4 = parseInt(item_compare[3].reduce(function (min, obj) {
-            return min <= obj.hist_price ? min : obj.hist_price;
-        }, Infinity)) - 200;
+        var yAxis_min_4 = parseInt(get_max_price_in_array(item_compare[3])) - 200;
     }
     if (item_compare[4] != null) {
-        var yAxis_min_5 = parseInt(item_compare[4].reduce(function (min, obj) {
-            return min <= obj.hist_price ? min : obj.hist_price;
-        }, Infinity)) - 200;
+        var yAxis_min_5 = parseInt(get_max_price_in_array(item_compare[4])) - 200;
     }
 
     var xAxis_min = xAxis_min_0;
@@ -1306,18 +684,6 @@ function drawChart(similars) {
     xAxis_max.setDate(xAxis_max.getDate() + $offset);
 
     var options = {
-        annotationsWidth: 5,
-        annotations: {
-            allowHtml: true,
-            boxStyle: {
-                width: 100,
-            },
-            textStyle: {
-                fontSize: 13,
-                bold: true,
-            },
-            style: 'point',
-        },
         legend: {
             textStyle: {
                 color: [['red', 'blue']]
@@ -1325,16 +691,16 @@ function drawChart(similars) {
         },
         series: {
             0: {tooltip: true},
-            1: {tooltip: false, pointsVisible: false, },
+            1: {tooltip: false, pointsVisible: false},
             2: {tooltip: true, pointsVisible: false},
-            3: {tooltip: true, pointsVisible: false},
+            3: {tooltip: true, pointsVisible: false}
         },
         explorer: {
             actions: ['dragToZoom', 'rightClickToReset'],
             keepInBounds: true,
             zoomDelta: 1,
             maxZoomIn: 0.1,
-            maxZoomOut: 1,
+            maxZoomOut: 1
         },
         height: 500,
         chartArea: {width: '60%', left: '5%'},
@@ -1353,20 +719,20 @@ function drawChart(similars) {
                 min: xAxis_min
             },
             gridlines: {
-                count: 20,
+                count: 20
             }
         },
         vAxis: {
             baseline: yAxis_min,
             gridlines: {
-                count: 5,
+                count: 5
             },
             viewWindow: {
                 max: yAxis_max,
                 min: yAxis_min
-            },
+            }
         },
-        pointSize: 5,
+        pointSize: 5
     };
 
     // Instantiate and draw our chart, passing in some options.
@@ -1378,19 +744,136 @@ function drawChart(similars) {
 
 
     if (max_index >= 0 && min_index >= 0) {
-        result = {
+        var result = {
             chart: chart,
             list_item_compare: list_item_compare,
             max_index: similars[max_index].item_cd,
-            min_index: similars[min_index].item_cd,
+            min_index: similars[min_index].item_cd
         };
     } else {
         result = {
             chart: chart,
             list_item_compare: list_item_compare,
             max_index: null,
-            min_index: null,
+            min_index: null
         };
     }
     return result;
+}
+
+function pointOptions(hist, index, change_price_day, date_regist) {
+    var datetime = new Date(hist[index].date_regist);
+    var hist_price = parseInt(hist[index].hist_price);
+    var stat_name = hist[index].stat_name;
+
+    var change_price_date_regist = null;
+    if (change_price_day) {
+        change_price_date_regist = hist[change_price_day].date_regist;
+    }
+    var tooltip = createPointTooltip(datetime, hist_price, stat_name,
+            change_price_date_regist, date_regist);
+
+    var last_stat_name = null;
+    if (hist[index - 1]) {
+        last_stat_name = hist[index - 1].stat_name;
+    }
+    var style = createPointStyle(stat_name, last_stat_name);
+
+    var result = {
+        'datetime': datetime,
+        'hist_price': hist_price,
+        'tooltip': tooltip,
+        'style': style,
+        'stat_name': stat_name
+    };
+
+    return result;
+}
+
+function createPointTooltip(datetime, hist_price, stat_name, change_price_day, date_regist) {
+    var date = datetime.getDate();
+    var month = datetime.getMonth() + 1;
+    var year = datetime.getFullYear();
+
+    var oneDay = 24 * 60 * 60 * 1000;
+    var firstDate = new Date(datetime);
+    var secondDate = new Date(date_regist);
+    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+
+    var date_diff = '---';
+    var month_diff = '---';
+    var year_diff = '---';
+    var change_price_diffDays = '----';
+
+    if (change_price_day != null) {
+        var lastday = new Date(change_price_day);
+
+        date_diff = lastday.getDate();
+        month_diff = lastday.getMonth() + 1;
+        year_diff = lastday.getFullYear();
+
+        var firstDate = new Date(datetime);
+        var secondDate = new Date(change_price_day);
+        var change_price_diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+    }
+
+    var tooltip = '<div style = "width: 250px; height: auto; padding: 15px 20px;">'
+            + '<div style = "font-size: larger;">' + year + '年' + month + '月' + date + '日</div>'
+            + '<div>売出開始日から' + diffDays + '日</div>'
+            + '<div style = "font-size: large;"><span style="color: blue">'
+            + stat_name + ': </span>' + hist_price + '万円</div>'
+            + '<div>最終価格改定日：' + year_diff + '年' + month_diff + '月' + date_diff + '日('
+            + change_price_diffDays + '日前)</div></div>';
+
+    return tooltip;
+}
+
+function createPointStyle(stat_name, last_stat_name) {
+    if (stat_name == '販売開始') {
+        var style = 'point {fill-color: #000000;}';
+    }
+    if (stat_name == '価格改定') {
+        var style = 'point {fill-color: #FF0000;}';
+    }
+    if (stat_name == '商談') {
+        var style = 'point {fill-color: #0000FF;}';
+    }
+    if (stat_name == '再販' && last_stat_name != '商談') {
+        var style = 'point {fill-color: #1170FF;}}';
+    }
+    if (stat_name == '再販' && last_stat_name == '商談') {
+        var style = 'point {fill-color: #1170FF;}, line {color: #A0A0A0;}';
+    }
+    if (stat_name == '問合せ') {
+        var style = 'point {fill-color: #006600;}';
+    }
+    if (stat_name == '成約') {
+        var style = 'point {fill-color: #000000;}';
+    }
+
+    return style;
+}
+
+function get_max_date_in_array(array) {
+    return array.reduce(function (max, obj) {
+        return max >= obj.date_regist ? max : obj.date_regist;
+    }, -Infinity);
+}
+
+function get_min_date_in_array(array) {
+    return array.reduce(function (min, obj) {
+        return min <= obj.date_regist ? min : obj.date_regist;
+    }, Infinity);
+}
+
+function get_max_price_in_array(array) {
+    return array.reduce(function (max, obj) {
+        return max >= obj.hist_price ? max : obj.hist_price;
+    }, -Infinity);
+}
+
+function get_min_price_in_array(array) {
+    return array.reduce(function (min, obj) {
+        return min <= obj.hist_price ? min : obj.hist_price;
+    }, Infinity);
 }

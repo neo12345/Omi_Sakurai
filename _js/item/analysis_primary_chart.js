@@ -55,7 +55,7 @@ function drawChart() {
     });
 
     if (!result) {
-        var error = '<div class="alert alert-danger">見付かっていません。</div>';
+        var error = '<div class="alert alert-danger"></div>';
         $('#error').html(error);
     } else {
         // create chart
@@ -69,14 +69,48 @@ function drawChart() {
         }
         data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
 
-        if (result.length == 1 && $("#select_opt").val() < 4) {
-            var date = new Date(result[0].x_axis).getDate() - 1;
-            var month = new Date(result[0].x_axis).getMonth();
-            var year = new Date(result[0].x_axis).getFullYear();
+        if (result.length > 0 && $("#select_opt").val() < 4) {
+            if ((new Date($("#to").val()) - new Date($("#from").val())) > 730 * 86400 * 1000) {
+                var date = new Date(result[0].x_axis).getDate() + 30;
+                var month = new Date(result[0].x_axis).getMonth();
+                var year = new Date(result[0].x_axis).getFullYear();
 
-            var x_axis = new Date(year, month, date);
-            var y_axis = parseInt(0);
-            data.addRows([[x_axis, y_axis, '']]);
+                var x_axis = new Date(year, month, date);
+                var y_axis = parseInt(0);
+                data.addRows([[x_axis, y_axis, '']]);
+            } else if ((new Date($("#to").val()) - new Date($("#from").val())) > 365 * 86400 * 1000) {
+                var date = new Date(result[0].x_axis).getDate() + 14;
+                var month = new Date(result[0].x_axis).getMonth();
+                var year = new Date(result[0].x_axis).getFullYear();
+
+                var x_axis = new Date(year, month, date);
+                var y_axis = parseInt(0);
+                data.addRows([[x_axis, y_axis, '']]);
+            } else if ((new Date($("#to").val()) - new Date($("#from").val())) > 180 * 86400 * 1000) {
+                var date = new Date(result[0].x_axis).getDate() + 7;
+                var month = new Date(result[0].x_axis).getMonth();
+                var year = new Date(result[0].x_axis).getFullYear();
+
+                var x_axis = new Date(year, month, date);
+                var y_axis = parseInt(0);
+                data.addRows([[x_axis, y_axis, '']]);
+            } else if ((new Date($("#to").val()) - new Date($("#from").val())) > 60 * 86400 * 1000) {
+                var date = new Date(result[0].x_axis).getDate() + 3;
+                var month = new Date(result[0].x_axis).getMonth();
+                var year = new Date(result[0].x_axis).getFullYear();
+
+                var x_axis = new Date(year, month, date);
+                var y_axis = parseInt(0);
+                data.addRows([[x_axis, y_axis, '']]);
+            } else {
+                var date = new Date(result[0].x_axis).getDate() + 1;
+                var month = new Date(result[0].x_axis).getMonth();
+                var year = new Date(result[0].x_axis).getFullYear();
+
+                var x_axis = new Date(year, month, date);
+                var y_axis = parseInt(0);
+                data.addRows([[x_axis, y_axis, '']]);
+            }
         }
 
         for (var i = 0; i < result.length; i++) {
@@ -94,7 +128,7 @@ function drawChart() {
                     var month = d.getMonth() + 1;
                     var year = d.getFullYear();
 
-                    var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                    var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                             + '<div style = "font-size: larger;">'
                             + year + '年' + month + '月</div><br>'
                             + '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
@@ -114,7 +148,7 @@ function drawChart() {
                     var date_end = d.getDate();
                     var month_end = d.getMonth() + 1;
 
-                    var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                    var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                             + '<div style = "font-size: larger;">'
                             + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                             + '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
@@ -134,13 +168,13 @@ function drawChart() {
                     var date_end = d.getDate();
                     var month_end = d.getMonth() + 1;
 
-                    var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                    var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                             + '<div style = "font-size: larger;">'
                             + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                             + '<div style = "font-size: large;"><b>' + y_axis + '万円</b></div></div>';
                 } else {
                     month = month + 1;
-                    var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                    var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                             + '<div style = "font-size: larger;">'
                             + month + '月' + date + '日</div><br><b>' + y_axis + '万円</b></div></div>';
                 }
@@ -152,13 +186,12 @@ function drawChart() {
                     var month = d.getMonth() + 1;
                     var year = d.getFullYear();
 
-                    var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                    var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                             + '<div style = "font-size: larger;">'
                             + year + '年' + month + '月</div><br>'
                             + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
 
-                } else if ((new Date($("#to").val()) - new Date($("#from").val())) > 365 * 86400 * 1000)
-                {
+                } else if ((new Date($("#to").val()) - new Date($("#from").val())) > 365 * 86400 * 1000) {
                     var d = new Date(result[i].x_axis);
 
                     d.setDate(d.getDate() - 7);
@@ -173,13 +206,12 @@ function drawChart() {
                     var date_end = d.getDate();
                     var month_end = d.getMonth() + 1;
 
-                    var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                    var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                             + '<div style = "font-size: larger;">'
                             + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                             + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
 
-                } else if ((new Date($("#to").val()) - new Date($("#from").val())) > 180 * 86400 * 1000)
-                {
+                } else if ((new Date($("#to").val()) - new Date($("#from").val())) > 180 * 86400 * 1000) {
                     var d = new Date(result[i].x_axis);
 
                     d.setDate(d.getDate() - 3);
@@ -194,13 +226,12 @@ function drawChart() {
                     var date_end = d.getDate();
                     var month_end = d.getMonth() + 1;
 
-                    var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                    var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                             + '<div style = "font-size: larger;">'
                             + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                             + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
 
-                } else if ((new Date($("#to").val()) - new Date($("#from").val())) > 60 * 86400 * 1000)
-                {
+                } else if ((new Date($("#to").val()) - new Date($("#from").val())) > 60 * 86400 * 1000) {
                     var d = new Date(result[i].x_axis);
 
                     d.setDate(d.getDate() - 1);
@@ -215,14 +246,14 @@ function drawChart() {
                     var date_end = d.getDate();
                     var month_end = d.getMonth() + 1;
 
-                    var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                    var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                             + '<div style = "font-size: larger;">'
                             + month_start + '月' + date_start + '日 - ' + month_end + '月' + date_end + '日</div><br>'
                             + '<div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
 
                 } else {
                     month += 1;
-                    var tooltip = '<div style = "width: 130px; height: 70px; padding: 15px 20px;">'
+                    var tooltip = '<div style = "width: 150px; height: 70px; padding: 15px 15px;">'
                             + '<div style = "font-size: larger;">'
                             + month + '月' + date + '日</div><br><div style = "font-size: large;"><b>' + y_axis + '件</b></div></div>';
                 }
@@ -240,7 +271,7 @@ function drawChart() {
                 actions: ['dragToZoom', 'rightClickToReset'],
                 axis: 'horizontal',
                 keepInBounds: true,
-                zoomDelta: 0.5,
+                zoomDelta: 0.5
             },
             height: 400,
             bar: {
@@ -253,7 +284,7 @@ function drawChart() {
                 baseline: min_xAxis,
                 baselineColor: '#CCC',
                 textStyle: {
-                    fontSize: 13,
+                    fontSize: 13
                 },
                 slantedText: true,
                 format: 'M月d日',
@@ -279,7 +310,7 @@ function drawChart() {
                 actions: ['dragToZoom', 'rightClickToReset'],
                 axis: 'horizontal',
                 keepInBounds: true,
-                zoomDelta: 0.5,
+                zoomDelta: 0.5
             },
             height: 400,
             tooltip: {
@@ -289,7 +320,7 @@ function drawChart() {
                 baseline: min_xAxis,
                 baselineColor: '#CCC',
                 textStyle: {
-                    fontSize: 13,
+                    fontSize: 13
                 },
                 slantedText: true,
                 format: 'M月d日',
@@ -303,7 +334,7 @@ function drawChart() {
                     units: {
                         years: {format: ["yy/mm"]},
                         months: {format: ["mm/dd"]},
-                        days: {format: ["mm/dd"]},
+                        days: {format: ["mm/dd"]}
                     }
                 }
             },
@@ -316,8 +347,7 @@ function drawChart() {
         } else {
             var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
         }
-        if ((new Date($("#to").val()) - new Date($("#from").val())) > 60 * 86400 * 1000)
-        {
+        if ((new Date($("#to").val()) - new Date($("#from").val())) > 60 * 86400 * 1000) {
             chart.draw(data, options);
         } else {
             chart.draw(data, options1);

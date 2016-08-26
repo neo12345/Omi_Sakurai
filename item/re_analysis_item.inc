@@ -877,11 +877,11 @@ for ($i = 0; $i < count($RS_sewer); $i++) {
                     <tr id="avg_time_sold">
                         <th>平均売出期間</th>
                     </tr>
-                    <tr id="avg_time_change_circle">
-                        <th>平均価格改定周期</th>
-                    </tr>
                     <tr id="avg_down_price_rate">
                         <th>平均値下率</th>
+                    </tr>
+                    <tr id="avg_time_change_circle">
+                        <th>平均価格改定周期</th>
                     </tr>
                 </table>
                 <br>

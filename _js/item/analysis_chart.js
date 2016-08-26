@@ -32,10 +32,7 @@ $(document).ready(function () {
         $(".time").show();
         $(".area").show();
 
-
         setTimeout(function () {
-            //$(".overlay").show();
-
             google.charts.setOnLoadCallback(drawChart);
             resetPieChartData();
             resetAnalysisTable();
@@ -49,8 +46,6 @@ $(document).ready(function () {
             $(".overlay").fadeOut().delay(1500);
             $(".time").hide();
         }, 500);
-
-
         //$(".overlay").fadeOut().delay(1500);
     });
 
@@ -64,7 +59,7 @@ $(document).ready(function () {
         var year = now.getFullYear();
         var month = now.getMonth() + 1;
         month = (month < 10) ? '0' + month : month;
-        var date = now.getDate()
+        var date = now.getDate();
         var to = year + '/' + month + '/' + date;
         $("#to").val(to);
 
@@ -73,7 +68,7 @@ $(document).ready(function () {
         var year = now.getFullYear();
         var month = now.getMonth() + 1;
         month = (month < 10) ? '0' + month : month;
-        var date = now.getDate()
+        var date = now.getDate();
         var from = year + '/' + month + '/' + date;
 
         $("#from").val(from);
@@ -106,9 +101,7 @@ $(document).ready(function () {
             }, 500);
         }
     });
-
 });
-
 
 function countItemRemaining() {
     var from = $('#from').val();
@@ -134,10 +127,14 @@ function countItemRemaining() {
     });
 
     if (!city[0]) {
-        city = ["40136", "40134", "40135", "40131", "40133", "40132", "40137", "40223", "40342", "40343", "40218", "40224", "40344", "40219", "40348", "40305", "40230", "40345", "40203", "40349", "40341", "40221", "40207", "40447", "41345", "40503", "40216", "40647", "40217", "41346", "41203", "41341"];
+        city = ["40136", "40134", "40135", "40131", "40133", "40132", "40137",
+            "40223", "40342", "40343", "40218", "40224", "40344", "40219",
+            "40348", "40305", "40230", "40345", "40203", "40349", "40341",
+            "40221", "40207", "40447", "41345", "40503", "40216", "40647",
+            "40217", "41346", "41203", "41341"];
     }
     if (!seller[0]) {
-        seller = ["1", "2", "3", "4", "5", "7", "7"];
+        seller = ["1", "2", "3", "4", "5", "6", "0"];
     }
 
     var formData = {
@@ -146,7 +143,7 @@ function countItemRemaining() {
         condition: condition,
         layout: layout,
         seller: seller,
-        from: $("#from").val(),
+        from: $("#from").val()
     };
 
     var remaining;
@@ -155,8 +152,8 @@ function countItemRemaining() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-    })
-    var result
+    });
+    
     $.ajax({
         url: "/item/?md=count_item_remaining",
         type: 'POST',
@@ -170,8 +167,6 @@ function countItemRemaining() {
 
     return remaining;
 }
-
-
 
 function analysisGroupItem() {
     //------------------------------------		
@@ -205,15 +200,16 @@ function analysisGroupItem() {
         layout: layout,
         seller: seller,
         from: $("#from").val(),
-        to: $("#to").val(),
+        to: $("#to").val()
     };
-
+    var result;
+    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-    })
-    var result
+    });
+    
     $.ajax({
         url: "/item/?md=get_info_group_item_on_demand",
         type: 'POST',
@@ -224,11 +220,8 @@ function analysisGroupItem() {
             result = data;
         }
     });
-    return result
+    return result;
 }
-
-
-
 
 function insertAnalysisTable(analysis) {
 
@@ -396,77 +389,24 @@ function insertAnalysisTable(analysis) {
             var to_1 = new Date(from_1);
             to_1.setDate(to_1.getDate() + range / 86400 / 1000);
 
-            var month = '' + (from_1.getMonth() + 1);
-            var date = '' + from_1.getDate();
-            var year = from_1.getFullYear();
-            if (month.length < 2) {
-                month = '0' + month;
-            }
-            if (date.length < 2) {
-                date = '0' + date;
-            }
-            from_1 = year + '-' + month + '-' + date;
-            var month = '' + (to_1.getMonth() + 1);
-            var date = '' + to_1.getDate();
-            var year = to_1.getFullYear();
-            if (month.length < 2) {
-                month = '0' + month;
-            }
-            if (date.length < 2) {
-                date = '0' + date;
-            }
-            to_1 = year + '-' + month + '-' + date;
-
+            from_1 = formatDate(from_1);
+            to_1 = formatDate(to_1);
 
             var from_2 = new Date(from);
             from_2.setDate(from_2.getDate() + range / 86400 / 1000 + 1);
             var to_2 = new Date(from_2);
             to_2.setDate(to_2.getDate() + range / 86400 / 1000);
-            var month = '' + (from_2.getMonth() + 1);
-            var date = '' + from_2.getDate();
-            var year = from_2.getFullYear();
-            if (month.length < 2) {
-                month = '0' + month;
-            }
-            if (date.length < 2) {
-                date = '0' + date;
-            }
-            from_2 = year + '-' + month + '-' + date;
-            var month = '' + (to_2.getMonth() + 1);
-            var date = '' + to_2.getDate();
-            var year = to_2.getFullYear();
-            if (month.length < 2) {
-                month = '0' + month;
-            }
-            if (date.length < 2) {
-                date = '0' + date;
-            }
-            to_2 = year + '-' + month + '-' + date;
+            
+            from_2 = formatDate(from_2);
+            to_2 = formatDate(to_2);
 
 
             var from_3 = new Date(from);
             from_3.setDate(from_3.getDate() + 2 * range / 86400 / 1000 + 1);
             var to_3 = new Date(to);
-            var month = '' + (from_3.getMonth() + 1);
-            var date = '' + from_3.getDate();
-            var year = from_3.getFullYear();
-            if (month.length < 2) {
-                month = '0' + month;
-            }
-            if (date.length < 2) {
-                date = '0' + date;
-            }
-            from_3 = year + '-' + month + '-' + date;
-            var month = '' + (to_3.getMonth() + 1);
-            var date = '' + to_3.getDate();
-            var year = to_3.getFullYear();
-            if (month.length < 2) {
-                month = '0' + month;
-            }
-            if (date.length < 2) {
-                date = '0' + date;
-            }
-            to_3 = year + '-' + month + '-' + date;
+            
+            from_3 = formatDate(from_3);
+            to_3 = formatDate(to_3);
 
             for (var k = 0; k < analysis[i].items.length; k++) {
                 //sale number
@@ -981,8 +921,7 @@ function insertAnalysisTable(analysis) {
                 rate_market_rate = 0;
             }
 
-
-
+            //prepare html
             //sale number
             td_sale_number = td_sale_number + '<td>' + count_item_sale_number
                     + '件<input type="hidden" id="sale_number_'
@@ -1008,33 +947,32 @@ function insertAnalysisTable(analysis) {
                     + '" value="' + count_item_soldout_before_complete + '" /></td>';
 
             //rate soldout before complete
-            td_rate_soldout_before_complete = td_rate_soldout_before_complete + '<td>' + rate_soldout_before_complete
-                    + '%<input type="hidden" id="rate_soldout_before_complete_'
+            td_rate_soldout_before_complete = td_rate_soldout_before_complete + '<td>' + rate_soldout_before_complete + '%'
+                    + '<input type="hidden" id="rate_soldout_before_complete_'
                     + analysis[i].seller_cd
                     + '" value="' + rate_soldout_before_complete + '" /></td>';
 
             //avg price regist
-            td_avg_price_regist = td_avg_price_regist + '<td>' + avg_price_regist
-                    + '万円<input type="hidden" id="avg_price_regist_'
+            td_avg_price_regist = td_avg_price_regist + '<td>' + avg_price_regist + '万円'
+                    + '<input type="hidden" id="avg_price_regist_'
                     + analysis[i].seller_cd
                     + '" value="' + avg_price_regist + '" /></td>';
 
             //avg price soldout
-            td_avg_price_soldout = td_avg_price_soldout + '<td>' + avg_price_soldout
-                    + '万円<input type="hidden" id="avg_price_soldout_'
+            td_avg_price_soldout = td_avg_price_soldout + '<td>' + avg_price_soldout + '万円'
+                    + '<input type="hidden" id="avg_price_soldout_'
                     + analysis[i].seller_cd
                     + '" value="' + avg_price_soldout + '" /></td>';
 
             //time sale
-            time = time + '<td>' + avg_time_time
-                    + '日間<input type="hidden" id="time_'
+            time = time + '<td>' + avg_time_time + '日間'
+                    + '<input type="hidden" id="time_'
                     + analysis[i].seller_cd
                     + '" value="' + avg_time_time + '" /></td>';
 
-
             //avg time change price
-            avg_time_change_price = avg_time_change_price + '<td>' + avg_time_time_change_price
-                    + '日間<input type="hidden" id="time_change_price_'
+            avg_time_change_price = avg_time_change_price + '<td>' + avg_time_time_change_price + '日間'
+                    + '<input type="hidden" id="time_change_price_'
                     + analysis[i].seller_cd
                     + '" value="' + avg_time_time_change_price + '" /></td>';
 
@@ -1056,7 +994,7 @@ function insertAnalysisTable(analysis) {
                     + analysis[i].seller_cd
                     + '" value="' + rate_market_rate + '" /></td>';
 
-
+            //append to table
             $('#name').append('<th>' + analysis[i].seller_name + '</th>');
             $('#sale_number').append(td_sale_number);
             $('#selling_number').append(td_selling_number);
@@ -1072,7 +1010,6 @@ function insertAnalysisTable(analysis) {
             $('#market_rate').append(market_rate);
         }
     }
-
 
     //total
     var sale_number = 0;
@@ -1165,8 +1102,6 @@ function insertAnalysisTable(analysis) {
             }
         }
 
-
-
         // avg down price
         var per_seller = 0;
         per_seller = parseFloat($('#down_price_' + analysis[i].seller_cd).val())
@@ -1175,7 +1110,6 @@ function insertAnalysisTable(analysis) {
         if (per_seller) {
             down_price = down_price + per_seller;
         }
-
 
         // down price rate
         var per_seller = 0;
@@ -1250,8 +1184,6 @@ function insertAnalysisTable(analysis) {
         }
     }
 
-
-
     $('#name th:first-child').after('<th>地域の総合</th>');
     $('#sale_number th:first-child').after('<td>' + sale_number
             + '件<input id="sale_number_all" type="hidden" value="' + sale_number + '" /></td>');
@@ -1270,7 +1202,6 @@ function insertAnalysisTable(analysis) {
     $('#market_rate th:first-child').after('<td>' + market_rate.toFixed(0) + '%</td>');
 }
 
-
 function resetAnalysisTable() {
     $('#analysis_tbl').show();
     $('#name').html('<th width="12%"></th>');
@@ -1288,4 +1219,18 @@ function resetAnalysisTable() {
     $('#avg_down_price').html('<th>平均値下価格</th>');
     $('#avg_down_price_rate').html('<th>平均値下率</th>');
     $('#avg_time_change_circle').html('<th>平均価格改定周期</th>');
+}
+
+//format date to 'yyyy-mm-dd'
+function formatDate(day) {
+    var month = '' + (day.getMonth() + 1);
+    var date = '' + day.getDate();
+    var year = day.getFullYear();
+    if (month.length < 2) {
+        month = '0' + month;
+    }
+    if (date.length < 2) {
+        date = '0' + date;
+    }
+    return year + '-' + month + '-' + date;
 }

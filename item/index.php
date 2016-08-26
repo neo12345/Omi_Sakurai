@@ -1,6 +1,6 @@
 <?php
 //-- configインクルード --//
-include("/../_common/config.php");
+include("../_common/config.php");
 //--ステータス--//
 check_login();
 
@@ -1699,6 +1699,7 @@ switch ($F_md) {
             });
 
             //set temp
+            $temp = array();
             $temp[] = array(
                 'x_axis' => '1970-01-01',
                 'y_axis' => $totalItemFromBegin
@@ -1772,6 +1773,7 @@ switch ($F_md) {
         if ($opt >= 4) {
 
             //dummy data
+            $temp = array();
             $temp[] = array(
                 'date' => '0000-00-00',
                 'sum' => '0',
@@ -1841,7 +1843,6 @@ switch ($F_md) {
         if (count($result) == 0) {
             $result = null;
         }
-
 
         //convert to json
         $result_json = json_encode($result);
@@ -2098,7 +2099,7 @@ switch ($F_md) {
             for ($n = 0; $n < count($city); $n++) {
                 $where = 't_item.item_cd = r_item1.item_cd';
 
-                if ($seller[$m] != 7) {
+                if ($seller[$m] != 0) {
                     $where = $where . ' AND r_item1.seller_cd = \'' . $seller[$m] . '\'';
                 } else {
                     $where = $where . ' AND r_item1.seller_cd >= \'7\'';
@@ -2485,6 +2486,7 @@ switch ($F_md) {
                 if ($opt >= 4) {
 
                     //dummy data
+                    $temp = array();
                     $temp[] = array(
                         'date' => '0000-00-00',
                         'sum' => '0',
@@ -2923,6 +2925,7 @@ switch ($F_md) {
                 if ($opt >= 4) {
 
                     //dummy data
+                    $temp = array();
                     $temp[] = array(
                         'date' => '0000-00-00',
                         'sum' => '0',
@@ -3262,6 +3265,7 @@ switch ($F_md) {
                 });
 
                 //set temp
+                $temp = array();
                 $temp[] = array(
                     'x_axis' => '1970-01-01',
                     'y_axis' => $totalItemFromBegin
@@ -3335,6 +3339,7 @@ switch ($F_md) {
             if ($opt >= 4) {
 
                 //dummy data
+                $temp = array();
                 $temp[] = array(
                     'date' => '0000-00-00',
                     'sum' => '0',
@@ -3418,7 +3423,6 @@ switch ($F_md) {
         return 1;
         /* --Ominext end-- */
         break;
-
 
     default :
         break;
@@ -4075,15 +4079,14 @@ if ($F_regist or $F_copy) {
 
 //-- .inc --//
 if ($F_md == "list" or $F_md == "analysis" or $F_md == "analysis_item") {
-    include("/../_common/re_header.inc");
-    include("/../_common/re_side.inc");
+    include("../_common/re_header.inc");
+    include("../_common/re_side.inc");
     include("re_" . $inc);
-    include("/../_common/re_footer.inc");
+    include("../_common/re_footer.inc");
 } else {
-    include("/../_common/header.inc");
+    include("../_common/header.inc");
     include($inc);
-    include("/../_common/footer.inc");
+    include("../_common/footer.inc");
 }
 exit;
-
 ?>

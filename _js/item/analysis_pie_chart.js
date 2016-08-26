@@ -82,6 +82,8 @@ function drawPieChart() {
     // draw market rate piechart
     var dont_draw = 1;
     $('#piechart_3d').hide();
+    $('#piechart_time_3d').hide();
+    
     for (var i = 0; i < window.market_rate.length; i++) {
         if (window.market_rate[i][1] != 0) {
             dont_draw = 0;
@@ -90,6 +92,7 @@ function drawPieChart() {
     }
     if (!dont_draw) {
         $('#piechart_3d').show();
+        $('#piechart_time_3d').show();
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Seller');
         data.addColumn('number', '販売シェア率');
@@ -114,7 +117,7 @@ function drawPieChart() {
             is3D: true,
             colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
             sliceVisibilityThreshold: 0,
-            chartArea: {left: 10, width: '90%'},
+            chartArea: {left: 10, width: '90%'}
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
@@ -282,12 +285,12 @@ function drawPieChart() {
         if (m == 31) {
             market_rate_per_ward = window.market_rate_tosu;
             chart_div = 'piechart_3d_' + m;
-            title = '鳥栖市'
+            title = '鳥栖市';
         }
         if (m == 32) {
             market_rate_per_ward = window.market_rate_kiyama;
             chart_div = 'piechart_3d_' + m;
-            title = '三養基郡基山町'
+            title = '三養基郡基山町';
         }
 
         var dont_draw = 1;
@@ -300,7 +303,7 @@ function drawPieChart() {
         }
         if (!dont_draw) {
             $('#' + chart_div).show();
-            var data = null
+            var data = null;
             data = new google.visualization.DataTable();
             data.addColumn('string', 'Seller');
             data.addColumn('number', '販売シェア率');
@@ -350,8 +353,8 @@ function drawPieChart() {
 
             var range = Math.abs(new Date(from) - new Date(to)) / 3;
 
-            var from_day = null
-            var to_day = null
+            var from_day = null;
+            var to_day = null;
             from_day = new Date(from);
             to_day = new Date(from_day);
             to_day.setDate(to_day.getDate() + range / 86400 / 1000);
@@ -365,12 +368,12 @@ function drawPieChart() {
 
             var range = Math.abs(new Date(from) - new Date(to)) / 3;
 
-            var from_day = null
-            var to_day = null
+            var from_day = null;
+            var to_day = null;
             from_day = new Date(from);
             from_day.setDate(from_day.getDate() + range / 86400 / 1000 + 1);
             to_day = new Date(from_day);
-            to_day.setDate(to_day.getDate() + 2 * range / 86400 / 1000);
+            to_day.setDate(to_day.getDate() + range / 86400 / 1000);
         }
         if (m == 3) {
             market_rate_per_time_range = window.market_rate_time_in_range_3;
@@ -381,8 +384,8 @@ function drawPieChart() {
 
             var range = Math.abs(new Date(from) - new Date(to)) / 3;
 
-            var from_day = null
-            var to_day = null
+            var from_day = null;
+            var to_day = null;
             from_day = new Date(from);
             from_day.setDate(from_day.getDate() + 2 * range / 86400 / 1000 + 1);
             to_day = new Date(to);
@@ -448,6 +451,7 @@ function drawPieChart() {
     // draw soldout rate piechart
     var dont_draw = 1;
     $('#soldout_piechart_3d').hide();
+    $('#soldout_piechart_time_3d').hide();
     for (var i = 0; i < window.soldout_rate.length; i++) {
         if (window.soldout_rate[i][1] != 0) {
             dont_draw = 0;
@@ -456,6 +460,7 @@ function drawPieChart() {
     }
     if (!dont_draw) {
         $('#soldout_piechart_3d').show();
+        $('#soldout_piechart_time_3d').show();
         var soldout_data = new google.visualization.DataTable();
         soldout_data.addColumn('string', 'Seller');
         soldout_data.addColumn('number', '販売シェア率');
@@ -480,7 +485,7 @@ function drawPieChart() {
             is3D: true,
             colors: ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477'],
             sliceVisibilityThreshold: 0,
-            chartArea: {left: 10, width: '90%'},
+            chartArea: {left: 10, width: '90%'}
         };
 
         var soldout_chart = new google.visualization.PieChart(document.getElementById('soldout_piechart_3d'));
@@ -648,12 +653,12 @@ function drawPieChart() {
         if (m == 31) {
             soldout_rate_per_ward = window.soldout_rate_tosu;
             chart_div = 'soldout_piechart_3d_' + m;
-            title = '鳥栖市'
+            title = '鳥栖市';
         }
         if (m == 32) {
             soldout_rate_per_ward = window.soldout_rate_kiyama;
             chart_div = 'soldout_piechart_3d_' + m;
-            title = '三養基郡基山町'
+            title = '三養基郡基山町';
         }
 
         var dont_draw = 1;
@@ -666,7 +671,7 @@ function drawPieChart() {
         }
         if (!dont_draw) {
             $('#' + chart_div).show();
-            var data = null
+            var data = null;
             data = new google.visualization.DataTable();
             data.addColumn('string', 'Seller');
             data.addColumn('number', '販売シェア率');
@@ -715,8 +720,8 @@ function drawPieChart() {
 
             var range = Math.abs(new Date(from) - new Date(to)) / 3;
 
-            var from_day = null
-            var to_day = null
+            var from_day = null;
+            var to_day = null;
             from_day = new Date(from);
             to_day = new Date(from_day);
             to_day.setDate(to_day.getDate() + range / 86400 / 1000);
@@ -735,7 +740,7 @@ function drawPieChart() {
             from_day = new Date(from);
             from_day.setDate(from_day.getDate() + range / 86400 / 1000 + 1);
             to_day = new Date(from_day);
-            to_day.setDate(to_day.getDate() + 2 * range / 86400 / 1000);
+            to_day.setDate(to_day.getDate() + range / 86400 / 1000);
         }
         if (m == 3) {
             soldout_rate_per_time_range = window.soldout_rate_time_in_range_3;
@@ -746,8 +751,8 @@ function drawPieChart() {
 
             var range = Math.abs(new Date(from) - new Date(to)) / 3;
 
-            var from_day = null
-            var to_day = null
+            var from_day = null;
+            var to_day = null;
             from_day = new Date(from);
             from_day.setDate(from_day.getDate() + 2 * range / 86400 / 1000 + 1);
             to_day = new Date(to);
@@ -805,21 +810,6 @@ function drawPieChart() {
         }
     }
 }
-
-//format date to 'yyyy-mm-dd'
-function formatDate(day) {
-    var month = '' + (day.getMonth() + 1);
-    var date = '' + day.getDate();
-    var year = day.getFullYear();
-    if (month.length < 2) {
-        month = '0' + month;
-    }
-    if (date.length < 2) {
-        date = '0' + date;
-    }
-    return year + '-' + month + '-' + date;
-}
-
 
 function resetPieChartData() {
     //for market rate chart
