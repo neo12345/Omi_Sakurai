@@ -110,7 +110,7 @@ function drawPieChart() {
         }
 
         var options = {
-            title: '全体',
+            title: '全体 ' + sum + '件',
             backgroundColor: '#D5D5D5',
             titleTextStyle: {fontSize: 18},
             legend: {textStyle: {fontSize: 13}},
@@ -321,7 +321,7 @@ function drawPieChart() {
             }
 
             var options = {
-                title: title,
+                title: title + ' ' + sum + '件',
                 backgroundColor: '#D5D5D5',
                 titleTextStyle: {fontSize: 18},
                 legend: {textStyle: {fontSize: 13}},
@@ -393,7 +393,8 @@ function drawPieChart() {
 
         from_day = formatDate(from_day);
         to_day = formatDate(to_day);
-        title = from_day + ' ~ ' + to_day;
+        var date_diff = Math.abs(new Date(from_day) - new Date(to_day)) / 86400 / 1000;
+        title = from_day + ' ~ ' + to_day + ' (' + date_diff + ' 日)';
 
         var dont_draw = 1;
         $('#' + chart_div).hide();
@@ -432,7 +433,7 @@ function drawPieChart() {
             }
 
             var options = {
-                title: title,
+                title: title + ' ' + sum + '件',
                 backgroundColor: '#D5D5D5',
                 titleTextStyle: {fontSize: 18},
                 legend: {textStyle: {fontSize: 13}},
@@ -478,7 +479,7 @@ function drawPieChart() {
         }
 
         var options = {
-            title: '全体',
+            title: '全体 ' + sum + '件',
             backgroundColor: '#D5D5D5',
             titleTextStyle: {fontSize: 18},
             legend: {textStyle: {fontSize: 13}},
@@ -689,7 +690,7 @@ function drawPieChart() {
             }
 
             var options = {
-                title: title,
+                title: title + ' ' + sum + '件',
                 backgroundColor: '#D5D5D5',
                 titleTextStyle: {fontSize: 18},
                 legend: {textStyle: {fontSize: 13}},
@@ -760,7 +761,8 @@ function drawPieChart() {
 
         from_day = formatDate(from_day);
         to_day = formatDate(to_day);
-        title = from_day + ' ~ ' + to_day;
+        var date_diff = Math.abs(new Date(from_day) - new Date(to_day)) / 86400 / 1000;
+        title = from_day + ' ~ ' + to_day + ' (' + date_diff + ' 日)';
 
         var dont_draw = 1;
         $('#' + chart_div).hide();
@@ -794,7 +796,7 @@ function drawPieChart() {
             }
 
             var options = {
-                title: title,
+                title: title + ' ' + sum + '件',
                 backgroundColor: '#D5D5D5',
                 titleTextStyle: {fontSize: 18},
                 legend: {textStyle: {fontSize: 13}},

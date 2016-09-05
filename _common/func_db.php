@@ -14,8 +14,8 @@ function get_db_conn(){
 		list($db_user,$db_pass)=explode(":",$s1);
 		list($db_host,$db_name)=explode("/",$s2);
 
-		if($db_user){$conn[]="user=ominext";}
-		if($db_pass){$conn[]="password=ominext";}
+		if($db_user){$conn[]="user=smile-fudosan";}
+		if($db_pass){$conn[]="password=smile-fudosan1234";}
 		if($db_host){$conn[]="host=localhost";}
 		if($db_name){$conn[]="dbname=".$db_name;}
 		$conn[]="port=5432";

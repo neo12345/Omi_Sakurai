@@ -835,7 +835,8 @@ function drawChartForEachCity() {
             var min_xAxis = new Date(from);
             min_xAxis.setDate(min_xAxis.getDate() - 3);
 
-            var title = from + ' ~ ' + to;
+            var date_diff = Math.abs(new Date(from) - new Date(to)) / 86400 / 1000;
+            var title = from + ' ~ ' + to + ' (' + date_diff + ' 日)';
 
             var options = {
                 title: title,

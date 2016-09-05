@@ -18,9 +18,9 @@ if($G_is_pear){
 	include_once("DB.php");
 }
 $G_db_type   = "pgsql";  //PostgreSQL=pgsql, MySQL="mysql", ....
-$G_db_user   = "ominext";
-$G_db_passwd = "ominext";
-$G_db_name   = "ominext_realestate_db";
+$G_db_user   = "smile-fudosan";
+$G_db_passwd = "smile-fudosan1234";
+$G_db_name   = "ominext_realestate_db1";
 define("MAIN_DSN","pgsql://".$G_db_user.":".$G_db_passwd."@localhost/".$G_db_name."");
 //------------------------------------------------------//
 //including

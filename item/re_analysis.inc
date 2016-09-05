@@ -17,7 +17,7 @@
         <div class="cnt_title clear w260"><h3>集計･解析</h3></div>
         <div class="tabl-analysis">
             <h4 class="mtit">地域</h4>
-            <h5 class="stit">福岡市 <input type="checkbox" id="zone_1"></h5>
+            <h5 class="stit"><label>福岡市 <input type="checkbox" id="zone_1"></label></h5>
             <table class="form-analysis lst-check">
                 <tr>
                     <?php
@@ -28,15 +28,16 @@
                                 echo '</tr><tr>';
                             }
                             $count++;
-                            echo '<td class="checkbox"><input data-checkbox="zone_1" type="checkbox" value="' . $RS_city[$i]['city_cd'] . '" name="city[]"></td>';
-                            echo '<td class="analysis-name">' . $RS_city[$i]['city_name'] . '(' . $RS_city[$i]['count_item'] . ')</td>';
+                            echo '<td class="analysis-name"><label><input data-checkbox="zone_1" type="checkbox" value="' . $RS_city[$i]['city_cd'] . '" name="city[]"> ';
+                            echo $RS_city[$i]['city_name'] . '(' . $RS_city[$i]['count_item'] . ')<label></td>';
                         }
                     }
+
                     ?>
                 </tr>
             </table>
 
-            <h5 class="stit">福岡近郊 <input type="checkbox" id="zone_2"></h5>
+            <h5 class="stit"><label>福岡近郊 <input type="checkbox" id="zone_2"></label></h5>
             <table class="form-analysis lst-check">
                 <tr>
                     <?php
@@ -47,15 +48,16 @@
                                 echo '</tr><tr>';
                             }
                             $count++;
-                            echo '<td class="checkbox"><input data-checkbox="zone_2" type="checkbox" value="' . $RS_city[$i]['city_cd'] . '" name="city[]"></td>';
-                            echo '<td class="analysis-name">' . $RS_city[$i]['city_name'] . '(' . $RS_city[$i]['count_item'] . ')</td>';
+                            echo '<td class="analysis-name"><label><input data-checkbox="zone_2" type="checkbox" value="' . $RS_city[$i]['city_cd'] . '" name="city[]"> ';
+                            echo $RS_city[$i]['city_name'] . '(' . $RS_city[$i]['count_item'] . ')</label></td>';
                         }
                     }
+
                     ?>
                 </tr>
             </table>
 
-            <h5 class="stit">その他 <input type="checkbox" id="zone_3"></h5>
+            <h5 class="stit"><label>その他 <input type="checkbox" id="zone_3"></label></h5>
             <table class="form-analysis lst-check">
                 <tr>
                     <?php
@@ -66,10 +68,11 @@
                                 echo '</tr><tr>';
                             }
                             $count++;
-                            echo '<td class="checkbox"><input data-checkbox="zone_3" type="checkbox" value="' . $RS_city[$i]['city_cd'] . '" name="city[]"></td>';
-                            echo '<td class="analysis-name">' . $RS_city[$i]['city_name'] . '(' . $RS_city[$i]['count_item'] . ')</td>';
+                            echo '<td class="analysis-name"><label><input data-checkbox="zone_3" type="checkbox" value="' . $RS_city[$i]['city_cd'] . '" name="city[]"> ';
+                            echo $RS_city[$i]['city_name'] . '(' . $RS_city[$i]['count_item'] . ')</label></td>';
                         }
                     }
+
                     ?>
                 </tr>
             </table>
@@ -86,11 +89,12 @@
                             }
                             $count++;
                             echo '<li>';
-                            echo '<label class="checkbox"><input type="checkbox" value="';
-                            echo $RS_cat_item[$i]['cat_item_cd'] . '" name="cat_item[]"></label><label class="analysis-name">';
+                            echo '<label class="analysis-name"><input type="checkbox" value="';
+                            echo $RS_cat_item[$i]['cat_item_cd'] . '" name="cat_item[]"><span class="analysis-name"> ';
                             echo $RS_cat_item[$i]['cat_item_name'];
-                            echo '</label></li>';
+                            echo '</span></label></li>';
                         }
+
                         ?>
                     </ul>
                 </div>
@@ -105,11 +109,12 @@
                             }
                             $count++;
                             echo '<li>';
-                            echo '<label class="checkbox"><input type="checkbox" value="';
-                            echo $RS_condition[$i]['condition_cd'] . '" name="condition[]"></label><label class="analysis-name">';
+                            echo '<label class="analysis-name"><input type="checkbox" value="';
+                            echo $RS_condition[$i]['condition_cd'] . '" name="condition[]"> <span class="analysis-name">';
                             echo $RS_condition[$i]['condition_name'];
-                            echo '</label></li>';
+                            echo '</span></label></li>';
                         }
+
                         ?>
                     </ul>
                 </div>
@@ -125,13 +130,14 @@
                             echo '</tr><tr>';
                         }
                         $count++;
-                        echo '<td class="checkbox"><input type="checkbox" value="';
-                        echo $RS_seller[$i]['seller_cd'] . '" name="seller[]"></td><td class="analysis-name">';
+                        echo '<td class="analysis-name"><label><input type="checkbox" value="';
+                        echo $RS_seller[$i]['seller_cd'] . '" name="seller[]"> ';
                         echo $RS_seller[$i]['seller_name'];
-                        echo '</td>';
+                        echo '<label></td>';
                     }
+
                     ?>
-                    <td class="checkbox"><input type="checkbox" value="0" name="seller[]"></td><td class="analysis-name">その他</td>
+                    <td class="analysis-name"><label><input type="checkbox" value="0" name="seller[]"> その他</label></td>
                 </tr>
             </table>
             <div class="line-chart">
@@ -142,25 +148,11 @@
                             <td>
                                 <input class="inp-cmn" type="text" id="from" value="2012/01/01"/>
                             </td>
-                            <td>〜</td>
+                            <td> 〜 </td>
                             <td>
                                 <input class="inp-cmn" type="text" id="to" value="<?php echo date('Y/m/d'); ?>"/>
                             </td>
-                            <td>内容</td>
-                            <td>
-                                <select class="select-cmn" id="select_opt">
-                                    <?php
-                                    for ($i = 0; $i < count($RS_analytics); $i++) {
-                                        echo '<option value="';
-                                        echo $RS_analytics[$i]['analy_cd'];
-                                        echo '">';
-                                        echo $RS_analytics[$i]['analy_name'];
-                                        echo '</option>';
-                                    }
-                                    ?>
-                                </select>
-                            </td>
-                            <td>
+                            <td style="padding-left: 100px">
                                 <button class="btn-aggregate" id="btn_th">集　計</button>
                             </td>
                         </tr>
@@ -173,7 +165,14 @@
                                 <td><button class="btn btn-time" value="12"/>過去1 年間</button></td>
                                 <td><button class="btn btn-time" value="24"/>過去2 年間</button></td>
                                 <td><button class="btn btn-time" value="36"/>過去3 年間</button></td>
-                                <td style="padding: 5px 70px"><button class="btn btn-toggle" value="0" id="toggle_time_area">期間比較</button></td>
+                                <td>
+                                    <div style="padding-left: 100px">
+                                        <label class="switch" id="switch_chart_mode">
+                                            <input type="checkbox" id="cb_chart_mode">
+                                            <div class="slider round"><div id="chart_mode" style="padding-left: 40px; padding-top: 6px">期間比較</div></div>
+                                        </label>
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -191,7 +190,8 @@
                             <span>売主別集計</span>
                         </div>
                         <br>
-
+                        
+                        <div id="table_title_total" style="font-size: 20px; padding-bottom: 10px;">全体</div>
                         <table class="form-compare-item" border="1" width="100%">
                             <tr id="name">
                                 <th width="12%"></th>
@@ -218,7 +218,7 @@
                                 <th>完成前成約物件数</th>
                             </tr>
                             <tr id="rate_soldout_before_complete">
-                                <th>売出前成約率 </th>
+                                <th>完成前成約率</th>
                             </tr>
                             <tr id="avg_price_regist">
                                 <th>平均売出価格</th>
@@ -235,7 +235,205 @@
                             <tr id="avg_down_price_rate">
                                 <th>平均値下率</th>
                             </tr>
+                            <tr id="num_item_down_price">
+                                <th>値下物件数</th>
+                            </tr>
+                            <tr id="avg_down_price_each_time">
+                                <th>平均価格改定価格</th>
+                            </tr>
+                            <tr id="avg_down_price_rate_each_times">
+                                <th>価格改定毎値下率</th>
+                            </tr>
+                            <tr id="avg_down_price_times">
+                                <th>平均価格改定回数</th>
+                            </tr>
                             <tr id="avg_time_change_circle">
+                                <th>平均価格改定周期</th>
+                            </tr>
+                        </table>
+
+                        <br><br>
+                        <div id="table_title_1" style="font-size: 20px; padding-bottom: 10px;"></div>
+                        <table id="range_1" class="form-compare-item" border="1" width="100%">
+                            <tr id="name_1">
+                                <th width="12%"></th>
+                            </tr>
+                            <tr id="sale_num_1">
+                                <th>新規売出物件数</th>
+                            </tr>
+                            <tr id="market_rat_1">
+                                <th>新規売出物件数シェア</th>
+                            </tr>
+                            <tr id="selling_num_1">
+                                <th>売出中物件数</th>
+                            </tr>
+                            <tr id="selling_rate_1">
+                                <th>売出中物件数シェア</th>
+                            </tr>
+                            <tr id="soldout_num_1">
+                                <th>成約済物件数</th>
+                            </tr>
+                            <tr id="soldout_rate_1">
+                                <th>成約件数シェア</th>
+                            </tr>
+                            <tr id="soldout_before_complete_num_1">
+                                <th>完成前成約物件数</th>
+                            </tr>
+                            <tr id="rat_soldout_before_complete_1">
+                                <th>完成前成約率</th>
+                            </tr>
+                            <tr id="avg_pri_regist_1">
+                                <th>平均売出価格</th>
+                            </tr>
+                            <tr id="avg_price_sold_1">
+                                <th>平均成約価格</th>
+                            </tr>
+                            <tr id="avg_time_sold_1">
+                                <th>平均売出期間</th>
+                            </tr>
+                            <tr id="avg_down_price_1">
+                                <th>平均値下価格</th>
+                            </tr>
+                            <tr id="avg_down_price_rate_1">
+                                <th>平均値下率</th>
+                            </tr>
+                            <tr id="number_item_down_price_1">
+                                <th>値下物件数</th>
+                            </tr>
+                            <tr id="avg_down_price_each_time_1">
+                                <th>平均価格改定価格</th>
+                            </tr>
+                            <tr id="avg_down_price_rate_each_times_1">
+                                <th>価格改定毎値下率</th>
+                            </tr>
+                            <tr id="avg_down_price_times_1">
+                                <th>平均価格改定回数</th>
+                            </tr>
+                            <tr id="avg_time_change_circle_1">
+                                <th>平均価格改定周期</th>
+                            </tr>
+                        </table>
+
+                        <br><br>
+                        <div id="table_title_2" style="font-size: 20px; padding-bottom: 10px;"></div>
+                        <table id="range_2" class="form-compare-item" border="1" width="100%">
+                            <tr id="name_2">
+                                <th width="12%"></th>
+                            </tr>
+                            <tr id="sale_num_2">
+                                <th>新規売出物件数</th>
+                            </tr>
+                            <tr id="market_rat_2">
+                                <th>新規売出物件数シェア</th>
+                            </tr>
+                            <tr id="selling_num_2">
+                                <th>売出中物件数</th>
+                            </tr>
+                            <tr id="selling_rate_2">
+                                <th>売出中物件数シェア</th>
+                            </tr>
+                            <tr id="soldout_num_2">
+                                <th>成約済物件数</th>
+                            </tr>
+                            <tr id="soldout_rate_2">
+                                <th>成約件数シェア</th>
+                            </tr>
+                            <tr id="soldout_before_complete_num_2">
+                                <th>完成前成約物件数</th>
+                            </tr>
+                            <tr id="rat_soldout_before_complete_2">
+                                <th>完成前成約率</th>
+                            </tr>
+                            <tr id="avg_pri_regist_2">
+                                <th>平均売出価格</th>
+                            </tr>
+                            <tr id="avg_price_sold_2">
+                                <th>平均成約価格</th>
+                            </tr>
+                            <tr id="avg_time_sold_2">
+                                <th>平均売出期間</th>
+                            </tr>
+                            <tr id="avg_down_price_2">
+                                <th>平均値下価格</th>
+                            </tr>
+                            <tr id="avg_down_price_rate_2">
+                                <th>平均値下率</th>
+                            </tr>
+                            <tr id="number_item_down_price_2">
+                                <th>値下物件数</th>
+                            </tr>
+                            <tr id="avg_down_price_each_time_2">
+                                <th>平均価格改定価格</th>
+                            </tr>
+                            <tr id="avg_down_price_rate_each_times_2">
+                                <th>価格改定毎値下率</th>
+                            </tr>
+                            <tr id="avg_down_price_times_2">
+                                <th>平均価格改定回数</th>
+                            </tr>
+                            <tr id="avg_time_change_circle_2">
+                                <th>平均価格改定周期</th>
+                            </tr>
+                        </table>
+
+                        <br><br>
+                        <div id="table_title_3" style="font-size: 20px; padding-bottom: 10px;"></div>
+                        <table id="range_3" class="form-compare-item" border="1" width="100%">
+                            <tr id="name_3">
+                                <th width="12%"></th>
+                            </tr>
+                            <tr id="sale_num_3">
+                                <th>新規売出物件数</th>
+                            </tr>
+                            <tr id="market_rat_3">
+                                <th>新規売出物件数シェア</th>
+                            </tr>
+                            <tr id="selling_num_3">
+                                <th>売出中物件数</th>
+                            </tr>
+                            <tr id="selling_rate_3">
+                                <th>売出中物件数シェア</th>
+                            </tr>
+                            <tr id="soldout_num_3">
+                                <th>成約済物件数</th>
+                            </tr>
+                            <tr id="soldout_rate_3">
+                                <th>成約件数シェア</th>
+                            </tr>
+                            <tr id="soldout_before_complete_num_3">
+                                <th>完成前成約物件数</th>
+                            </tr>
+                            <tr id="rat_soldout_before_complete_3">
+                                <th>完成前成約率</th>
+                            </tr>
+                            <tr id="avg_pri_regist_3">
+                                <th>平均売出価格</th>
+                            </tr>
+                            <tr id="avg_price_sold_3">
+                                <th>平均成約価格</th>
+                            </tr>
+                            <tr id="avg_time_sold_3">
+                                <th>平均売出期間</th>
+                            </tr>
+                            <tr id="avg_down_price_3">
+                                <th>平均値下価格</th>
+                            </tr>
+                            <tr id="avg_down_price_rate_3">
+                                <th>平均値下率</th>
+                            </tr>
+                            <tr id="number_item_down_price_3">
+                                <th>値下物件数</th>
+                            </tr>
+                            <tr id="avg_down_price_each_time_3">
+                                <th>平均価格改定価格</th>
+                            </tr>
+                            <tr id="avg_down_price_rate_each_times_3">
+                                <th>価格改定毎値下率</th>
+                            </tr>
+                            <tr id="avg_down_price_times_3">
+                                <th>平均価格改定回数</th>
+                            </tr>
+                            <tr id="avg_time_change_circle_3">
                                 <th>平均価格改定周期</th>
                             </tr>
                         </table>
@@ -612,7 +810,7 @@
 <!--Load google chart-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">google.charts.load('current', {'packages': ['corechart', 'controls']});</script>
-<script src="/_js/item/analysis_primary_chart.js" type="text/javascript"></script>
+<script src="/_js/item/analysis_table.js" type="text/javascript"></script>
 <script src="/_js/item/analysis_pie_chart.js" type="text/javascript"></script>
 <script src="/_js/item/analysis_chart_city_and_time.js" type="text/javascript"></script>
 <script src="/_js/item/analysis_chart.js" type="text/javascript"></script>

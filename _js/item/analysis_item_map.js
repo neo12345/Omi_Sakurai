@@ -186,7 +186,7 @@ function initialize(result) {
         }
 
         var link_img = '/_up/item/' + folder + '/main_s.jpg';
-
+        
         if (result[i].status == 2) {
             var pop_up = '<div style="width: 320px; height: auto; background-color: white; padding: 10px 5px;border:groove thin;">'
                     + '<button id="btn_close" class="btn-close">X'
@@ -194,6 +194,8 @@ function initialize(result) {
                     + '<tr><td colspan="2" style="border: 0px">'
                     + '<div style="font-size: 16px">' + result[i].item_name + '</div></td></tr>'
                     + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
+                    + result[i].seller + '</td></tr>'
+                    + '</tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
                     + year + '年' + month + '月' + date + '日</div></td>'
                     + '<td style="width: 33%; border: 0px" rowspan="2"><img width="100px" src="' + link_img + '"/></td>'
                     + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 16px"><span style="color: red">成約価格 </span>'
@@ -209,6 +211,8 @@ function initialize(result) {
                     + '</button><table style="width: 100%; border: 0px">'
                     + '<tr><td colspan="2" style="border: 0px">'
                     + '<div style="font-size: 16px">' + result[i].item_name + '</div></td></tr>'
+                    + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
+                    + result[i].seller + '</td></tr>'
                     + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
                     + year + '年' + month + '月' + date + '日</div></td>'
                     + '<td style="width: 33%; border: 0px" rowspan="2"><img width="100px" src="' + link_img + '"/></td>'
@@ -236,6 +240,8 @@ function initialize(result) {
                     + '</button><table style="width: 100%; border: 0px">'
                     + '<tr><td colspan="2" style="border: 0px">'
                     + '<div style="font-size: 16px">' + result[i].item_name + '</div></td></tr>'
+                    + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
+                    + result[i].seller + '</td></tr>'
                     + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
                     + year + '年' + month + '月' + date + '日</div></td>'
                     + '<td style="width: 33%; border: 0px" rowspan="3"><img width="100px" src="' + link_img + '"/></td>'
