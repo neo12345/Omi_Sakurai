@@ -1,4 +1,4 @@
-﻿
+
   <div class="right">
     <h2 class="PageTitle page01">物件管理</h2>
     <div class="tab_wrap clear">
@@ -6,7 +6,7 @@
         <li class="tab_on"><a href="/item/?md=list" title="物件一覧">物件一覧</a></li>
         <li class="tab_off"><a href="/item/?md=regist" title="物件登録">物件登録</a></li>
         <li class="tab_off"><a href="/item/?md=analysis" title="集計・解析">集計・解析</a></li>
-        <li class="tab_off"><a>解析(物件)</a></li>
+        <li class="tab_off"><a href="/item/?md=analysis_item" title="解析(物件)">解析(物件)</a></li>
       </ul>
     </div>
     <div class="cnt_wrap">
@@ -24,6 +24,7 @@
 				<?php if($F_type_search == "or"){ $checked_and = ""; $checked_or = "checked"; }else{ $checked_and = "checked"; $checked_or = ""; } ?>
 				<input type="radio" name="type_search" value="and" <?= $checked_and ?> />AND  <input type="radio" name="type_search" value="or" <?= $checked_or ?> />OR
 				<input id="js_search" type="button" value=" 検 索 " />
+				<span class="fsB fsL ml20"><?= count($RS_item) ?>件表示</span>
 				<table class="table_style">
 					<thead>
 						<tr>
@@ -48,7 +49,10 @@
 					</thead>
 					<tbody id="js_list">
 						<? for ($i = 0; $i < count($RS_item); $i++) : ?>
-							<? if($RS_item[$i]['flg_soldout']){ $color="silver"; $status="成"; }elseif($RS_item[$i]['flg_nego']){ $color="pink"; $status="商"; }else{ $color="white"; $status="販"; } ?>
+							<?php
+                if($RS_item[$i]['flg_soldout']){ $color="silver"; $status="成"; }elseif($RS_item[$i]['flg_nego']){ $color="pink"; $status="商"; }else{ $color="white"; $status="販"; }
+                $A_status = array("成", "商", "販");
+              ?>
 							<tr class="js_colum" style="background-color: <?= $color ?>;">
 								<td class="no"><?= $RS_item[$i]['item_cd'] ?><input type="hidden" class="js_item_cd" value="<?= $RS_item[$i]['item_cd'] ?>" /></td>
 								<td class="no"><?= pic_object_date("Y/m/d", $RS_item[$i]['date_regist']) ?></td>
@@ -136,7 +140,16 @@
 									<? endif; ?>
 								</td>
 								<td><a href="/item?md=analysis_item&item_cd=<?php echo $RS_item[$i]['item_cd']; ?>"><input class="js_detail" style="width: 20px;" type="button" value="詳細" /></a></td>
-								<td><input class="js_status" style="width: 20px;" type="button" value="<?= $status ?>" /></td>								
+								<!--<td><input class="js_status" style="width: 20px;" type="button" value="<?= $status ?>" /></td>-->
+                <td>
+                  <select class="js_status">
+                    <? for($j=0; $j<count($A_status); $j++) : ?>
+                      <? if($status == $A_status[$j]){ $selected="selected=selected"; }else{ $selected=""; } ?>
+                      <option <?= $selected ?>><?= $A_status[$j] ?></option>
+                    <? endfor; ?>
+                  </select>
+                  <input class="js_reg_stat" style="width: 20px;" type="button" value="決" />
+                </td>
 								<td class="edit"><input type="submit" name="edit[<?= $RS_item[$i]['item_cd'] ?>]" value="編集" class="btn_edit btn_style_02" /></td>
 								<td class="del"><input type="button" value="削除" class="js_delete btn_delete btn_style_02" /></td>
 							</tr>

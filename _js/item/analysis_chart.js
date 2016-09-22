@@ -5,16 +5,14 @@ $(document).ready(function () {
     $('#analysis_tbl').hide();
     $(".overlay").hide();
 
-    $("#switch_chart_mode").click(function (e) {
+    $(".onoffswitch").click(function (e) {
         //e.preventDefault();
-        if (document.getElementById('cb_chart_mode').checked) {
+        if (!document.getElementById('cb_chart_mode').checked) {
             $(".time").show();
             $(".area").hide();
-            $("#chart_mode").html('エリア比較');
         } else {
             $(".time").hide();
             $(".area").show();
-            $("#chart_mode").html('期間比較');
         }
     });
 
@@ -24,23 +22,30 @@ $(document).ready(function () {
         $('#error').html('');
         $('#chart_div').html('');
 
-        $('#cb_chart_mode').prop('checked', false);
-        $("#chart_mode").html('期間比較');
+        $('#cb_chart_mode').prop('checked', true);
 
         $(".time").show();
         $(".area").show();
 
         setTimeout(function () {
-            //google.charts.setOnLoadCallback(drawChart);
             resetPieChartData();
             resetAnalysisTable();
 
             var analysis = analysisGroupItem();
-            insertAnalysisTable(analysis);
-            insertAnalysisTableInTimeRange(analysis)
+            if (analysis) {
+                if (analysis[0].seller_cd) {
+                    $('#analysis_tbl').show();
+                    insertAnalysisTable(analysis);
+                    insertAnalysisTableInTimeRange(analysis)
 
-            drawPieChart();
-            drawChartForEachCity();
+                    drawPieChart();
+                    drawChartForEachCity();
+                } else {
+                    $('#analysis_tbl').hide();
+                }
+            } else {
+                $('#analysis_tbl').hide();
+            }
 
             $(".overlay").fadeOut().delay(1500);
             $(".time").hide();
@@ -72,34 +77,6 @@ $(document).ready(function () {
 
         $("#from").val(from);
 
-    });
-
-    $(window).resize(function () {
-        if ($('#chart_div').html() != '') {
-            $(".time").show();
-            $(".area").show();
-
-            $("#toggle_time_area").val('0');
-            $("#toggle_time_area").html('期間比較');
-
-            setTimeout(function () {
-                $(".overlay").show();
-
-                //google.charts.setOnLoadCallback(drawChart);
-                resetPieChartData();
-                resetAnalysisTable();
-
-                var analysis = analysisGroupItem();
-                insertAnalysisTable(analysis);
-                insertAnalysisTableInTimeRange(analysis)
-
-                drawPieChart();
-                drawChartForEachCity();
-
-                $(".overlay").fadeOut();
-                $(".time").hide();
-            }, 500);
-        }
     });
 });
 
@@ -191,6 +168,7 @@ function analysisGroupItem() {
         seller.push($(this).val());
     });
 
+    var to = $("#to").val() + ' 23:59:59';
 
     var formData = {
         city: city,
@@ -199,7 +177,7 @@ function analysisGroupItem() {
         layout: layout,
         seller: seller,
         from: $("#from").val(),
-        to: $("#to").val()
+        to: to
     };
     var result;
 

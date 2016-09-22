@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     var analysis = analysisGroupItem();
     insertAnalysisTable(analysis);
-    
+
     window.list_marker = initialize(similars);
     window.main_marker_loc = window.list_marker.map.getCenter();
 
@@ -25,7 +25,7 @@ $(document).ready(function () {
             }
         });
 
-        insertMaxMinPriceItem()
+        insertMaxMinPriceItem();
     });
 
     $(".overlay").hide();
@@ -54,7 +54,7 @@ $(document).ready(function () {
         window.list_item_compare = null;
         window.list_marker = initialize(similars);
         window.list_marker.map.setCenter(center);
-        window.list_marker.map.setZoom(zoom);
+        //window.list_marker.map.setZoom(zoom);
 
         window.chart_result = drawChart(similars);
 
@@ -186,7 +186,7 @@ $(document).ready(function () {
         window.chart_result = null;
         $("#pop_up").hide();
         $(".overlay").show();
-        var zoom = window.list_marker.map.getZoom();
+        //var zoom = window.list_marker.map.getZoom();
         var analysis = analysisGroupItem();
         insertAnalysisTable(analysis);
 
@@ -196,7 +196,7 @@ $(document).ready(function () {
         window.list_marker = initialize(similars);
         window.chart_result = drawChart(similars);
 
-        window.list_marker.map.setZoom(zoom);
+        //window.list_marker.map.setZoom(zoom);
         change_marker_selected_icon();
 
         chart = window.chart_result.chart;
@@ -206,6 +206,8 @@ $(document).ready(function () {
                 setChartEvent(point);
             }
         });
+
+        insertMaxMinPriceItem();
 
         window.list_item_compare = window.chart_result.list_item_compare;
 
@@ -344,12 +346,147 @@ $(document).ready(function () {
         window.list_item_compare = window.chart_result.list_item_compare;
 
         change_marker_selected_icon();
-        change_map_zoom();
+        //change_map_zoom();
 
         if (window.chart_result) {
             $(".overlay").fadeOut().delay(1500);
         }
     });
+
+    //btn carousel
+    {
+        //item main
+        $('#item0_img').on('click', '#item0_main_s_btn', function () {
+            $('#item0_main_s').show();
+            $('#item0_plan1').hide();
+            $('#item0_plan2').hide();
+        });
+        $('#item0_img').on('click', '#item0_plan1_btn', function () {
+            $('#item0_main_s').hide();
+            $('#item0_plan1').show();
+            $('#item0_plan2').hide();
+        });
+        $('#item0_img').on('click', '#item0_plan2_btn', function () {
+            $('#item0_main_s').hide();
+            $('#item0_plan1').hide();
+            $('#item0_plan2').show();
+        });
+        
+        //item max
+        $('#item_max_img').on('click', '#item_max_main_s_btn', function () {
+            $('#item_max_main_s').show();
+            $('#item_max_plan1').hide();
+            $('#item_max_plan2').hide();
+        });
+        $('#item_max_img').on('click', '#item_max_plan1_btn', function () {
+            $('#item_max_main_s').hide();
+            $('#item_max_plan1').show();
+            $('#item_max_plan2').hide();
+        });
+        $('#item_max_img').on('click', '#item_max_plan2_btn', function () {
+            $('#item_max_main_s').hide();
+            $('#item_max_plan1').hide();
+            $('#item_max_plan2').show();
+        });
+
+        //item min
+        $('#item_min_img').on('click', '#item_min_main_s_btn', function () {
+            $('#item_min_main_s').show();
+            $('#item_min_plan1').hide();
+            $('#item_min_plan2').hide();
+        });
+        $('#item_min_img').on('click', '#item_min_plan1_btn', function () {
+            $('#item_min_main_s').hide();
+            $('#item_min_plan1').show();
+            $('#item_min_plan2').hide();
+        });
+        $('#item_min_img').on('click', '#item_min_plan2_btn', function () {
+            $('#item_min_main_s').hide();
+            $('#item_min_plan1').hide();
+            $('#item_min_plan2').show();
+        });
+
+        //item compare 
+        $('#item1_img').on('click', '#item1_main_s_btn', function () {
+            $('#item1_main_s').show();
+            $('#item1_plan1').hide();
+            $('#item1_plan2').hide();
+        });
+        $('#item1_img').on('click', '#item1_plan1_btn', function () {
+            $('#item1_main_s').hide();
+            $('#item1_plan1').show();
+            $('#item1_plan2').hide();
+        });
+        $('#item1_img').on('click', '#item1_plan2_btn', function () {
+            $('#item1_main_s').hide();
+            $('#item1_plan1').hide();
+            $('#item1_plan2').show();
+        });
+
+        $('#item2_img').on('click', '#item2_main_s_btn', function () {
+            $('#item2_main_s').show();
+            $('#item2_plan1').hide();
+            $('#item2_plan2').hide();
+        });
+        $('#item2_img').on('click', '#item2_plan1_btn', function () {
+            $('#item2_main_s').hide();
+            $('#item2_plan1').show();
+            $('#item2_plan2').hide();
+        });
+        $('#item2_img').on('click', '#item2_plan2_btn', function () {
+            $('#item2_main_s').hide();
+            $('#item2_plan1').hide();
+            $('#item2_plan2').show();
+        });
+
+        $('#item3_img').on('click', '#item3_main_s_btn', function () {
+            $('#item3_main_s').show();
+            $('#item3_plan1').hide();
+            $('#item3_plan2').hide();
+        });
+        $('#item3_img').on('click', '#item3_plan1_btn', function () {
+            $('#item3_main_s').hide();
+            $('#item3_plan1').show();
+            $('#item3_plan2').hide();
+        });
+        $('#item3_img').on('click', '#item3_plan2_btn', function () {
+            $('#item3_main_s').hide();
+            $('#item3_plan1').hide();
+            $('#item3_plan2').show();
+        });
+
+        $('#item4_img').on('click', '#item4_main_s_btn', function () {
+            $('#item4_main_s').show();
+            $('#item4_plan1').hide();
+            $('#item4_plan2').hide();
+        });
+        $('#item4_img').on('click', '#item4_plan1_btn', function () {
+            $('#item4_main_s').hide();
+            $('#item4_plan1').show();
+            $('#item4_plan2').hide();
+        });
+        $('#item4_img').on('click', '#item4_plan2_btn', function () {
+            $('#item4_main_s').hide();
+            $('#item4_plan1').hide();
+            $('#item4_plan2').show();
+        });
+
+        $('#item5_img').on('click', '#item5_main_s_btn', function () {
+            $('#item5_main_s').show();
+            $('#item5_plan1').hide();
+            $('#item5_plan2').hide();
+        });
+        $('#item5_img').on('click', '#item5_plan1_btn', function () {
+            $('#item5_main_s').hide();
+            $('#item5_plan1').show();
+            $('#item5_plan2').hide();
+        });
+        $('#item5_img').on('click', '#item5_plan2_btn', function () {
+            $('#item5_main_s').hide();
+            $('#item5_plan1').hide();
+            $('#item5_plan2').show();
+        });
+    }
 });
 
 function searchItemOnDemand() {
@@ -464,7 +601,7 @@ function analysisGroupItem() {
             result = data;
         }
     });
-    
+
     return result;
 }
 
@@ -472,76 +609,9 @@ function insertMaxMinPriceItem() {
 
     var max_item_cd = window.chart_result.max_index;
     var min_item_cd = window.chart_result.min_index;
-
-    var formData = {
-        list_item: '-1,-2,-3,' + min_item_cd + ',' + max_item_cd
-    };
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }
-    });
-
-    var result;
-
-    $.ajax({
-        url: "/item/?md=get_info_item",
-        type: 'POST',
-        data: formData,
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            result = data;
-        }
-    });
-    var item_max = null;
-    var item_min = null;
-
-    if (max_item_cd == min_item_cd) {
-        item_max = 0;
-        item_min = 0;
-    }
-    if (result[0].item_cd = max_item_cd) {
-        item_max = 0;
-        item_min = 1;
-    } else {
-        item_max = 1;
-        item_min = 0;
-    }
-
-    if (result[item_max].item_price != null) {
-        var bg_color = 'rgba(190, 29, 44, 0.3)';
-        $('#item_max_img').html('<img width="100%" src="' + result[item_max].item_img + '" style="padding: 5px;"/>');
-        $('#item_max_img').css("background-color", bg_color);
-        $('#item_max_img').css("vertical-align", 'bottom');
-        $('#item_max_name').html(result[item_max].item_name);
-        $('#item_max_name').css("background-color", bg_color);
-        $('#item_max_price').html(result[item_max].item_price + '万円（税込）');
-        $('#item_max_price').css("background-color", bg_color);
-        $('#item_max_date_soldout').html(result[item_max].date_soldout);
-        $('#item_max_date_soldout').css("background-color", bg_color);
-        $('#item_max_seller').html(result[item_max].seller);
-        $('#item_max_seller').css("background-color", bg_color);
-        $('#item_max_size_land').html(result[item_max].item_size_land);
-        $('#item_max_size_land').css("background-color", bg_color);
-        $('#item_max_size_build').html(result[item_max].item_size_build);
-        $('#item_max_size_build').css("background-color", bg_color);
-        $('#item_max_layout').html(result[item_max].item_layout);
-        $('#item_max_layout').css("background-color", bg_color);
-        $('#item_max_pubtrans').html(result[item_max].item_pubtrans);
-        $('#item_max_pubtrans').css("background-color", bg_color);
-        $('#item_max_road').html(result[item_max].item_road);
-        $('#item_max_road').css("background-color", bg_color);
-        $('#item_max_school').html(result[item_max].item_school);
-        $('#item_max_school').css("background-color", bg_color);
-        $('#item_max_equip').html(result[item_max].item_equip);
-        $('#item_max_equip').css("background-color", bg_color);
-        $('#item_max_btn_details').html('<div style="padding: 5px"><a href="/item/?md=analysis_item&item_cd=' + result[item_max].item_cd
-                + '" target="_blank"><button class="btn-ana-item" style="width: 80px">詳　細</button></a></div>'
-                + '<div style="padding: 5px"><a href="http://www.smile-fudosan.com/item/?md=detail&cd=' + result[item_max].item_cd
-                + '" target="_blank"><button class="btn-ana-item" style="width: 80px">HP</button></a></div>');
-        $('#item_max_btn_details').css("background-color", bg_color);
-    } else { //if item dont exist clear table
+    
+    //clear old data
+    {
         $('#item_max_img').html('');
         $('#item_max_name').html('');
         $('#item_max_price').html('');
@@ -569,41 +639,6 @@ function insertMaxMinPriceItem() {
         $('#item_max_school').css("background-color", "white");
         $('#item_max_equip').css("background-color", "white");
         $('#item_max_btn_details').css("background-color", "white");
-    }
-
-    if (result[item_min].item_price != null) {
-        var bg_color = 'rgba(40, 56, 144, 0.3)';
-        $('#item_min_img').html('<img width="100%" src="' + result[item_min].item_img + '" style="padding: 5px;"/>');
-        $('#item_min_img').css("background-color", bg_color);
-        $('#item_min_img').css("vertical-align", 'bottom');
-        $('#item_min_name').html(result[item_min].item_name);
-        $('#item_min_name').css("background-color", bg_color);
-        $('#item_min_price').html(result[item_min].item_price + '万円（税込）');
-        $('#item_min_price').css("background-color", bg_color);
-        $('#item_min_date_soldout').html(result[item_min].date_soldout);
-        $('#item_min_date_soldout').css("background-color", bg_color);
-        $('#item_min_seller').html(result[item_min].seller);
-        $('#item_min_seller').css("background-color", bg_color);
-        $('#item_min_size_land').html(result[item_min].item_size_land);
-        $('#item_min_size_land').css("background-color", bg_color);
-        $('#item_min_size_build').html(result[item_min].item_size_build);
-        $('#item_min_size_build').css("background-color", bg_color);
-        $('#item_min_layout').html(result[item_min].item_layout);
-        $('#item_min_layout').css("background-color", bg_color);
-        $('#item_min_pubtrans').html(result[item_min].item_pubtrans);
-        $('#item_min_pubtrans').css("background-color", bg_color);
-        $('#item_min_road').html(result[item_min].item_road);
-        $('#item_min_road').css("background-color", bg_color);
-        $('#item_min_school').html(result[item_min].item_school);
-        $('#item_min_school').css("background-color", bg_color);
-        $('#item_min_equip').html(result[item_min].item_equip);
-        $('#item_min_equip').css("background-color", bg_color);
-        $('#item_min_btn_details').html('<div style="padding: 5px"><a href="/item/?md=analysis_item&item_cd=' + result[item_min].item_cd
-                + '" target="_blank"><button class="btn-ana-item" style="width: 80px">詳　細</button></a></div>'
-                + '<div style="padding: 5px"><a href="http://www.smile-fudosan.com/item/?md=detail&cd=' + result[item_min].item_cd
-                + '" target="_blank"><button class="btn-ana-item" style="width: 80px">HP</button></a></div>');
-        $('#item_min_btn_details').css("background-color", bg_color);
-    } else { //if item dont exist clear table
         $('#item_min_img').html('');
         $('#item_min_name').html('');
         $('#item_min_price').html('');
@@ -632,6 +667,134 @@ function insertMaxMinPriceItem() {
         $('#item_min_equip').css("background-color", "white");
         $('#item_min_btn_details').css("background-color", "white");
     }
+    
+    if (min_item_cd != null && max_item_cd != null) {
+        var formData = {
+            list_item: '-1,-2,-3,' + min_item_cd + ',' + max_item_cd
+        };
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        var result;
+
+        $.ajax({
+            url: "/item/?md=get_info_item",
+            type: 'POST',
+            data: formData,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                result = data;
+            }
+        });
+        var item_max = null;
+        var item_min = null;
+
+        if (max_item_cd == min_item_cd) {
+            item_max = 0;
+            item_min = 0;
+        } else if (result[0].item_cd == max_item_cd) {
+            item_max = 0;
+            item_min = 1;
+        } else {
+            item_max = 1;
+            item_min = 0;
+        }
+
+        if (result[item_max].item_price != null) {
+            var bg_color = 'rgba(190, 29, 44, 0.3)';
+            $('#item_max_img').html('<div style="height: 50px;"></div><div class="carousel">'
+                    + '<div id="item_max_main_s"><img width="100%" src="' + result[item_max].item_img + '" style="padding: 5px;"/></div>'
+                    + '<div id="item_max_plan1" style="display: none;">'
+                    + '<a href="' + result[item_max].item_img_plan1 + '" data-lightbox="item_max">'
+                    + '<img width="100%" src="' + result[item_max].item_img_plan1 + '" style="padding: 5px;"/></a></div>'
+                    + '<div id="item_max_plan2" style="display: none;">'
+                    + '<a href="' + result[item_max].item_img_plan2 + '" data-lightbox="item_max">'
+                    + '<img width="100%" src="' + result[item_max].item_img_plan2 + '" style="padding: 5px;"/></a></div>'
+                    + '</div><br>'
+                    + '<div class="btn_control"><button class="button_1" id="item_max_main_s_btn">物件メイン画像</button><br>'
+                    + '<button class="button_2" id="item_max_plan1_btn">間取り図</button>'
+                    + '<button class="button_2" id="item_max_plan2_btn">配置図</button></div>');
+            $('#item_max_img').css("background-color", bg_color);
+            $('#item_max_img').css("vertical-align", 'top');
+            $('#item_max_name').html(result[item_max].item_name);
+            $('#item_max_name').css("background-color", bg_color);
+            $('#item_max_price').html(result[item_max].item_price + '万円（税込）');
+            $('#item_max_price').css("background-color", bg_color);
+            $('#item_max_date_soldout').html(result[item_max].date_soldout);
+            $('#item_max_date_soldout').css("background-color", bg_color);
+            $('#item_max_seller').html(result[item_max].seller);
+            $('#item_max_seller').css("background-color", bg_color);
+            $('#item_max_size_land').html(result[item_max].item_size_land);
+            $('#item_max_size_land').css("background-color", bg_color);
+            $('#item_max_size_build').html(result[item_max].item_size_build);
+            $('#item_max_size_build').css("background-color", bg_color);
+            $('#item_max_layout').html(result[item_max].item_layout);
+            $('#item_max_layout').css("background-color", bg_color);
+            $('#item_max_pubtrans').html(result[item_max].item_pubtrans);
+            $('#item_max_pubtrans').css("background-color", bg_color);
+            $('#item_max_road').html(result[item_max].item_road);
+            $('#item_max_road').css("background-color", bg_color);
+            $('#item_max_school').html(result[item_max].item_school);
+            $('#item_max_school').css("background-color", bg_color);
+            $('#item_max_equip').html(result[item_max].item_equip);
+            $('#item_max_equip').css("background-color", bg_color);
+            $('#item_max_btn_details').html('<div style="padding: 5px"><a href="/item/?md=analysis_item&item_cd=' + result[item_max].item_cd
+                    + '" target="_blank"><button class="btn-ana-item" style="width: 80px">詳　細</button></a></div>'
+                    + '<div style="padding: 5px"><a href="http://www.smile-fudosan.com/item/?md=detail&cd=' + result[item_max].item_cd
+                    + '" target="_blank"><button class="btn-ana-item" style="width: 80px">HP</button></a></div>');
+            $('#item_max_btn_details').css("background-color", bg_color);
+        }
+
+        if (result[item_min].item_price != null) {
+            var bg_color = 'rgba(40, 56, 144, 0.3)';
+            $('#item_min_img').html('<div style="height: 50px;"></div><div class="carousel">'
+                    + '<div id="item_min_main_s"><img width="100%" src="' + result[item_min].item_img + '" style="padding: 5px;"/></div>'
+                    + '<div id="item_min_plan1" style="display: none;">'
+                    + '<a href="' + result[item_min].item_img_plan1 + '" data-lightbox="item_min">'
+                    + '<img width="100%" src="' + result[item_min].item_img_plan1 + '" style="padding: 5px;"/></a></div>'
+                    + '<div id="item_min_plan2" style="display: none;">'
+                    + '<a href="' + result[item_min].item_img_plan2 + '" data-lightbox="item_min">'
+                    + '<img width="100%" src="' + result[item_min].item_img_plan2 + '" style="padding: 5px;"/></a></div>'
+                    + '</div><br>'
+                    + '<div class="btn_control"><button class="button_1" id="item_min_main_s_btn">物件メイン画像</button><br>'
+                    + '<button class="button_2" id="item_min_plan1_btn">間取り図</button>'
+                    + '<button class="button_2" id="item_min_plan2_btn">配置図</button></div>');
+            $('#item_min_img').css("background-color", bg_color);
+            $('#item_min_img').css("vertical-align", 'top');
+            $('#item_min_name').html(result[item_min].item_name);
+            $('#item_min_name').css("background-color", bg_color);
+            $('#item_min_price').html(result[item_min].item_price + '万円（税込）');
+            $('#item_min_price').css("background-color", bg_color);
+            $('#item_min_date_soldout').html(result[item_min].date_soldout);
+            $('#item_min_date_soldout').css("background-color", bg_color);
+            $('#item_min_seller').html(result[item_min].seller);
+            $('#item_min_seller').css("background-color", bg_color);
+            $('#item_min_size_land').html(result[item_min].item_size_land);
+            $('#item_min_size_land').css("background-color", bg_color);
+            $('#item_min_size_build').html(result[item_min].item_size_build);
+            $('#item_min_size_build').css("background-color", bg_color);
+            $('#item_min_layout').html(result[item_min].item_layout);
+            $('#item_min_layout').css("background-color", bg_color);
+            $('#item_min_pubtrans').html(result[item_min].item_pubtrans);
+            $('#item_min_pubtrans').css("background-color", bg_color);
+            $('#item_min_road').html(result[item_min].item_road);
+            $('#item_min_road').css("background-color", bg_color);
+            $('#item_min_school').html(result[item_min].item_school);
+            $('#item_min_school').css("background-color", bg_color);
+            $('#item_min_equip').html(result[item_min].item_equip);
+            $('#item_min_equip').css("background-color", bg_color);
+            $('#item_min_btn_details').html('<div style="padding: 5px"><a href="/item/?md=analysis_item&item_cd=' + result[item_min].item_cd
+                    + '" target="_blank"><button class="btn-ana-item" style="width: 80px">詳　細</button></a></div>'
+                    + '<div style="padding: 5px"><a href="http://www.smile-fudosan.com/item/?md=detail&cd=' + result[item_min].item_cd
+                    + '" target="_blank"><button class="btn-ana-item" style="width: 80px">HP</button></a></div>');
+            $('#item_min_btn_details').css("background-color", bg_color);
+        }
+        
+    }
 }
 
 function insertItem(result) {
@@ -651,9 +814,21 @@ function insertItem(result) {
                 var bg_color = 'rgba(255, 20, 147, 0.3)';
             }
 
-            $('#item' + m + '_img').html('<button class="btn-close btn-close-item" id="item' + m + '-btn-close" value="'
-                    + result[m - 1].item_cd + '"><p style="font-size: large;">x</p></button>'
-                    + '<img width="100%" src="' + result[m - 1].item_img + '"  style="padding: 5px;"/>');
+            $('#item' + m + '_img').html('<div style="float: right;"><button style="margin: 5px" class="btn-close btn-close-item" id="item'
+                    + m + '-btn-close" value="'
+                    + result[m - 1].item_cd + '"><p style="font-size: large;">x</p></button></div>'
+                    + '<div class="carousel">'
+                    + '<div id="item' + m + '_main_s"><img width="100%" src="' + result[m - 1].item_img + '" style="padding: 5px;"/></div>'
+                    + '<div id="item' + m + '_plan1" style="display: none;">'
+                    + '<a href="' + result[m - 1].item_img_plan1 + '" data-lightbox="item_' + m + '">'
+                    + '<img width="100%" src="' + result[m - 1].item_img_plan1 + '" style="padding: 5px;"/></a></div>'
+                    + '<div id="item' + m + '_plan2" style="display: none;">'
+                    + '<a href="' + result[m - 1].item_img_plan2 + '" data-lightbox="item_' + m + '">'
+                    + '<img width="100%" src="' + result[m - 1].item_img_plan2 + '" style="padding: 5px;"/></a></div>'
+                    + '</div><br>'
+                    + '<div class="btn_control"><button class="button_1" id="item' + m + '_main_s_btn">物件メイン画像</button><br>'
+                    + '<button class="button_2" id="item' + m + '_plan1_btn">間取り図</button>'
+                    + '<button class="button_2" id="item' + m + '_plan2_btn">配置図</button></div>');
             $('#item' + m + '_img').css("background-color", bg_color);
             $('#item' + m + '_name').html(result[m - 1].item_name);
             $('#item' + m + '_name').css("background-color", bg_color);
@@ -976,7 +1151,13 @@ function change_map_zoom() {
     }
 
     if (window.list_item_compare[0]) {
+        var zoom = window.list_marker.map.getZoom();
+
         window.list_marker.map.fitBounds(bounds);
+
+        if (zoom < window.list_marker.map.getZoom()) {
+            window.list_marker.map.setZoom(zoom);
+        }
     }
 }
 
@@ -991,7 +1172,7 @@ function insertAnalysisTable(analysis) {
     $("#soldout_rate").html('<th>成約件数シェア</th>');
     $("#soldout_before_complete_number").html('<th>完成前成約物件数</th>');
     $("#rate_soldout_before_complete").html('<th>完成前成約率</th>');
-    $("#avg_price_regist").html('<th>平均売出価格</th>');
+    $("#avg_price_regist").html('<th>平均売出開始価格</th>');
     $("#avg_price_sold").html('<th>平均成約価格</th>');
     $("#avg_time_sold").html('<th>平均売出期間</th>');
     $("#avg_down_price").html('<th>平均値下価格</th>');
@@ -1021,7 +1202,7 @@ function insertAnalysisTable(analysis) {
         years.sort();
         var count = years.length;
 
-        var th_year = '';  
+        var th_year = '';
         var td_sale_number = '';
         var td_selling_number = '';
         var td_selling_rate = '';
@@ -1042,7 +1223,7 @@ function insertAnalysisTable(analysis) {
         var td_avg_down_price_times = '';
         var market_rate = '';
 
-        for (var j = 0; j < count; j++) {                     
+        for (var j = 0; j < count; j++) {
             var count_item_sale_number = 0;
             var count_item_soldout = 0;
             var count_item_soldout_before_complete = 0;
@@ -1061,29 +1242,29 @@ function insertAnalysisTable(analysis) {
             var sum_down_price_rate_each_time = 0;
             var sum_market_rate = 0;
             var count_item_market_rate = 0;
-            
+
             var count_total_item_regist = 0;
             var count_total_item_soldout = 0;
             var count_item_regist_before = 0;
             var count_item_soldout_before = 0;
-            
+
             for (var n = 0; n < analysis.length; n++) {
                 var count_item_soldout_per_seller = 0;
                 var count_item_regist_per_seller = 0;
                 var regist_before = 0;
                 var soldout_before = 0;
-                
+
                 for (var k = 0; k < analysis[n].items.length; k++) {
                     var hist_regist = new Date(analysis[n].items[k].regist);
                     if (hist_regist.getFullYear() == years[j]) {
                         count_item_regist_per_seller++;
                     }
- 
-                    var hist_soldout =  new Date(analysis[n].items[k].date_soldout);
+
+                    var hist_soldout = new Date(analysis[n].items[k].date_soldout);
                     if (hist_soldout.getFullYear() == years[j]) {
                         count_item_soldout_per_seller++;
                     }
-                    
+
                     if (analysis[n].items[k].regist != null && analysis[n].items[k].regist <= years[j].toString()) {
                         regist_before++;
                     }
@@ -1095,7 +1276,7 @@ function insertAnalysisTable(analysis) {
                 count_total_item_regist = count_total_item_regist + count_item_regist_per_seller;
                 count_item_regist_before = count_item_regist_before + regist_before;
                 count_item_soldout_before = count_item_soldout_before + soldout_before;
-                
+
                 var count_total_sale_number_per_year = count_item_regist_before - count_item_soldout_before + count_total_item_regist;
                 var count_total_soldout_number_per_year = count_total_item_soldout;
                 var count_total_selling_number_per_year = count_total_sale_number_per_year - count_total_soldout_number_per_year;
@@ -1132,9 +1313,9 @@ function insertAnalysisTable(analysis) {
                         if (analysis[i].items[k].price_soldout != null) {
                             count_item_soldout++;
                             count_item_price_soldout++;
-                            
+
                             sum_price_soldout = sum_price_soldout + parseInt(analysis[i].items[k].price_soldout);
-                            
+
                             if (analysis[i].items[k].date_build > analysis[i].items[k].date_soldout) {
                                 count_item_soldout_before_complete++;
                             }
@@ -1146,7 +1327,7 @@ function insertAnalysisTable(analysis) {
 
                             sum_down_price = sum_down_price + down_price;
                             sum_down_price_rate = sum_down_price_rate + parseFloat(down_price / analysis[i].items[k].price_regist);
-                            
+
                             if (analysis[i].items[k].price_regist != analysis[i].items[k].price_soldout) {
                                 count_num_item_down_price++;
                             }
@@ -1165,7 +1346,7 @@ function insertAnalysisTable(analysis) {
                                         var down_price = parseInt(analysis[i].items[k].history[n].hist_price) - parseInt(analysis[i].items[k].history[m].hist_price);
                                         var down_price_rate_each_time = parseInt(down_price) / parseInt(analysis[i].items[k].history[n].hist_price);
                                         sum_down_price_rate_each_time = sum_down_price_rate_each_time + parseFloat(down_price_rate_each_time);
-                                        
+
                                         var oneDay = 24 * 60 * 60 * 1000;
                                         var firstDate = new Date(analysis[i].items[k].history[m].hist_regist);
                                         var secondDate = new Date(analysis[i].items[k].history[n].hist_regist);
@@ -1186,7 +1367,7 @@ function insertAnalysisTable(analysis) {
             th_year = th_year + '<th>' + years[j] + '</th>';
 
             //sale number
-            
+
             //count item remaining from last year
             var regist_before = 0;
             var soldout_before = 0;
@@ -1200,12 +1381,12 @@ function insertAnalysisTable(analysis) {
             }
             var remaining_before = regist_before - soldout_before;
             var sale_number = parseInt(count_item_sale_number) + parseInt(remaining_before);
-            
+
             td_sale_number = td_sale_number + '<td>' + sale_number + '件'
                     + '<input type="hidden" id="sale_number_'
                     + analysis[i].seller_cd + '_' + years[j]
                     + '" value="' + sale_number + '" /></td>';
-            
+
             //market rate
             var rate_market_rate = (sale_number / count_total_sale_number_per_year * 100).toFixed(2);
             if (count_total_sale_number_per_year == 0) {
@@ -1215,14 +1396,14 @@ function insertAnalysisTable(analysis) {
                     + '<input type="hidden" id="market_rate_'
                     + analysis[i].seller_cd + '_' + years[j]
                     + '" value="' + rate_market_rate + '" /></td>';
-            
+
             //selling number
             var selling_number = sale_number - count_item_price_soldout;
             td_selling_number = td_selling_number + '<td>' + selling_number + '件'
                     + '<input type="hidden" id="selling_number_'
                     + analysis[i].seller_cd + '_' + years[j]
                     + '" value="' + selling_number + '" /></td>';
-            
+
             //selling rate
             var selling_rate = (selling_number / count_total_selling_number_per_year * 100).toFixed(2);
             if (count_total_selling_number_per_year == 0) {
@@ -1232,23 +1413,23 @@ function insertAnalysisTable(analysis) {
                     + '<input type="hidden" id="selling_rate_'
                     + analysis[i].seller_cd + '_' + years[j]
                     + '" value="' + selling_rate + '" /></td>';
-            
+
             //soldout number
-            td_soldout_number = td_soldout_number + '<td>' + count_item_price_soldout + '件' 
+            td_soldout_number = td_soldout_number + '<td>' + count_item_price_soldout + '件'
                     + '<input type="hidden" id="soldout_number_'
                     + analysis[i].seller_cd + '_' + years[j]
                     + '" value="' + count_item_price_soldout + '" /></td>';
-            
+
             //soldout rate
             var soldout_rate = (count_item_price_soldout / count_total_soldout_number_per_year * 100).toFixed(2);
             if (count_total_soldout_number_per_year == 0) {
                 soldout_rate = '----';
             }
-            td_soldout_rate = td_soldout_rate + '<td>' + soldout_rate + '%' 
+            td_soldout_rate = td_soldout_rate + '<td>' + soldout_rate + '%'
                     + '<input type="hidden" id="soldout_rate_'
                     + analysis[i].seller_cd + '_' + years[j]
                     + '" value="' + soldout_rate + '" /></td>';
-            
+
             //soldout before complete number
             td_soldout_before_complete_number = td_soldout_before_complete_number + '<td>' + count_item_soldout_before_complete
                     + '件<input type="hidden" id="soldout_before_complete_number_'
@@ -1264,9 +1445,9 @@ function insertAnalysisTable(analysis) {
                     + '<input type="hidden" id="rate_soldout_before_complete_'
                     + analysis[i].seller_cd + '_' + years[j]
                     + '" value="' + rate_soldout_before_complete + '" /></td>';
-            
+
             //avg price regist
-            var avg_price_regist = Math.ceil(sum_price_regist / count_item_price_regist);
+            var avg_price_regist = Math.round(sum_price_regist / count_item_price_regist);
             if (count_item_price_regist == 0) {
                 avg_price_regist = '----';
             }
@@ -1276,10 +1457,10 @@ function insertAnalysisTable(analysis) {
                     + '" value="' + avg_price_regist + '" />'
                     + '<input type="hidden" id="count_price_regist_'
                     + analysis[i].seller_cd + '_' + years[j]
-                    + '" value="' + count_item_price_regist + '" /></td>';                   
+                    + '" value="' + count_item_price_regist + '" /></td>';
 
             //avg price soldout
-            var avg_price_price_soldout = Math.ceil(sum_price_soldout / count_item_price_soldout);
+            var avg_price_price_soldout = Math.round(sum_price_soldout / count_item_price_soldout);
             if (count_item_price_soldout == 0) {
                 avg_price_price_soldout = '----';
             }
@@ -1287,9 +1468,9 @@ function insertAnalysisTable(analysis) {
                     + '<input type="hidden" id="avg_price_soldout_'
                     + analysis[i].seller_cd + '_' + years[j]
                     + '" value="' + avg_price_price_soldout + '" /></td>';
-            
+
             //time sale
-            var avg_time_time = Math.ceil(sum_time / count_item_time);
+            var avg_time_time = Math.round(sum_time / count_item_time);
             if (count_item_time == 0) {
                 avg_time_time = '----';
             }
@@ -1299,7 +1480,7 @@ function insertAnalysisTable(analysis) {
                     + '" value="' + avg_time_time + '" /></td>';
 
             //avg time change price
-            var avg_time_time_change_price = Math.ceil(sum_time_change_price / count_item_time_change_price);
+            var avg_time_time_change_price = Math.round(sum_time_change_price / count_item_time_change_price);
             if (count_item_time_change_price == 0) {
                 avg_time_time_change_price = '----';
             }
@@ -1309,7 +1490,7 @@ function insertAnalysisTable(analysis) {
                     + '" value="' + avg_time_time_change_price + '" /></td>';
 
             //avg down price
-            var avg_down_price = Math.ceil(sum_down_price / count_item_price_soldout);
+            var avg_down_price = Math.round(sum_down_price / count_item_price_soldout);
             if (count_item_price_soldout == 0) {
                 avg_down_price = '----';
             }
@@ -1317,7 +1498,7 @@ function insertAnalysisTable(analysis) {
                     + '<input type="hidden" id="down_price_'
                     + analysis[i].seller_cd + '_' + years[j]
                     + '" value="' + avg_down_price + '" /></td>';
-                
+
             //avg down price rate
             var rate_down_price_rate = (sum_down_price_rate / count_item_price_soldout * 100).toFixed(2);
             if (count_item_price_soldout == 0) {
@@ -1333,9 +1514,9 @@ function insertAnalysisTable(analysis) {
                     + '<input type="hidden" id="num_item_down_price_'
                     + analysis[i].seller_cd + '_' + years[j]
                     + '" value="' + count_num_item_down_price + '" /></td>';
-            
+
             //avg down price each time
-            var avg_down_price_each_time = Math.ceil(sum_down_price / count_item_time_change_price);
+            var avg_down_price_each_time = Math.round(sum_down_price / count_item_time_change_price);
             if (count_item_time_change_price == 0) {
                 avg_down_price_each_time = 0;
             }
@@ -1346,7 +1527,7 @@ function insertAnalysisTable(analysis) {
                     + '<input type="hidden" id="count_item_time_change_price_'
                     + analysis[i].seller_cd + '_' + years[j]
                     + '" value="' + count_item_time_change_price + '" /></td>';
-            
+
             //avg down price rate each time
             var avg_down_price_rate_each_time = (sum_down_price_rate_each_time / count_item_time_change_price * 100).toFixed(2);
             if (count_item_time_change_price == 0) {
@@ -1379,7 +1560,7 @@ function insertAnalysisTable(analysis) {
                     + '<tr><th>成約件数シェア</th>' + td_soldout_rate + '</tr>'
                     + '<tr><th>完成前成約物件数</th>' + td_soldout_before_complete_number + '</tr>'
                     + '<tr><th>完成前成約率</th>' + td_rate_soldout_before_complete + '</tr>'
-                    + '<tr><th>平均売出価格</th>' + td_avg_price_regist + '</tr>'
+                    + '<tr><th>平均売出開始価格</th>' + td_avg_price_regist + '</tr>'
                     + '<tr><th>平均成約価格</th>' + td_avg_price_soldout + '</tr>'
                     + '<tr><th>平均売出期間</th>' + time + '</tr>'
                     + '<tr><th>平均値下価格</th>' + td_avg_down_price + '</tr>'
@@ -1394,7 +1575,7 @@ function insertAnalysisTable(analysis) {
             $('#tbl-analysis').append(table);
         }
     }
-    
+
     //total
     var years = Array();
     for (var i = 0; i < analysis.length; i++) {
@@ -1440,37 +1621,37 @@ function insertAnalysisTable(analysis) {
             if (per_seller) {
                 sale_number = sale_number + per_seller;
             }
-            
+
             //selling number
             var per_seller = parseInt($('#selling_number_' + analysis[i].seller_cd + '_' + years[j]).val());
             if (per_seller) {
                 selling_number = selling_number + per_seller;
             }
-            
+
             //selling rate
             var per_seller = parseFloat($('#selling_rate_' + analysis[i].seller_cd + '_' + years[j]).val());
             if (per_seller) {
                 selling_rate = selling_rate + per_seller;
             }
-            
+
             //soldout number
             var per_seller = parseInt($('#soldout_number_' + analysis[i].seller_cd + '_' + years[j]).val());
             if (per_seller) {
                 soldout_number = soldout_number + per_seller;
             }
-            
+
             //soldout rate
             var per_seller = parseFloat($('#soldout_rate_' + analysis[i].seller_cd + '_' + years[j]).val());
             if (per_seller) {
                 soldout_rate = soldout_rate + per_seller;
             }
-            
+
             //regist number
             var per_seller = parseInt($('#count_price_regist_' + analysis[i].seller_cd + '_' + years[j]).val());
             if (per_seller) {
                 regist_number = regist_number + per_seller;
             }
-            
+
             //soldout before complete number
             var per_seller = parseInt($('#soldout_before_complete_number_' + analysis[i].seller_cd + '_' + years[j]).val());
             if (per_seller) {
@@ -1481,7 +1662,7 @@ function insertAnalysisTable(analysis) {
             var per_seller = 0;
             per_seller = parseInt($('#avg_price_regist_' + analysis[i].seller_cd + '_' + years[j]).val())
                     * parseInt($('#count_price_regist_' + analysis[i].seller_cd + '_' + years[j]).val());
-            
+
             if (per_seller) {
                 avg_price_regist = avg_price_regist + per_seller;
             }
@@ -1518,7 +1699,7 @@ function insertAnalysisTable(analysis) {
                                         var firstDate = new Date(analysis[i].items[k].history[m].hist_regist);
                                         var secondDate = new Date(analysis[i].items[k].history[n].hist_regist);
                                         var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-                                        
+
                                         count_item++;
                                         sum = sum + parseInt(diffDays);
                                         break;
@@ -1538,7 +1719,7 @@ function insertAnalysisTable(analysis) {
             if (per_seller) {
                 down_price = down_price + per_seller;
             }
-            
+
             //avg down price rate
             var per_seller = 0;
             per_seller = parseFloat($('#down_price_rate_' + analysis[i].seller_cd + '_' + years[j]).val())
@@ -1553,14 +1734,14 @@ function insertAnalysisTable(analysis) {
             if (per_seller) {
                 num_item_down_price = num_item_down_price + per_seller;
             }
-            
+
             //count times change price
             var per_seller = 0;
             per_seller = $('#count_item_time_change_price_' + analysis[i].seller_cd + '_' + years[j]).val();
             if (per_seller) {
                 count_time_change_price = count_time_change_price + parseInt(per_seller);
             }
-            
+
             //avg down price each time
             var per_seller = 0;
             per_seller = $('#down_price_each_time_' + analysis[i].seller_cd + '_' + years[j]).val()
@@ -1568,7 +1749,7 @@ function insertAnalysisTable(analysis) {
             if (per_seller) {
                 sum_down_price_each_time = sum_down_price_each_time + per_seller;
             }
-            
+
             //avg down price rate each time
             var per_seller = 0;
             per_seller = $('#down_price_rate_each_time_' + analysis[i].seller_cd + '_' + years[j]).val()
@@ -1576,7 +1757,7 @@ function insertAnalysisTable(analysis) {
             if (per_seller) {
                 sum_down_price_rate_each_time_total = sum_down_price_rate_each_time_total + per_seller;
             }
-            
+
             //avg down price times
             var per_seller = 0;
             per_seller = $('#down_price_times_' + analysis[i].seller_cd + '_' + years[j]).val()
@@ -1584,7 +1765,7 @@ function insertAnalysisTable(analysis) {
             if (per_seller) {
                 sum_down_price_times = sum_down_price_times + per_seller;
             }
-            
+
             //market rate
             var per_seller = 0;
             per_seller = parseFloat($('#market_rate_' + analysis[i].seller_cd + '_' + years[j]).val());
@@ -1596,33 +1777,33 @@ function insertAnalysisTable(analysis) {
 
         //rate soldout before complete
         rate_soldout_before_complete = (soldout_before_complete_number / soldout_number * 100).toFixed(2);
-        
+
         //avg price regist
-        avg_price_regist = Math.ceil(avg_price_regist / regist_number);
+        avg_price_regist = Math.round(avg_price_regist / regist_number);
         if (regist_number == 0) {
             avg_price_regist = '----';
         }
-        
+
         //avg price soldout
-        avg_price_sold = Math.ceil(avg_price_sold / soldout_number);
+        avg_price_sold = Math.round(avg_price_sold / soldout_number);
 
         //time sale
-        time = Math.ceil(time / soldout_number);
+        time = Math.round(time / soldout_number);
 
         //avg time change price
-        avg_time_change_circle = Math.ceil(sum / count_item);
+        avg_time_change_circle = Math.round(sum / count_item);
         if (count_item == 0) {
             avg_time_change_circle = '----';
         }
 
         //avg down price
-        down_price = Math.ceil(down_price / soldout_number);
-        
+        down_price = Math.round(down_price / soldout_number);
+
         //avg down price rate
         down_price_rate = (down_price_rate / soldout_number).toFixed(2);
-        
+
         //avg down price each time
-        var avg_down_price_each_time_total = Math.ceil(sum_down_price_each_time / count_time_change_price);
+        var avg_down_price_each_time_total = Math.round(sum_down_price_each_time / count_time_change_price);
 
         //avg down price rate each time
         var avg_down_price_rate_each_time_total = (sum_down_price_rate_each_time_total / count_time_change_price).toFixed(2);
@@ -1635,7 +1816,7 @@ function insertAnalysisTable(analysis) {
             avg_down_price_rate_each_time_total = 0;
             avg_down_price_each_time_total = 0;
         }
-        
+
         if (soldout_number == 0) {
             rate_soldout_before_complete = '----';
             avg_price_sold = '----';
@@ -1664,6 +1845,6 @@ function insertAnalysisTable(analysis) {
         $('#num_item_down_price').append('<td>' + num_item_down_price + '件</td>');
         $('#avg_down_price_each_time').append('<td>' + avg_down_price_each_time_total + '万円</td>');
         $('#avg_down_price_rate_each_times').append('<td>' + avg_down_price_rate_each_time_total + '%</td>');
-        $('#avg_down_price_times').append('<td>' + avg_down_price_times_total + '</td>');     
+        $('#avg_down_price_times').append('<td>' + avg_down_price_times_total + '</td>');
     }
 }

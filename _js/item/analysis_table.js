@@ -307,167 +307,169 @@ function insertAnalysisTable(analysis) {
                     sum_price_regist = sum_price_regist + parseFloat(analysis[i].items[k].price_regist);
                 }
 
-                //avg price soldout
-                if (analysis[i].items[k].price_soldout != null) {
-                    count_item_soldout++;
-                    count_item_price_soldout++;
-                    //area chart
-                    if (analysis[i].items[k].city_cd == 40136) {
-                        count_item_soldout_in_jonan++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40134) {
-                        count_item_soldout_in_minami++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40135) {
-                        count_item_soldout_in_nishi++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40131) {
-                        count_item_soldout_in_higashi++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40133) {
-                        count_item_soldout_in_chuo++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40132) {
-                        count_item_soldout_in_hakata++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40137) {
-                        count_item_soldout_in_sawara++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40223) {
-                        count_item_soldout_in_koga++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40342) {
-                        count_item_soldout_in_sasaguri++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40343) {
-                        count_item_soldout_in_shime++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40218) {
-                        count_item_soldout_in_kasuga++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40224) {
-                        count_item_soldout_in_fukutsu++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40344) {
-                        count_item_soldout_in_sue++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40219) {
-                        count_item_soldout_in_ounojou++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40348) {
-                        count_item_soldout_in_hisayama++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40305) {
-                        count_item_soldout_in_nakagawa++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40230) {
-                        count_item_soldout_in_itoshima++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40345) {
-                        count_item_soldout_in_shingu++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40203) {
-                        count_item_soldout_in_kurume++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40349) {
-                        count_item_soldout_in_kasuya++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40341) {
-                        count_item_soldout_in_umimachi++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40221) {
-                        count_item_soldout_in_dazaifu++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40207) {
-                        count_item_soldout_in_yanagawa++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40447) {
-                        count_item_soldout_in_chikuzen++;
-                    }
-                    if (analysis[i].items[k].city_cd == 41345) {
-                        count_item_soldout_in_kamimine++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40503) {
-                        count_item_soldout_in_tachiarai++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40216) {
-                        count_item_soldout_in_ogori++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40647) {
-                        count_item_soldout_in_chikujou++;
-                    }
-                    if (analysis[i].items[k].city_cd == 40217) {
-                        count_item_soldout_in_chikushino++;
-                    }
-                    if (analysis[i].items[k].city_cd == 41346) {
-                        count_item_soldout_in_miyaki++;
-                    }
-                    if (analysis[i].items[k].city_cd == 41203) {
-                        count_item_soldout_in_tosu++;
-                    }
-                    if (analysis[i].items[k].city_cd == 41341) {
-                        count_item_soldout_in_kiyama++;
+                if (analysis[i].items[k].date_soldout >= from_1 && analysis[i].items[k].date_soldout <= to_3) {
+                    //avg price soldout
+                    if (analysis[i].items[k].price_soldout != null) {
+                        count_item_soldout++;
+                        count_item_price_soldout++;
+                        //area chart
+                        if (analysis[i].items[k].city_cd == 40136) {
+                            count_item_soldout_in_jonan++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40134) {
+                            count_item_soldout_in_minami++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40135) {
+                            count_item_soldout_in_nishi++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40131) {
+                            count_item_soldout_in_higashi++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40133) {
+                            count_item_soldout_in_chuo++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40132) {
+                            count_item_soldout_in_hakata++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40137) {
+                            count_item_soldout_in_sawara++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40223) {
+                            count_item_soldout_in_koga++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40342) {
+                            count_item_soldout_in_sasaguri++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40343) {
+                            count_item_soldout_in_shime++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40218) {
+                            count_item_soldout_in_kasuga++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40224) {
+                            count_item_soldout_in_fukutsu++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40344) {
+                            count_item_soldout_in_sue++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40219) {
+                            count_item_soldout_in_ounojou++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40348) {
+                            count_item_soldout_in_hisayama++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40305) {
+                            count_item_soldout_in_nakagawa++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40230) {
+                            count_item_soldout_in_itoshima++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40345) {
+                            count_item_soldout_in_shingu++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40203) {
+                            count_item_soldout_in_kurume++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40349) {
+                            count_item_soldout_in_kasuya++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40341) {
+                            count_item_soldout_in_umimachi++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40221) {
+                            count_item_soldout_in_dazaifu++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40207) {
+                            count_item_soldout_in_yanagawa++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40447) {
+                            count_item_soldout_in_chikuzen++;
+                        }
+                        if (analysis[i].items[k].city_cd == 41345) {
+                            count_item_soldout_in_kamimine++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40503) {
+                            count_item_soldout_in_tachiarai++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40216) {
+                            count_item_soldout_in_ogori++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40647) {
+                            count_item_soldout_in_chikujou++;
+                        }
+                        if (analysis[i].items[k].city_cd == 40217) {
+                            count_item_soldout_in_chikushino++;
+                        }
+                        if (analysis[i].items[k].city_cd == 41346) {
+                            count_item_soldout_in_miyaki++;
+                        }
+                        if (analysis[i].items[k].city_cd == 41203) {
+                            count_item_soldout_in_tosu++;
+                        }
+                        if (analysis[i].items[k].city_cd == 41341) {
+                            count_item_soldout_in_kiyama++;
+                        }
+
+                        //time chart
+                        if (analysis[i].items[k].date_soldout >= from_1 && analysis[i].items[k].date_soldout <= to_1) {
+                            count_item_soldout_in_range_time_1++;
+                        }
+                        if (analysis[i].items[k].date_soldout >= from_2 && analysis[i].items[k].date_soldout <= to_2) {
+                            count_item_soldout_in_range_time_2++;
+                        }
+                        if (analysis[i].items[k].date_soldout >= from_3 && analysis[i].items[k].date_soldout <= to_3) {
+                            count_item_soldout_in_range_time_3++;
+                        }
+
+                        if (analysis[i].items[k].date_build > analysis[i].items[k].date_soldout) {
+                            count_item_soldout_before_complete++;
+                        }
+                        sum_price_soldout = sum_price_soldout + parseInt(analysis[i].items[k].price_soldout);
                     }
 
-                    //time chart
-                    if (analysis[i].items[k].date_soldout >= from_1 && analysis[i].items[k].date_soldout <= to_1) {
-                        count_item_soldout_in_range_time_1++;
-                    }
-                    if (analysis[i].items[k].date_soldout >= from_2 && analysis[i].items[k].date_soldout <= to_2) {
-                        count_item_soldout_in_range_time_2++;
-                    }
-                    if (analysis[i].items[k].date_soldout >= from_3 && analysis[i].items[k].date_soldout <= to_3) {
-                        count_item_soldout_in_range_time_3++;
-                    }
 
-                    if (analysis[i].items[k].date_build > analysis[i].items[k].date_soldout) {
-                        count_item_soldout_before_complete++;
-                    }
-                    sum_price_soldout = sum_price_soldout + parseInt(analysis[i].items[k].price_soldout);
-                }
+                    //time sale
+                    count_item_time++;
+                    sum_time = sum_time + parseInt(analysis[i].items[k].time);
 
+                    //avg time change price
+                    for (var m = 0; m < analysis[i].items[k].history.length; m++) {
+                        if (analysis[i].items[k].history[m].stat_cd == 2) {
+                            for (var n = m - 1; n >= 0; n--) {
+                                if (analysis[i].items[k].history[m].stat_cd == "2" || analysis[i].items[k].history[m].stat_cd == "1") {
+                                    if (analysis[i].items[k].history[m].hist_regist != null && analysis[i].items[k].history[n].hist_regist != null) {
+                                        count_item_time_change_price++;
 
-                //time sale
-                count_item_time++;
-                sum_time = sum_time + parseInt(analysis[i].items[k].time);
+                                        var down_price = parseInt(analysis[i].items[k].history[n].hist_price) - parseInt(analysis[i].items[k].history[m].hist_price);
+                                        var down_price_rate_each_time = parseInt(down_price) / parseInt(analysis[i].items[k].history[n].hist_price);
+                                        sum_down_price_rate_each_time = sum_down_price_rate_each_time + down_price_rate_each_time;
 
-                //avg time change price
-                for (var m = 0; m < analysis[i].items[k].history.length; m++) {
-                    if (analysis[i].items[k].history[m].stat_cd == 2) {
-                        for (var n = m - 1; n >= 0; n--) {
-                            if (analysis[i].items[k].history[m].stat_cd == "2" || analysis[i].items[k].history[m].stat_cd == "1") {
-                                if (analysis[i].items[k].history[m].hist_regist != null && analysis[i].items[k].history[n].hist_regist != null) {
-                                    count_item_time_change_price++;
-
-                                    var down_price = parseInt(analysis[i].items[k].history[n].hist_price) - parseInt(analysis[i].items[k].history[m].hist_price);
-                                    var down_price_rate_each_time = parseInt(down_price) / parseInt(analysis[i].items[k].history[n].hist_price);
-                                    sum_down_price_rate_each_time = sum_down_price_rate_each_time + down_price_rate_each_time;
-
-                                    var oneDay = 24 * 60 * 60 * 1000;
-                                    var firstDate = new Date(analysis[i].items[k].history[m].hist_regist);
-                                    var secondDate = new Date(analysis[i].items[k].history[n].hist_regist);
-                                    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
-                                    sum_time_change_price = sum_time_change_price + parseInt(diffDays);
-                                    break;
+                                        var oneDay = 24 * 60 * 60 * 1000;
+                                        var firstDate = new Date(analysis[i].items[k].history[m].hist_regist);
+                                        var secondDate = new Date(analysis[i].items[k].history[n].hist_regist);
+                                        var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+                                        sum_time_change_price = sum_time_change_price + parseInt(diffDays);
+                                        break;
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                //avg down price rate
-                if (analysis[i].items[k].price_regist != null && analysis[i].items[k].price_soldout != null) {
-                    var down_price = (analysis[i].items[k].price_regist - analysis[i].items[k].price_soldout);
+                    //avg down price rate
+                    if (analysis[i].items[k].price_regist != null && analysis[i].items[k].price_soldout != null) {
+                        var down_price = (analysis[i].items[k].price_regist - analysis[i].items[k].price_soldout);
 
-                    sum_down_price = sum_down_price + down_price;
-                    sum_down_price_rate = sum_down_price_rate + parseFloat(down_price / analysis[i].items[k].price_regist);
-                    count_item_down_price_rate++;
+                        sum_down_price = sum_down_price + down_price;
+                        sum_down_price_rate = sum_down_price_rate + parseFloat(down_price / analysis[i].items[k].price_regist);
+                        count_item_down_price_rate++;
 
-                    if (analysis[i].items[k].price_regist != analysis[i].items[k].price_soldout) {
-                        count_num_item_down_price++;
+                        if (analysis[i].items[k].price_regist != analysis[i].items[k].price_soldout) {
+                            count_num_item_down_price++;
+                        }
                     }
                 }
-
+                
                 //market_rate
                 count_item_market_rate++;
             }
@@ -664,13 +666,13 @@ function insertAnalysisTable(analysis) {
             window.soldout_rate_time_in_range_3.push([analysis[i].seller_name, parseInt(count_item_soldout_in_range_time_3)]);
 
             //avg price regist
-            var avg_price_regist = Math.ceil(sum_price_regist / count_item_price_regist);
+            var avg_price_regist = Math.round(sum_price_regist / count_item_price_regist);
             if (count_item_price_regist == 0) {
                 avg_price_regist = '----';
             }
 
             //avg price soldout
-            var avg_price_soldout = Math.ceil(sum_price_soldout / count_item_price_soldout);
+            var avg_price_soldout = Math.round(sum_price_soldout / count_item_price_soldout);
             if (count_item_price_soldout == 0) {
                 avg_price_soldout = '----';
             }
@@ -682,18 +684,18 @@ function insertAnalysisTable(analysis) {
             }
 
             //time sale
-            var avg_time_time = Math.ceil(sum_time / count_item_time);
+            var avg_time_time = Math.round(sum_time / count_item_time);
             if (count_item_time == 0) {
                 avg_time_time = '----';
             }
             //avg time change price
-            var avg_time_time_change_price = Math.ceil(sum_time_change_price / count_item_time_change_price);
+            var avg_time_time_change_price = Math.round(sum_time_change_price / count_item_time_change_price);
             if (count_item_time_change_price == 0) {
                 avg_time_time_change_price = '----';
             }
 
             //avg down price
-            var avg_down_price = Math.ceil(sum_down_price / count_item_down_price_rate);
+            var avg_down_price = Math.round(sum_down_price / count_item_down_price_rate);
             if (count_item_down_price_rate == 0) {
                 avg_down_price = '----';
             }
@@ -705,7 +707,7 @@ function insertAnalysisTable(analysis) {
             }
 
             //avg down price each time
-            var avg_down_price_each_time = Math.ceil(sum_down_price / count_item_time_change_price);
+            var avg_down_price_each_time = Math.round(sum_down_price / count_item_time_change_price);
             if (count_item_time_change_price == 0) {
                 avg_down_price_each_time = 0;
             }
@@ -717,7 +719,7 @@ function insertAnalysisTable(analysis) {
             }
 
             //avg down price times
-            var avg_down_price_times = (count_item_time_change_price / count_item_down_price_rate).toFixed(0);
+            var avg_down_price_times = (count_item_time_change_price / count_item_down_price_rate).toFixed(2);
             if (count_item_down_price_rate == 0) {
                 avg_down_price_times = 0;
             }
@@ -730,26 +732,26 @@ function insertAnalysisTable(analysis) {
 
             //prepare html
             //sale number
-            td_sale_number = td_sale_number + '<td>' + sale_number
-                    + '件<input type="hidden" id="sale_number_'
+            td_sale_number = td_sale_number + '<td>' + sale_number + '件'
+                    + '<input type="hidden" id="sale_number_'
                     + analysis[i].seller_cd
                     + '" value="' + sale_number + '" /></td>';
 
             //selling number
-            td_selling_number = td_selling_number + '<td>' + selling_number
-                    + '件<input type="hidden" id="selling_number_'
+            td_selling_number = td_selling_number + '<td>' + selling_number + '件'
+                    + '<input type="hidden" id="selling_number_'
                     + analysis[i].seller_cd
                     + '" value="' + selling_number + '" /></td>';
 
             //soldout number
-            td_soldout_number = td_soldout_number + '<td>' + count_item_soldout
-                    + '件<input type="hidden" id="soldout_number_'
+            td_soldout_number = td_soldout_number + '<td>' + count_item_soldout + '件'
+                    + '<input type="hidden" id="soldout_number_'
                     + analysis[i].seller_cd
                     + '" value="' + count_item_soldout + '" /></td>';
 
             //soldout before complete number
-            td_soldout_before_complete_number = td_soldout_before_complete_number + '<td>' + count_item_soldout_before_complete
-                    + '件<input type="hidden" id="soldout_before_complete_number_'
+            td_soldout_before_complete_number = td_soldout_before_complete_number + '<td>' + count_item_soldout_before_complete + '件'
+                    + '<input type="hidden" id="soldout_before_complete_number_'
                     + analysis[i].seller_cd
                     + '" value="' + count_item_soldout_before_complete + '" /></td>';
 
@@ -976,7 +978,7 @@ function insertAnalysisTable(analysis) {
 
         //count times change price
         var per_seller = 0;
-        per_seller = $('#count_item_time_change_price_' + analysis[i].seller_cd).val();
+        per_seller = parseInt($('#count_item_time_change_price_' + analysis[i].seller_cd).val());
         if (per_seller) {
             count_time_change_price = count_time_change_price + parseInt(per_seller);
         }
@@ -1001,7 +1003,7 @@ function insertAnalysisTable(analysis) {
         if (per_seller) {
             sum_down_price_times = sum_down_price_times + per_seller;
         }
-            
+
         //avg price regist
         regist_number += parseInt($('#count_price_regist_' + analysis[i].seller_cd).val());
     }
@@ -1012,31 +1014,31 @@ function insertAnalysisTable(analysis) {
         rate_soldout_before_complete = 0;
     }
 
-    avg_price_regist = Math.ceil(avg_price_regist / regist_number);
+    avg_price_regist = Math.round(avg_price_regist / regist_number);
     //avg price soldout
-    avg_price_sold = Math.ceil(avg_price_sold / soldout_number);
+    avg_price_sold = Math.round(avg_price_sold / soldout_number);
     //time sale
-    time = Math.ceil(time / soldout_number);
+    time = Math.round(time / soldout_number);
     //avg time change price
-    avg_time_change_circle = Math.ceil(sum / count_item);
+    avg_time_change_circle = Math.round(sum / count_item);
     if (count_item == 0) {
         avg_time_change_circle = '----';
     }
 
     //down price rate
-    down_price = Math.ceil(down_price / soldout_number);
+    down_price = Math.round(down_price / soldout_number);
 
     //down price rate
     down_price_rate = (down_price_rate / soldout_number).toFixed(2);
 
     //avg down price each time
-    var avg_down_price_each_time_total = Math.ceil(sum_down_price_each_time / count_time_change_price);
+    var avg_down_price_each_time_total = Math.round(sum_down_price_each_time / count_time_change_price);
 
     //avg down price rate each time
     var avg_down_price_rate_each_time_total = (sum_down_price_rate_each_time_total / count_time_change_price).toFixed(2);
 
     //avg down price times
-    var avg_down_price_times_total = (sum_down_price_times / count_time_change_price).toFixed(0);
+    var avg_down_price_times_total = (sum_down_price_times / count_time_change_price).toFixed(2);
 
     if (count_time_change_price == 0) {
         avg_down_price_times_total = 0;
@@ -1083,26 +1085,26 @@ function insertAnalysisTable(analysis) {
         }
     }
 
-    $('#name th:first-child').after('<th>地域の総合</th>');
-    $('#sale_number th:first-child').after('<td>' + sale_number
+    $('#name_all_seller th:first-child').after('<th style="width: 20%;">全体</th>');
+    $('#sale_num_all_seller th:first-child').after('<td>' + sale_number
             + '件<input id="sale_number_all" type="hidden" value="' + sale_number + '" /></td>');
-    $('#selling_number th:first-child').after('<td>' + selling_number + '件</td>');
-    $('#selling_rate th:first-child').after('<td>' + selling_rate.toFixed(0) + '%</td>');
-    $('#soldout_number th:first-child').after('<td>' + soldout_number + '件</td>');
-    $('#soldout_rate th:first-child').after('<td>' + soldout_rate.toFixed(0) + '%</td>');
-    $('#soldout_before_complete_number th:first-child').after('<td>' + soldout_before_complete_number + '件</td>');
-    $('#rate_soldout_before_complete th:first-child').after('<td>' + rate_soldout_before_complete + '%</td>');
-    $('#avg_price_regist th:first-child').after('<td>' + avg_price_regist + '万円</td>');
-    $('#avg_price_sold th:first-child').after('<td>' + avg_price_sold + '万円</td>');
-    $('#avg_time_sold th:first-child').after('<td>' + time + '日間</td>');
-    $('#avg_time_change_circle th:first-child').after('<td>' + avg_time_change_circle + '日間</td>');
-    $('#avg_down_price th:first-child').after('<td>' + down_price + '万円</td>');
-    $('#avg_down_price_rate th:first-child').after('<td>' + down_price_rate + '%</td>');
-    $('#num_item_down_price th:first-child').after('<td>' + num_item_down_price + '件</td>');
-    $('#avg_down_price_each_time th:first-child').after('<td>' + avg_down_price_each_time_total + '万円</td>');
-    $('#avg_down_price_rate_each_times th:first-child').after('<td>' + avg_down_price_rate_each_time_total + '%</td>');
-    $('#avg_down_price_times th:first-child').after('<td>' + avg_down_price_times_total + '</td>');
-    $('#market_rate th:first-child').after('<td>' + market_rate.toFixed(0) + '%</td>');
+    $('#selling_num_all_seller th:first-child').after('<td>' + selling_number + '件</td>');
+    $('#selling_rate_all_seller th:first-child').after('<td>' + selling_rate.toFixed(0) + '%</td>');
+    $('#soldout_num_all_seller th:first-child').after('<td>' + soldout_number + '件</td>');
+    $('#soldout_rate_all_seller th:first-child').after('<td>' + soldout_rate.toFixed(0) + '%</td>');
+    $('#soldout_before_complete_num_all_seller th:first-child').after('<td>' + soldout_before_complete_number + '件</td>');
+    $('#rat_soldout_before_complete_all_seller th:first-child').after('<td>' + rate_soldout_before_complete + '%</td>');
+    $('#avg_pri_regist_all_seller th:first-child').after('<td>' + avg_price_regist + '万円</td>');
+    $('#avg_price_sold_all_seller th:first-child').after('<td>' + avg_price_sold + '万円</td>');
+    $('#avg_time_sold_all_seller th:first-child').after('<td>' + time + '日間</td>');
+    $('#avg_time_change_circle_all_seller th:first-child').after('<td>' + avg_time_change_circle + '日間</td>');
+    $('#avg_down_price_all_seller th:first-child').after('<td>' + down_price + '万円</td>');
+    $('#avg_down_price_rate_all_seller th:first-child').after('<td>' + down_price_rate + '%</td>');
+    $('#number_item_down_price_all_seller th:first-child').after('<td>' + num_item_down_price + '件</td>');
+    $('#avg_down_price_each_time_all_seller th:first-child').after('<td>' + avg_down_price_each_time_total + '万円</td>');
+    $('#avg_down_price_rate_each_times_all_seller th:first-child').after('<td>' + avg_down_price_rate_each_time_total + '%</td>');
+    $('#avg_down_price_times_all_seller th:first-child').after('<td>' + avg_down_price_times_total + '</td>');
+    $('#market_rat_all_seller th:first-child').after('<td>' + market_rate.toFixed(0) + '%</td>');
 }
 
 function insertAnalysisTableInTimeRange(analysis) {
@@ -1114,30 +1116,47 @@ function insertAnalysisTableInTimeRange(analysis) {
     var from_1 = new Date(from);
     var to_1 = new Date(from_1);
     to_1.setDate(to_1.getDate() + range / 86400 / 1000);
+    if (to_1 > new Date(to)) {
+        to_1 = new Date(to);
+    }
 
     from_1 = formatDate(from_1);
     to_1 = formatDate(to_1);
-    $('#table_title_1').html(from_1 + ' ~ ' + to_1);
+    var diff = Math.abs(new Date(to_1) - new Date(from_1)) / 86400 / 1000;
+    $('#table_title_1').html(from_1 + ' ~ ' + to_1 + ' (' + diff + ' 日)');
+    $('#name_all_seller').append('<th>' + from_1 + ' ~ ' + to_1 + ' (' + diff + ' 日)</th>');
     to_1 = to_1 + ' 23:59:59';
 
     var from_2 = new Date(from);
     from_2.setDate(from_2.getDate() + range / 86400 / 1000 + 1);
     var to_2 = new Date(from_2);
     to_2.setDate(to_2.getDate() + range / 86400 / 1000);
+    if (to_2 > new Date(to)) {
+        to_2 = new Date(to);
+    }
+    if (from_2 > new Date(to)) {
+        from_2 = new Date(to);
+    }
 
     from_2 = formatDate(from_2);
     to_2 = formatDate(to_2);
-    $('#table_title_2').html(from_2 + ' ~ ' + to_2);
+    var diff = Math.abs(new Date(to_2) - new Date(from_2)) / 86400 / 1000;
+    $('#table_title_2').html(from_2 + ' ~ ' + to_2 + ' (' + diff + ' 日)');
+    $('#name_all_seller').append('<th>' + from_2 + ' ~ ' + to_2 + ' (' + diff + ' 日)</th>');
     to_2 = to_2 + ' 23:59:59';
-
 
     var from_3 = new Date(from);
     from_3.setDate(from_3.getDate() + 2 * range / 86400 / 1000 + 1);
     var to_3 = new Date(to);
+    if (from_3 > new Date(to)) {
+        from_3 = new Date(to);
+    }
 
     from_3 = formatDate(from_3);
     to_3 = formatDate(to_3);
-    $('#table_title_3').html(from_3 + ' ~ ' + to_3);
+    var diff = Math.abs(new Date(to_3) - new Date(from_3)) / 86400 / 1000;
+    $('#table_title_3').html(from_3 + ' ~ ' + to_3 + ' (' + diff + ' 日)');
+    $('#name_all_seller').append('<th>' + from_3 + ' ~ ' + to_3 + ' (' + diff + ' 日)</th>');
     to_3 = to_3 + ' 23:59:59';
 
     for (var u = 1; u <= 3; u++) {
@@ -1218,7 +1237,7 @@ function insertAnalysisTableInTimeRange(analysis) {
                         //avg price regist
                         if (analysis[i].items[k].price_regist != null) {
                             count_item_price_regist++;
-
+                            
                             sum_price_regist = sum_price_regist + parseFloat(analysis[i].items[k].price_regist);
                         }
 
@@ -1258,7 +1277,11 @@ function insertAnalysisTableInTimeRange(analysis) {
                                             var down_price = parseInt(analysis[i].items[k].history[n].hist_price) - parseInt(analysis[i].items[k].history[m].hist_price);
                                             var down_price_rate_each_time = parseInt(down_price) / parseInt(analysis[i].items[k].history[n].hist_price);
                                             sum_down_price_rate_each_time = sum_down_price_rate_each_time + down_price_rate_each_time;
-
+                                            if(down_price < 0) {
+                                                console.log(analysis[i].items[k]);
+                                                console.log(analysis[i].items[k].history[n].hist_price);
+                                                console.log(analysis[i].items[k].history[m].hist_price);
+                                            }
                                             var oneDay = 24 * 60 * 60 * 1000;
                                             var firstDate = new Date(analysis[i].items[k].history[m].hist_regist);
                                             var secondDate = new Date(analysis[i].items[k].history[n].hist_regist);
@@ -1298,13 +1321,13 @@ function insertAnalysisTableInTimeRange(analysis) {
                 selling_number = count_remaining + count_item_sale_number - count_item_soldout;
 
                 //avg price regist
-                var avg_price_regist = Math.ceil(sum_price_regist / count_item_price_regist);
+                var avg_price_regist = Math.round(sum_price_regist / count_item_price_regist);
                 if (count_item_price_regist == 0) {
                     avg_price_regist = '----';
                 }
 
                 //avg price soldout
-                var avg_price_soldout = Math.ceil(sum_price_soldout / count_item_price_soldout);
+                var avg_price_soldout = Math.round(sum_price_soldout / count_item_price_soldout);
                 if (count_item_price_soldout == 0) {
                     avg_price_soldout = '----';
                 }
@@ -1316,19 +1339,19 @@ function insertAnalysisTableInTimeRange(analysis) {
                 }
 
                 //time sale
-                var avg_time_time = Math.ceil(sum_time / count_item_time);
+                var avg_time_time = Math.round(sum_time / count_item_time);
                 if (count_item_time == 0) {
                     avg_time_time = '----';
                 }
-                
+
                 //avg time change price
-                var avg_time_time_change_price = Math.ceil(sum_time_change_price / count_item_time_change_price);
+                var avg_time_time_change_price = Math.round(sum_time_change_price / count_item_time_change_price);
                 if (count_item_time_change_price == 0) {
                     avg_time_time_change_price = '----';
                 }
 
                 //avg down price
-                var avg_down_price = Math.ceil(sum_down_price / count_item_down_price_rate);
+                var avg_down_price = Math.round(sum_down_price / count_item_down_price_rate);
                 if (count_item_down_price_rate == 0) {
                     avg_down_price = '----';
                 }
@@ -1340,7 +1363,7 @@ function insertAnalysisTableInTimeRange(analysis) {
                 }
 
                 //avg down price each time
-                var avg_down_price_each_time = Math.ceil(sum_down_price / count_item_time_change_price);
+                var avg_down_price_each_time = Math.round(sum_down_price / count_item_time_change_price);
                 if (count_item_time_change_price == 0) {
                     avg_down_price_each_time = 0;
                 }
@@ -1352,7 +1375,7 @@ function insertAnalysisTableInTimeRange(analysis) {
                 }
 
                 //avg down price times
-                var avg_down_price_times = (count_item_time_change_price / count_item_down_price_rate).toFixed(0);
+                var avg_down_price_times = (count_item_time_change_price / count_item_down_price_rate).toFixed(2);
                 if (count_item_down_price_rate == 0) {
                     avg_down_price_times = 0;
                 }
@@ -1372,7 +1395,7 @@ function insertAnalysisTableInTimeRange(analysis) {
                         + '<input type="hidden" id="regist_number_'
                         + analysis[i].seller_cd + '_' + u
                         + '" value="' + count_item_price_regist + '" /></td>';
-            
+
                 //selling number
                 td_selling_number = td_selling_number + '<td>' + selling_number
                         + '件<input type="hidden" id="selling_number_'
@@ -1435,7 +1458,7 @@ function insertAnalysisTableInTimeRange(analysis) {
                         + '<input type="hidden" id="down_price_rate_'
                         + analysis[i].seller_cd + '_' + u
                         + '" value="' + rate_down_price_rate + '" /></td>';
-                
+
                 //number item down price
                 td_num_item_down_price = td_num_item_down_price + '<td>' + count_num_item_down_price + '件'
                         + '<input type="hidden" id="num_item_down_price_'
@@ -1456,7 +1479,7 @@ function insertAnalysisTableInTimeRange(analysis) {
                         + '<input type="hidden" id="down_price_rate_each_time_'
                         + analysis[i].seller_cd + '_' + u
                         + '" value="' + avg_down_price_rate_each_time + '" /></td>';
-
+                
                 //avg down price times
                 td_avg_down_price_times = td_avg_down_price_times + '<td>' + avg_down_price_times
                         + '<input type="hidden" id="down_price_times_'
@@ -1537,8 +1560,10 @@ function insertAnalysisTableInTimeRange(analysis) {
 
             //avg price regist
             var per_seller = 0;
-            per_seller = parseInt($('#avg_price_regist_' + analysis[i].seller_cd + '_' + u).val())
-                    * parseInt($('#count_price_regist_' + analysis[i].seller_cd + '_' + u).val());
+            if (parseInt($('#avg_price_regist_' + analysis[i].seller_cd + '_' + u).val())) {
+                per_seller = parseInt($('#avg_price_regist_' + analysis[i].seller_cd + '_' + u).val())
+                            * parseInt($('#count_price_regist_' + analysis[i].seller_cd + '_' + u).val());
+            }
             if (per_seller) {
                 avg_price_regist = avg_price_regist + per_seller;
             }
@@ -1601,7 +1626,7 @@ function insertAnalysisTableInTimeRange(analysis) {
             if (per_seller) {
                 down_price_rate = down_price_rate + per_seller;
             }
-            
+
             // number item_down price
             var per_seller = 0;
             per_seller = parseFloat($('#num_item_down_price_' + analysis[i].seller_cd + '_' + u).val());
@@ -1612,11 +1637,11 @@ function insertAnalysisTableInTimeRange(analysis) {
 
             //count times change price
             var per_seller = 0;
-            per_seller = $('#count_item_time_change_price_' + analysis[i].seller_cd + '_' + u).val();
+            per_seller = parseInt($('#count_item_time_change_price_' + analysis[i].seller_cd + '_' + u).val());
             if (per_seller) {
                 count_time_change_price = count_time_change_price + parseInt(per_seller);
             }
-            
+
             //avg down price each time
             var per_seller = 0;
             per_seller = $('#down_price_each_time_' + analysis[i].seller_cd + '_' + u).val()
@@ -1624,7 +1649,7 @@ function insertAnalysisTableInTimeRange(analysis) {
             if (per_seller) {
                 sum_down_price_each_time = sum_down_price_each_time + per_seller;
             }
-            
+
             //avg down price rate each time
             var per_seller = 0;
             per_seller = $('#down_price_rate_each_time_' + analysis[i].seller_cd + '_' + u).val()
@@ -1632,7 +1657,7 @@ function insertAnalysisTableInTimeRange(analysis) {
             if (per_seller) {
                 sum_down_price_rate_each_time_total = sum_down_price_rate_each_time_total + per_seller;
             }
-            
+
             //avg down price times
             var per_seller = 0;
             per_seller = $('#down_price_times_' + analysis[i].seller_cd + '_' + u).val()
@@ -1640,7 +1665,7 @@ function insertAnalysisTableInTimeRange(analysis) {
             if (per_seller) {
                 sum_down_price_times = sum_down_price_times + per_seller;
             }
-            
+
             //market rate
             var per_seller = 0;
             per_seller = parseFloat($('#market_rate_' + analysis[i].seller_cd + '_' + u).val());
@@ -1649,7 +1674,7 @@ function insertAnalysisTableInTimeRange(analysis) {
             }
 
             //regist number
-            var per_seller = $('#count_price_regist_' + analysis[i].seller_cd + '_' + u).val();
+            var per_seller = parseInt($('#count_price_regist_' + analysis[i].seller_cd + '_' + u).val());
             if (per_seller) {
                 regist_number = regist_number + per_seller;
             }
@@ -1659,36 +1684,36 @@ function insertAnalysisTableInTimeRange(analysis) {
         rate_soldout_before_complete = (soldout_before_complete_number / soldout_number * 100).toFixed(2);
 
         //avg price regist
-        avg_price_regist = Math.ceil(avg_price_regist / regist_number);
+        avg_price_regist = Math.round(avg_price_regist / regist_number);
         if (regist_number == 0) {
             avg_price_regist = '----';
         }
 
         //avg price soldout
-        avg_price_sold = Math.ceil(avg_price_sold / soldout_number);
+        avg_price_sold = Math.round(avg_price_sold / soldout_number);
         //time sale
-        time = Math.ceil(time / soldout_number);
-        
+        time = Math.round(time / soldout_number);
+
         //avg time change price
-        avg_time_change_circle = Math.ceil(sum / count_item);
+        avg_time_change_circle = Math.round(sum / count_item);
         if (count_item == 0) {
             avg_time_change_circle = '----';
         }
 
         //avg down price
-        down_price = Math.ceil(down_price / soldout_number);
+        down_price = Math.round(down_price / soldout_number);
 
         //down price rate
         down_price_rate = (down_price_rate / soldout_number).toFixed(2);
 
         //avg down price each time
-        var avg_down_price_each_time_total = Math.ceil(sum_down_price_each_time / count_time_change_price);
+        var avg_down_price_each_time_total = Math.round(sum_down_price_each_time / count_time_change_price);
 
         //avg down price rate each time
         var avg_down_price_rate_each_time_total = (sum_down_price_rate_each_time_total / count_time_change_price).toFixed(2);
 
         //avg down price times
-        var avg_down_price_times_total = (sum_down_price_times / count_time_change_price).toFixed(0);
+        var avg_down_price_times_total = (sum_down_price_times / count_time_change_price).toFixed(2);
 
         if (count_time_change_price == 0) {
             avg_down_price_times_total = 0;
@@ -1734,30 +1759,51 @@ function insertAnalysisTableInTimeRange(analysis) {
                 soldout_rate += parseFloat(soldout_rate_per_seller);
             }
         }
-
-        $('#name_' + u + ' th:first-child').after('<th>地域の総合</th>');
-        $('#sale_num_' + u + ' th:first-child').after('<td>' + sale_number + '件</td>');
-        $('#selling_num_' + u + ' th:first-child').after('<td>' + selling_number + '件</td>');
-        $('#selling_rate_' + u + ' th:first-child').after('<td>' + selling_rate.toFixed(0) + '%</td>');
-        $('#soldout_num_' + u + ' th:first-child').after('<td>' + soldout_number + '件</td>');
-        $('#soldout_rate_' + u + ' th:first-child').after('<td>' + soldout_rate.toFixed(0) + '%</td>');
-        $('#soldout_before_complete_num_' + u + ' th:first-child').after('<td>' + soldout_before_complete_number + '件</td>');
-        $('#rat_soldout_before_complete_' + u + ' th:first-child').after('<td>' + rate_soldout_before_complete + '%</td>');
-        $('#avg_pri_regist_' + u + ' th:first-child').after('<td>' + avg_price_regist + '万円</td>');
-        $('#avg_price_sold_' + u + ' th:first-child').after('<td>' + avg_price_sold + '万円</td>');
-        $('#avg_time_sold_' + u + ' th:first-child').after('<td>' + time + '日間</td>');
-        $('#avg_time_change_circle_' + u + ' th:first-child').after('<td>' + avg_time_change_circle + '日間</td>');
-        $('#avg_down_price_' + u + ' th:first-child').after('<td>' + down_price + '万円</td>');
-        $('#avg_down_price_rate_' + u + ' th:first-child').after('<td>' + down_price_rate + '%</td>');
-        $('#number_item_down_price_' + u + ' th:first-child').after('<td>' + num_item_down_price + '件</td>');
-        $('#avg_down_price_each_time_' + u + ' th:first-child').after('<td>' + avg_down_price_each_time_total + '万円</td>');
-        $('#avg_down_price_rate_each_times_' + u + ' th:first-child').after('<td>' + avg_down_price_rate_each_time_total + '%</td>');
-        $('#avg_down_price_times_' + u + ' th:first-child').after('<td>' + avg_down_price_times_total + '</td>');
-        $('#market_rat_' + u + ' th:first-child').after('<td>' + market_rate.toFixed(0) + '%</td>');
+        
+        //$('#name_all_seller').append('<th>' + from_day + ' ~ ' + to_day + '</th>');
+        $('#sale_num_all_seller').append('<td>' + sale_number + '件</td>');
+        $('#selling_num_all_seller').append('<td>' + selling_number + '件</td>');
+        $('#selling_rate_all_seller').append('<td>' + selling_rate.toFixed(0) + '%</td>');
+        $('#soldout_num_all_seller').append('<td>' + soldout_number + '件</td>');
+        $('#soldout_rate_all_seller').append('<td>' + soldout_rate.toFixed(0) + '%</td>');
+        $('#soldout_before_complete_num_all_seller').append('<td>' + soldout_before_complete_number + '件</td>');
+        $('#rat_soldout_before_complete_all_seller').append('<td>' + rate_soldout_before_complete + '%</td>');
+        $('#avg_pri_regist_all_seller').append('<td>' + avg_price_regist + '万円</td>');
+        $('#avg_price_sold_all_seller').append('<td>' + avg_price_sold + '万円</td>');
+        $('#avg_time_sold_all_seller').append('<td>' + time + '日間</td>');
+        $('#avg_time_change_circle_all_seller').append('<td>' + avg_time_change_circle + '日間</td>');
+        $('#avg_down_price_all_seller').append('<td>' + down_price + '万円</td>');
+        $('#avg_down_price_rate_all_seller').append('<td>' + down_price_rate + '%</td>');
+        $('#number_item_down_price_all_seller').append('<td>'+ num_item_down_price + '件</td>');
+        $('#avg_down_price_each_time_all_seller').append('<td>' + avg_down_price_each_time_total + '万円</td>');
+        $('#avg_down_price_rate_each_times_all_seller').append('<td>' + avg_down_price_rate_each_time_total + '%</td>');
+        $('#avg_down_price_times_all_seller').append('<td>' + avg_down_price_times_total + '</td>');
+        $('#market_rat_all_seller').append('<td>' + market_rate.toFixed(0) + '%</td>');
     }
 }
 
 function resetAnalysisTable() {
+    $('#name_all_seller').html('<th width="12%"></th>');
+    $('#sale_num_all_seller').html('<th>新規売出物件数</th>');
+    $('#selling_num_all_seller').html('<th>売出中物件数</th>');
+    $('#selling_rate_all_seller').html('<th>売出中物件数シェア</th>');
+    $('#soldout_num_all_seller').html('<th>成約済物件数</th>');
+    $('#soldout_rate_all_seller').html('<th>成約件数シェア</th>');
+    $('#soldout_before_complete_num_all_seller').html('<th>完成前成約物件数</th>');
+    $('#rat_soldout_before_complete_all_seller').html('<th>完成前成約率</th>');
+    $('#avg_pri_regist_all_seller').html('<th>平均売出開始価格</th>');
+    $('#avg_price_sold_all_seller').html('<th>平均成約価格</th>');
+    $('#avg_time_sold_all_seller').html('<th>平均売出期間</th>');
+    $('#avg_time_change_circle_all_seller').html('<th>平均価格改定周期</th>');
+    $('#avg_down_price_all_seller').html('<th>平均値下価格</th>');
+    $('#avg_down_price_rate_all_seller').html('<th>平均値下率</th>');
+    $('#number_item_down_price_all_seller').html('<th>値下物件数</th>');
+    $('#avg_down_price_each_time_all_seller').html('<th>平均価格改定価格</th>');
+    $('#avg_down_price_rate_each_times_all_seller').html('<th>価格改定毎値下率</th>');
+    $('#avg_down_price_times_all_seller').html('<th>平均価格改定回数</th>');
+    $('#market_rat_all_seller').html('<th>新規売出物件数シェア</th>');
+    
+    
     $('#analysis_tbl').show();
     $('#name').html('<th width="12%"></th>');
     $('#sale_number').html('<th>新規売出物件数</th>');
@@ -1768,7 +1814,7 @@ function resetAnalysisTable() {
     $('#soldout_rate').html('<th>成約件数シェア</th>');
     $('#soldout_before_complete_number').html('<th>完成前成約物件数</th>');
     $('#rate_soldout_before_complete').html('<th>完成前成約率</th>');
-    $('#avg_price_regist').html('<th>平均売出価格</th>');
+    $('#avg_price_regist').html('<th>平均売出開始価格</th>');
     $('#avg_price_sold').html('<th>平均成約価格</th>');
     $('#avg_time_sold').html('<th>平均売出期間</th>');
     $('#avg_down_price').html('<th>平均値下価格</th>');
@@ -1788,7 +1834,7 @@ function resetAnalysisTable() {
         $('#soldout_rate_' + u).html('<th>成約件数シェア</th>');
         $('#soldout_before_complete_num_' + u).html('<th>完成前成約物件数</th>');
         $('#rat_soldout_before_complete_' + u).html('<th>完成前成約率</th>');
-        $('#avg_pri_regist_' + u).html('<th>平均売出価格</th>');
+        $('#avg_pri_regist_' + u).html('<th>平均売出開始価格</th>');
         $('#avg_price_sold_' + u).html('<th>平均成約価格</th>');
         $('#avg_time_sold_' + u).html('<th>平均売出期間</th>');
         $('#avg_time_change_circle_' + u).html('<th>平均価格改定周期</th>');

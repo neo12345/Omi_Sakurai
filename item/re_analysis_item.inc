@@ -26,28 +26,58 @@
                             <td><?php echo $RS_history[0]['hist_price'] ?>万円</td>
                         </tr>
                         <tr>
-                            <th>販売価格</th>
-                            <td><?php echo $RS_item[0]['item_price']; ?>万円
-                                <br>( <?php echo ((int) $RS_item[0]['item_price'] - (int) $RS_history[0]['hist_price']); ?> 万円)
+                            <?php if ($RS_item[0]['date_soldout'] == '') { ?>
+                                <th>販売価格</th>
+                            <?php } else {  ?>
+                                <th><div style="color: red">販売価格</div></th>
+                            <?php } ?>
+                            
+                            <td>
+                                    <?php echo $RS_item[0]['item_price']; ?>万円
+                                    <br>
+                                    (<?php echo ((int) $RS_item[0]['item_price'] - (int) $RS_history[0]['hist_price']); ?> 万円) 
+                                    (<?php echo round(((int) $RS_item[0]['item_price'] - (int) $RS_history[0]['hist_price']) / $RS_item[0]['item_price'] * 100, 2); ?>%)
                             </td>
                         </tr>
                         <tr>
-                            <th>売出後経過日数</th>
-                            <td>
-                                <?php
-                                $today = time();
-                                $regist_day = strtotime($RS_item[0]['date_regist']);
-                                echo (floor(($today - $regist_day) / 86400));
+                            <?php if ($RS_item[0]['date_soldout'] == '') { ?>
+                                <th>売出後経過日数</th>
+                                <td>
+                                    <?php
+                                    $today = time();
+                                    for ($i = 0; $i < count($RS_history); $i++) {
+                                        if ($RS_history[$i]['stat_name'] == '販売開始') {
+                                            $regist_day = strtotime($RS_history[$i]['date_regist']);
+                                        }
+                                    }
+                                    echo (floor(($today - $regist_day) / 86400));
 
-                                ?> 
-                                日経過</td>
+                                    ?> 
+                                    日経過
+                                </td>
+                                <?php
+                                } else {  ?>
+                                <th>販売期間</th>
+                                <td>
+                                    <?php
+                                    $soldout_day = strtotime($RS_item[0]['date_soldout']);
+                                    for ($i = 0; $i < count($RS_history); $i++) {
+                                        if ($RS_history[$i]['stat_name'] == '販売開始') {
+                                            $regist_day = strtotime($RS_history[$i]['date_regist']);
+                                        }
+                                    }
+                                    echo (floor(($soldout_day - $regist_day) / 86400));
+                                    ?> 
+                                    日経過
+                                </td>
+                                <?php } ?>
                         </tr>
                         <tr>
                             <th>ステータス</th>
                             <td><?php echo $RS_history[$count_history - 1]['stat_name']; ?></td>
                         </tr>
                         <tr>
-                            <th>最終価格改定日</th>
+                            <th>成約日</th>
                             <td>
                                 <?php
                                 if ($count_history == 0) {
@@ -84,6 +114,11 @@
                                         <?php
                                         if ($RS_history[$i]['date_regist']) {
                                             echo date('Y/m/d', strtotime($RS_history[$i]['date_regist']));
+                                            $today = time();
+                                            $lastday = strtotime($RS_history[$i]['date_regist']);
+                                            echo '<br>（';
+                                            echo (floor(($today - $lastday) / 86400));
+                                            echo '日前）';
                                         } else {
                                             echo '----';
                                         }
@@ -169,7 +204,7 @@
                                                 echo '<br>(';
                                                 echo (floor((strtotime($RS_history[$i]['date_regist']) - strtotime($RS_history[$k]['date_regist'])) / 86400));
                                                 echo ' 日)';
-                                            }   
+                                            }
                                             echo '</div>';
                                         }
 
@@ -183,7 +218,9 @@
                                             if ($i != 0) {
                                                 echo '<br>(';
                                                 echo $RS_history[$i]['hist_price'] - $RS_history[$i - 1]['hist_price'];
-                                                echo ' 万円)';
+                                                echo ' 万円) (';
+                                                echo round(($RS_history[$i]['hist_price'] - $RS_history[$i - 1]['hist_price']) / $RS_item[0]['item_price'] * 100, 2);
+                                                echo '%)';
                                             }
                                             echo '</div>';
                                         } else {
@@ -214,7 +251,10 @@
                     <table class="form-ccontact">
                         <tr>
                             <th>所在地</th>
-                            <td colspan="3"><?php echo $RS_item[0]['item_name']; ?></td>
+                            <td colspan="3">
+                                <?php echo $RS_item[0]['item_name']; ?><br>
+                                <?php echo $RS_item[0]['item_name_sub']; ?>
+                            </td>
                         </tr>
                         <tr>
                             <th>価格</th>
@@ -703,8 +743,8 @@
                         <td id="item3_title" style="width:11.5%;background-color:white; border: 0px; font-size:20px; text-align:center; padding: 5px 5px;"> 比較 3</td>
                         <td id="item4_title" style="width:11.5%;background-color:white; border: 0px; font-size:20px; text-align:center; padding: 5px 5px;"> 比較 4</td>
                         <td id="item5_title" style="width:11.5%;background-color:white; border: 0px; font-size:20px; text-align:center; padding: 5px 5px;"> 比較 5</td>
-                        <td id="item_max_title" style="width:11.5%;background-color:white; border: 0px; font-size:20px; text-align:center; padding: 5px 5px; color: #BE1D2C"> 最低価格物件</td>
-                        <td id="item_min_title" style="width:11.5%;background-color:white; border: 0px; font-size:20px; text-align:center; padding: 5px 5px; color: #283890"> 最高価格物件</td>
+                        <td id="item_max_title" style="width:11.5%;background-color:white; border: 0px; font-size:20px; text-align:center; padding: 5px 5px; color: #BE1D2C">最高価格物件</td>
+                        <td id="item_min_title" style="width:11.5%;background-color:white; border: 0px; font-size:20px; text-align:center; padding: 5px 5px; color: #283890">最低価格物件</td>
                     </tr>
                 </table>
 
@@ -712,16 +752,35 @@
 
                     <tr>
                         <th style="width:8%;"></th>
-                        <td id="item0_img" style="width:11.5%;background-color:#FBEFEF; vertical-align:bottom">
-                            <img src="<?php echo $link_img_main_s; ?>" width="100%"  style="padding: 5px;">
+                        <td id="item0_img" style="width:11.5%;background-color:#FBEFEF; vertical-align:top">
+                            <div style="height: 50px;"></div>
+                            <div class="carousel"> 
+                                <div id="item0_main_s">
+                                    <img src="<?php echo $link_img_main_s; ?>" width="100%"  style="padding: 5px 5px 5px 5px;">
+                                </div>
+                                <div id="item0_plan1" style="display: none;">
+                                    <a href="<?php echo $link_img_plan1; ?>" data-lightbox="item0">
+                                        <img width="100%" src="<?php echo $link_img_plan1; ?>" style="padding: 5px;"/>
+                                    </a>
+                                </div>
+                                <div id="item0_plan2" style="display: none;">
+                                    <a href="<?php echo $link_img_plan2; ?>" data-lightbox="item0">
+                                        <img width="100%" src="<?php echo $link_img_plan2; ?>" style="padding: 5px;"/>
+                                    </a>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="btn_control"><button class="button_1" id="item0_main_s_btn">物件メイン画像</button><br>
+                                <button class="button_2" id="item0_plan1_btn">間取り図</button><button class="button_2" id="item0_plan2_btn">配置図</button>
+                            </div>
                         </td>
-                        <td id="item1_img" style="width:11.5%;;"></td>
-                        <td id="item2_img" style="width:11.5%;"></td>
-                        <td id="item3_img" style="width:11.5%;"></td>
-                        <td id="item4_img" style="width:11.5%;"></td>
-                        <td id="item5_img" style="width:11.5%;"></td>
-                        <td id="item_max_img" style="width:11.5%;"></td>
-                        <td id="item_min_img" style="width:11.5%;"></td>
+                        <td id="item1_img" style="width:11.5%; vertical-align:top; position: relative;"></td>
+                        <td id="item2_img" style="width:11.5%; vertical-align:top; position: relative;"></td>
+                        <td id="item3_img" style="width:11.5%; vertical-align:top; position: relative;"></td>
+                        <td id="item4_img" style="width:11.5%; vertical-align:top; position: relative;"></td>
+                        <td id="item5_img" style="width:11.5%; vertical-align:top; position: relative;"></td>
+                        <td id="item_max_img" style="width:11.5%; vertical-align:top; position: relative;"></td>
+                        <td id="item_min_img" style="width:11.5%; vertical-align:top; position: relative;"></td>
                     </tr>
                     <tr>
                         <th>物件名</th>
@@ -758,7 +817,12 @@
                             if ($RS_item[0]['flg_soldout'] == 1) {
                                 echo date('Y年m月d日', strtotime($RS_item[0]['date_soldout']));
                                 $date1 = strtotime($RS_item[0]['date_soldout']);
-                                $date2 = strtotime($RS_item[0]['date_regist']);
+                                for ($i = 0; $i < count($RS_history); $i++) {
+                                        if ($RS_history[i].stat_name === '販売開始') {
+                                            $regist_day = $RS_history[i].date_regist;
+                                        }
+                                    }
+                                $date2 = $regist_day;
                                 echo "<br>(";
                                 echo floor(($date1 - $date2) / 86400);
                                 echo "日)";
@@ -978,7 +1042,13 @@
                     </tr>
                     <tr>
                         <th style="text-align:center; padding: 20px 5px;">詳細</th>
-                        <td id="item0_btn_details" style="font-size:20px; text-align:center; padding: 20px 5px; background-color:#FBEFEF"></td>
+                        <td id="item0_btn_details" style="vertical-align:top; font-size:20px; text-align:center; padding: 20px 5px; background-color:#FBEFEF">
+                            <div style="padding: 5px">
+                                <a href="http://www.smile-fudosan.com/item/?md=detail&cd=<?php echo $RS_item[0]['item_cd']; ?>" target="_blank">
+                                    <button class="btn-ana-item" style="width: 80px">HP</button>
+                                </a>
+                            </div>
+                        </td>
                         <td id="item1_btn_details" style="font-size:20px; text-align:center; padding: 20px 5px;"></td>
                         <td id="item2_btn_details" style="font-size:20px; text-align:center; padding: 20px 5px;"></td>
                         <td id="item3_btn_details" style="font-size:20px; text-align:center; padding: 20px 5px;"></td>
@@ -1024,7 +1094,7 @@
                         <th>完成前成約率</th>
                     </tr>
                     <tr id="avg_price_regist">
-                        <th>平均売出価格</th>
+                        <th>平均売出開始価格</th>
                     </tr>
                     <tr id="avg_price_sold">
                         <th>平均成約価格</th>
@@ -1071,7 +1141,6 @@
 
 <!--Load google api-->
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAU_pYGzjpC4MpVGgaCMBxTEDlwv3JlG8U"></script>
-<!--<script src="http://jawj.github.io/OverlappingMarkerSpiderfier/bin/oms.min.js" type="text/javascript"></script>-->
 <script src="/_js/item/Ominext_oms.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">google.charts.load('current', {'packages': ['corechart'], 'language': 'ja'});</script>
@@ -1079,3 +1148,7 @@
 <script src="/_js/item/analysis_item_map.js" type="text/javascript"></script>
 <script src="/_js/item/analysis_item_chart.js" type="text/javascript"></script>
 <script src="/_js/item/analysis_item.js" type="text/javascript"></script>
+
+<!--lightbox-->
+<link href="/_js/lightbox/css/lightbox.css" rel="stylesheet">
+<script src="/_js/lightbox/js/lightbox.js"></script>

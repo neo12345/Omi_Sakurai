@@ -105,7 +105,7 @@ function drawChart(similars) {
     var data = new google.visualization.DataTable();
     data.addColumn('date', 'Date');
 
-    data.addColumn('number', item_info.hist_price + '万円 (' + item_info.item_name + ') ' + item_info.seller);
+    data.addColumn('number', item_info.hist_price + '万円 (' + item_info.item_name + ' - ' + item_info.item_name_sub + ') ' + item_info.seller);
     data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
     data.addColumn({'type': 'string', 'role': 'style'});
 
@@ -113,31 +113,31 @@ function drawChart(similars) {
     data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status1');
     data.addColumn({'type': 'string', 'role': 'style'});
 
-    data.addColumn('number', (similars[max_index] != null) ? max_price + '万円 (' + similars[max_index].item_name + ') ' + similars[max_index].seller : null);
+    data.addColumn('number', (similars[max_index] != null) ? max_price + '万円 (' + similars[max_index].item_name + ' - ' + similars[max_index].item_name_sub + ') ' + similars[max_index].seller : null);
     data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status2');
     data.addColumn({'type': 'string', 'role': 'style'});
 
-    data.addColumn('number', (similars[min_index] != null) ? min_price + '万円 (' + similars[min_index].item_name + ') ' + similars[min_index].seller : null);
+    data.addColumn('number', (similars[min_index] != null) ? min_price + '万円 (' + similars[min_index].item_name + ' - ' + similars[min_index].item_name_sub + ') ' + similars[min_index].seller : null);
     data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status3');
     data.addColumn({'type': 'string', 'role': 'style'});
 
-    data.addColumn('number', (item_compare[0] != null) ? '' + item_compare[0][item_compare[0].length - 1].hist_price + '万円 (' + item_compare[0][0].item_name + ') ' + item_compare[0][0].seller : null);
+    data.addColumn('number', (item_compare[0] != null) ? '' + item_compare[0][item_compare[0].length - 1].hist_price + '万円 (' + item_compare[0][0].item_name + ' - ' + item_compare[0][0].item_name_sub + ') ' + item_compare[0][0].seller : null);
     data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
     data.addColumn({'type': 'string', 'role': 'style'});
 
-    data.addColumn('number', (item_compare[1] != null) ? '' + item_compare[1][item_compare[1].length - 1].hist_price + '万円 (' + item_compare[1][0].item_name + ') ' + item_compare[1][0].seller : null);
+    data.addColumn('number', (item_compare[1] != null) ? '' + item_compare[1][item_compare[1].length - 1].hist_price + '万円 (' + item_compare[1][0].item_name + ' - ' + item_compare[1][0].item_name_sub + ') ' + item_compare[1][0].seller : null);
     data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
     data.addColumn({'type': 'string', 'role': 'style'});
 
-    data.addColumn('number', (item_compare[2] != null) ? '' + item_compare[2][item_compare[2].length - 1].hist_price + '万円 (' + item_compare[2][0].item_name + ') ' + item_compare[2][0].seller : null);
+    data.addColumn('number', (item_compare[2] != null) ? '' + item_compare[2][item_compare[2].length - 1].hist_price + '万円 (' + item_compare[2][0].item_name + ' - ' + item_compare[2][0].item_name_sub + ') ' + item_compare[2][0].seller : null);
     data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
     data.addColumn({'type': 'string', 'role': 'style'});
 
-    data.addColumn('number', (item_compare[3] != null) ? '' + item_compare[3][item_compare[3].length - 1].hist_price + '万円 (' + item_compare[3][0].item_name + ') ' + item_compare[3][0].seller : null);
+    data.addColumn('number', (item_compare[3] != null) ? '' + item_compare[3][item_compare[3].length - 1].hist_price + '万円 (' + item_compare[3][0].item_name + ' - ' + item_compare[3][0].item_name_sub + ') ' + item_compare[3][0].seller : null);
     data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
     data.addColumn({'type': 'string', 'role': 'style'});
 
-    data.addColumn('number', (item_compare[4] != null) ? '' + item_compare[4][item_compare[4].length - 1].hist_price + '万円 (' + item_compare[4][0].item_name + ') ' + item_compare[4][0].seller : null);
+    data.addColumn('number', (item_compare[4] != null) ? '' + item_compare[4][item_compare[4].length - 1].hist_price + '万円 (' + item_compare[4][0].item_name + ' - ' + item_compare[4][0].item_name_sub + ') ' + item_compare[4][0].seller : null);
     data.addColumn({type: 'string', role: 'tooltip', p: {html: true}}, 'Status');
     data.addColumn({'type': 'string', 'role': 'style'});
 
@@ -703,7 +703,7 @@ function drawChart(similars) {
             maxZoomOut: 1
         },
         height: 500,
-        chartArea: {width: '60%', left: '5%'},
+        chartArea: {width: '55%', left: '5%'},
         colors: ['blue', '#DFBADD', '#BE1D2C', '#283890', 'Orange', 'Gold', 'Cyan', 'Chartreuse', 'DeepPink'],
         interpolateNulls: true,
         tooltip: {

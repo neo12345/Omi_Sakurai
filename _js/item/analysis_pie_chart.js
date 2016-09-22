@@ -1,84 +1,8 @@
 function drawPieChart() {
 
     //clear old chart
-    $('#piechart_3d').html('');
-    $('#piechart_3d_1').html('');
-    $('#piechart_3d_2').html('');
-    $('#piechart_3d_3').html('');
-    $('#piechart_3d_4').html('');
-    $('#piechart_3d_5').html('');
-    $('#piechart_3d_6').html('');
-    $('#piechart_3d_7').html('');
-    $('#piechart_3d_8').html('');
-    $('#piechart_3d_9').html('');
-    $('#piechart_3d_10').html('');
-    $('#piechart_3d_11').html('');
-    $('#piechart_3d_12').html('');
-    $('#piechart_3d_13').html('');
-    $('#piechart_3d_14').html('');
-    $('#piechart_3d_15').html('');
-    $('#piechart_3d_16').html('');
-    $('#piechart_3d_17').html('');
-    $('#piechart_3d_18').html('');
-    $('#piechart_3d_19').html('');
-    $('#piechart_3d_20').html('');
-    $('#piechart_3d_21').html('');
-    $('#piechart_3d_22').html('');
-    $('#piechart_3d_23').html('');
-    $('#piechart_3d_24').html('');
-    $('#piechart_3d_25').html('');
-    $('#piechart_3d_26').html('');
-    $('#piechart_3d_27').html('');
-    $('#piechart_3d_28').html('');
-    $('#piechart_3d_29').html('');
-    $('#piechart_3d_30').html('');
-    $('#piechart_3d_31').html('');
-    $('#piechart_3d_32').html('');
-
-    $('#piechart_time_3d').html('');
-    $('#piechart_time_3d_1').html('');
-    $('#piechart_time_3d_2').html('');
-    $('#piechart_time_3d_3').html('');
-
-    $('#soldout_piechart_3d').html('');
-    $('#soldout_piechart_3d_1').html('');
-    $('#soldout_piechart_3d_2').html('');
-    $('#soldout_piechart_3d_3').html('');
-    $('#soldout_piechart_3d_4').html('');
-    $('#soldout_piechart_3d_5').html('');
-    $('#soldout_piechart_3d_6').html('');
-    $('#soldout_piechart_3d_7').html('');
-    $('#soldout_piechart_3d_8').html('');
-    $('#soldout_piechart_3d_9').html('');
-    $('#soldout_piechart_3d_10').html('');
-    $('#soldout_piechart_3d_11').html('');
-    $('#soldout_piechart_3d_12').html('');
-    $('#soldout_piechart_3d_13').html('');
-    $('#soldout_piechart_3d_14').html('');
-    $('#soldout_piechart_3d_15').html('');
-    $('#soldout_piechart_3d_16').html('');
-    $('#soldout_piechart_3d_17').html('');
-    $('#soldout_piechart_3d_18').html('');
-    $('#soldout_piechart_3d_19').html('');
-    $('#soldout_piechart_3d_20').html('');
-    $('#soldout_piechart_3d_21').html('');
-    $('#soldout_piechart_3d_22').html('');
-    $('#soldout_piechart_3d_23').html('');
-    $('#soldout_piechart_3d_24').html('');
-    $('#soldout_piechart_3d_25').html('');
-    $('#soldout_piechart_3d_26').html('');
-    $('#soldout_piechart_3d_27').html('');
-    $('#soldout_piechart_3d_28').html('');
-    $('#soldout_piechart_3d_29').html('');
-    $('#soldout_piechart_3d_30').html('');
-    $('#soldout_piechart_3d_31').html('');
-    $('#soldout_piechart_3d_32').html('');
-
-    $('#soldout_piechart_time_3d').html('');
-    $('#soldout_piechart_time_3d_1').html('');
-    $('#soldout_piechart_time_3d_2').html('');
-    $('#soldout_piechart_time_3d_3').html('');
-
+    $('.piechart_3d').html('');
+   
     // draw market rate piechart
     var dont_draw = 1;
     $('#piechart_3d').hide();
@@ -391,6 +315,13 @@ function drawPieChart() {
             to_day = new Date(to);
         }
 
+        if (from_day > new Date(to)) {
+            from_day = new Date(to);
+        }
+        if (to_day > new Date(to)) {
+            to_day = new Date(to);
+        }
+        
         from_day = formatDate(from_day);
         to_day = formatDate(to_day);
         var date_diff = Math.abs(new Date(from_day) - new Date(to_day)) / 86400 / 1000;

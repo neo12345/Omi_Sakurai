@@ -13,12 +13,9 @@ function initialize(result) {
     var map = new gm.Map(document.getElementById("googleMap"), mapProp);
     var oms = new OverlappingMarkerSpiderfier(map, {markersWontMove: false, markersWontHide: false});
     var bounds = new gm.LatLngBounds();
-
-    var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(lat, lng)
-    });
-
-    marker.setMap(map);
+    
+    var loc = new gm.LatLng(lat, lng);
+    bounds.extend(loc);
 
     var i;
     var selling = 0;
@@ -29,7 +26,7 @@ function initialize(result) {
     for (i = 0; i < result.length; i++) {
         sum_time = sum_time + parseInt(result[i].time);
     }
-    avg_time = Math.ceil(sum_time / result.length);
+    avg_time = Math.round(sum_time / result.length);
     avg_time = (avg_time > 0) ? avg_time : '----';
 
     var bfr_complete = 0;
@@ -192,7 +189,7 @@ function initialize(result) {
                     + '<button id="btn_close" class="btn-close">X'
                     + '</button><table style="width: 100%; border: 0px">'
                     + '<tr><td colspan="2" style="border: 0px">'
-                    + '<div style="font-size: 16px">' + result[i].item_name + '</div></td></tr>'
+                    + '<div style="font-size: 16px">' + result[i].item_name + '<br>' + result[i].item_name_sub + '</div></td></tr>'
                     + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
                     + result[i].seller + '</td></tr>'
                     + '</tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
@@ -210,7 +207,7 @@ function initialize(result) {
                     + '<button id="btn_close" class="btn-close">X'
                     + '</button><table style="width: 100%; border: 0px">'
                     + '<tr><td colspan="2" style="border: 0px">'
-                    + '<div style="font-size: 16px">' + result[i].item_name + '</div></td></tr>'
+                    + '<div style="font-size: 16px">' + result[i].item_name + '<br>' + result[i].item_name_sub + '</div></td></tr>'
                     + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
                     + result[i].seller + '</td></tr>'
                     + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
@@ -239,7 +236,7 @@ function initialize(result) {
                     + '<button id="btn_close" class="btn-close">X'
                     + '</button><table style="width: 100%; border: 0px">'
                     + '<tr><td colspan="2" style="border: 0px">'
-                    + '<div style="font-size: 16px">' + result[i].item_name + '</div></td></tr>'
+                    + '<div style="font-size: 16px">' + result[i].item_name + '<br>' + result[i].item_name_sub + '</div></td></tr>'
                     + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
                     + result[i].seller + '</td></tr>'
                     + '<tr><td style="width: 67%; border: 0px"><div style="font-size: 14px">'
@@ -386,10 +383,18 @@ function initialize(result) {
 
             };
         })(marker, pop_up, result, i));
-
+        
         oms.addMarker(marker);
+        
     }
-
+    map.fitBounds(bounds);
+    
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng($('#lat').val(), $('#lng').val())
+    });
+    
+    marker.setMap(map);
+    
     window.map = map;
     window.oms = oms;
 

@@ -16,7 +16,7 @@ switch($F_md){
 			if($RS_user[0]['user_cd']){
 				$_SESSION['user_cd']=$RS_user[0]['user_cd'];
 			}else{
-				$error_message="IDã?‹ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã?Œé–“é?•ã?£ã?¦ã?„ã?¾ã?™ã€‚";
+				$error_message="IDï¿½?ï¿½ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ï¿½?ï¿½é–“ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ã€‚";
 				include("common_error.inc");
 				exit;
 			}
@@ -28,7 +28,7 @@ switch($F_md){
 				exit;
 			}
 		}else{
-			$error_message="å…¥åŠ›æ¼?ã‚Œã?Œã?‚ã‚Šã?¾ã?™ã€‚";
+			$error_message="å…¥åŠ›ï¿½?ã‚Œï¿½?ï¿½ï¿½?ï¿½ã‚Šï¿½?ï¿½ï¿½?ï¿½ã€‚";
 			include("common_error.inc");
 			exit;
 		}
